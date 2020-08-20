@@ -1,0 +1,23 @@
+.homepage {
+    background-image: url("../../public/dashboard_BG.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    margin: 0 auto;
+    top: 5rem;
+    width: 100%;
+    min-height: 55rem;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+.childList {
+    display: flex;
+    flex-flow: row nowrap;
+    max-width: 70%;
+    align-items: center;
+    margin: 10rem auto;
+    justify-content: space-around;
+    overflow-y: scroll;
+}

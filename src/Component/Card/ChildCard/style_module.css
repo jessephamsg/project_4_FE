@@ -1,0 +1,22 @@
+.childCard {
+    display: flex;
+    min-width: 20%;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 3rem;
+}
+.icon_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 160px;
+    height: 160px;
+    border: 1px solid black;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.childIcon {
+    height: 160px;
+    width: auto;
+}

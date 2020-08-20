@@ -7,7 +7,6 @@ import RoutePage from './RoutePage/RoutePage'
 function App() {
   return (
     <Fragment>
-
       <NavBar/>
       <RoutePage/>
       <Footer/>

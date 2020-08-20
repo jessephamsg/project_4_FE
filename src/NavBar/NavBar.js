@@ -11,10 +11,10 @@ export class NavBar extends Component {
                     <li><a href='/'>Search</a></li>
                     <li>Project 4 title</li>
                     <li>
-                            <input type='text' name='search' placeholder='search'></input>
-                            <button type= 'submit' name='search'>Search</button>
+                        <input type='text' name='search' placeholder='search'></input>
+                        <button type= 'submit' name='search'>Search</button>
                     </li>
-                <li><a href='/dashboard'>Parent Dashboard</a></li> {/*child protection system*/}
+                <li><a href='/dashboard/:parent'>Parent Dashboard</a></li> {/*child protection system*/}
                 </ul>
             </div>
         )

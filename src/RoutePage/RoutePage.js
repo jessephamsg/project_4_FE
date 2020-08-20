@@ -13,7 +13,6 @@ import Gameboard from './Gameboard'
 class RoutePage extends Component {
 
     render() {
-        // import react router here
         return (
             <Router>
                 <Switch>
