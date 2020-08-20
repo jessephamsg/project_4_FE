@@ -1,1 +1,3 @@
-Project 4 (frontend) (dev branch)
+Project 4 frontend
+
+- folder structured
