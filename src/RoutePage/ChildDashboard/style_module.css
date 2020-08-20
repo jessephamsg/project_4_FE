@@ -1,12 +1,12 @@
-.childCard {
+.childProfile {
+    position: fixed;
+    top: 50%;
+    left: 100px;
     display: flex;
-    min-width: 20%;
     flex-flow: column nowrap;
-    justify-content: center;
     align-items: center;
-    margin: 3rem;
-    text-align: center;
 }
+
 .icon_container {
     display: flex;
     justify-content: center;
@@ -20,7 +20,4 @@
 .childIcon {
     height: 160px;
     width: auto;
-}
-a {
-    text-decoration: none;
 }
