@@ -7,6 +7,7 @@ import HomePage from './HomePage'
 import ChildDashboard from './ChildDashboard'
 import ParentDashboard from './ParentDashboard'
 import Gameboard from './Gameboard'
+import ChildReportPage from './ChildReportPage'
 
 
 
@@ -23,6 +24,7 @@ class RoutePage extends Component {
                     <Route exact path={`/home/dashboard/:childname`} component ={ChildDashboard}/> {/*`/home/dashboard/${this.state.childname}`*/}
                     <Route path={`/dashboard/:parent`} component = {ParentDashboard}/> {/*`/home/dashboard/${this.state.childname}`*/}
                     <Route path='/child/:childname/game/:gameid' component={Gameboard}/>
+                    <Route exact path='/child/:childname/report' component={ChildReportPage}/>
                 </Switch>
             </Router>
         )

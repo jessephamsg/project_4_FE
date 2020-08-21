@@ -1,5 +1,5 @@
 import React, { Component, Fragment} from 'react'
-import ChildReport from '../../Component/Modal/ChildReport'
+import ChildReport from '../../Component/Card/ChildReport'
 import './style_module.css'
 
 export class ParentDashboard extends Component {
