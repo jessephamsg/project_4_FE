@@ -1,0 +1,38 @@
+.gameboard {
+  margin: 0 auto;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  justify-content: space-around;
+  width:70%;
+  border: 5px solid black;
+}
+.instruction {
+  width:20%;
+  border: 5px solid black;
+}
+.gameinterface_container{
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-around;
+  width:50%;
+  height: 100%;
+  border: 5px solid black;
+}
+
+#gameCanvas {
+  background-color: ghostwhite;
+  border: 5px solid black;
+}
+
+.scoreboard {
+  background-color: ghostwhite;
+  width:20%;
+  height: 100%;
+  border: 5px solid black;
+}
+h1 {
+  text-align:center;
+}
