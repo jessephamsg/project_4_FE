@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import './style_module.css'
+import Button from '@material-ui/core/Button'
 
 
 export class LandingPage extends Component {
@@ -13,9 +14,10 @@ export class LandingPage extends Component {
                     <p>About this app</p>
                 </div>
                 <div className='nav'>
-                        <a href='/login'><button>login</button></a>
-                        <a href='/register'><button>Sign up</button></a>
-                    </div>
+                    <Button id='loginBtn' variant="contained" href='/login'>login</Button>
+                    <Button id='signupBtn' variant="contained" href='/register'>Sign Up</Button>
+                    
+                </div>
             </Fragment>
         )
     }

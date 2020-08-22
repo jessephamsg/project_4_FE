@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component} from 'react'
 import './style_module.css'
 
 
@@ -6,7 +6,7 @@ export class RegisterPage extends Component {
 
     render() {
         return (
-            <Fragment>
+            <div className='registerPage'>
                 <div className='register'>
                 <h1>Sign Up</h1>
                     <form className='registerForm'>
@@ -25,10 +25,10 @@ export class RegisterPage extends Component {
                             </div>
                         </div>
                         <button type='submit'>Register!</button>
-                        <a href='/'><button type='button' style={{width:'100%'}}>About Us</button></a>
+                        
                     </form>
                 </div>
-            </Fragment>
+            </div>
         )
     }
 }

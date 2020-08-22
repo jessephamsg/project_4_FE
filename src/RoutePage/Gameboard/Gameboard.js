@@ -1,91 +1,67 @@
-import React, { Component, Fragment, useState, useEffect} from 'react'
-import './style_module.css'
+import React, { Component } from 'react'
+import WhackAMole from "./WhackAMole"
 
-function Gameboard() {
-        const [seconds, setSeconds] = useState(5);
-        // const [isRunning, setIsRunning] = useState(false)
-      
-        const startTimer = async (event) => {
-            event.preventDefault();
-                const interval = setInterval(() => {
-                setSeconds(seconds => seconds -= 1);
-                }, 1000);
-                if(seconds <=0) {
-                    clearInterval(interval)
-                }
-                return () => clearInterval(interval);
-          }
-        
-    return (
-        <Fragment>
-            <div className='gameboard'>
-                <div className='instruction'>
-                    <h1>instruction</h1>
-                    <div>
-                        <h3>how to play the game</h3>
-                    </div>
-                </div>
-                <div className='gameinterface_container'>
-                    <h1>Picture Puzzle!</h1>
-                    <div className='gameinterface'>
-                        <canvas id= 'gameCanvas' width='700px' height='700px'></canvas>
-                    </div>
-                </div>
-                <div className='scoreboard'>
-                    <h1>Score</h1>
-                    <div>
-                        <div>
-                            <h3>highest score:</h3>
-                            <h3>Your current score: <span></span></h3>
-                            <h3>timer: <span>{seconds}</span></h3>
-                        </div>
-                        <div className='interactive'>
-                            <button onClick={startTimer}>START</button>
-                            <button>Submit score</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </Fragment>
-        )
+export class Gameboard extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            gameID: null,
+            kidName: null
+        }
     }
 
-// export class Gameboard extends Component {
+    getGameID() {
+        const gameID = this.props.match.params.gameid;
+        this.setState({
+            gameID: gameID,
+        })
+    }
 
-//     render() {
-//         return (
-//             <Fragment>
-//                 <div className='gameboard'>
-//                     <div className='instruction'>
-//                         <h1>instruction</h1>
-//                         <div>
-//                             <h3>how to play the game</h3>
-//                         </div>
-//                     </div>
-//                     <div className='gameinterface_container'>
-//                         <h1>Picture Puzzle!</h1>
-//                         <div className='gameinterface'>
-//                             <canvas id= 'gameCanvas' width='700px' height='700px'></canvas>
-//                         </div>
-//                     </div>
-//                     <div className='scoreboard'>
-//                         <h1>Score</h1>
-//                         <div>
-//                             <div>
-//                                 <h3>highest score:</h3>
-//                                 <h3>Your current score: <span></span></h3>
-//                                 <h3>timer: <span></span></h3>
-//                             </div>
-//                             <div className='interactive'>
-//                                 <button onClick={this.startTimer}>START</button>
-//                                 <button>Submit score</button>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </Fragment>
-//         )
-//     }
-// }
+    getKidName() {
+        const kidName = this.props.match.params.childname;
+        this.setState({
+            kidName: kidName,
+        })
+    }
+
+    async componentDidMount() {
+        await this.getGameID();
+        await this.getKidName();
+    }
+
+    async componentWillReceiveProps(props) {
+        await this.getGameID();
+        await this.getKidName();
+    }
+
+    render() {
+        const gameID = this.state.gameID;
+        if (this.state.gameID === null) {
+            return (
+                <div> Loading...</div>
+            )
+        }
+        else {
+            switch (gameID) {
+                case '234':
+                    return (
+                        <div>
+                            <h1>Hi {this.state.kidName}, you're playing {this.state.gameID}</h1>
+                            <WhackAMole />
+                        </div>
+                    );
+                default:
+                    return (
+                        <div>
+                            <h1>Hi {this.state.kidName}, you're playing {this.state.gameID}</h1>
+                            <h2> Default </h2>
+                        </div>
+                    );
+              }
+            
+        }
+
+    }
+}
 
 export default Gameboard
