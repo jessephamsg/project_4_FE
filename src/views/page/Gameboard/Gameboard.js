@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import WhackAMole from "./WhackAMole"
+//import WhackAMole from "./WhackAMole"
+import Puzzle from './Puzzle'
 
 export class Gameboard extends Component {
     constructor(props) {
@@ -45,10 +46,11 @@ export class Gameboard extends Component {
             switch (gameID) {
                 case '234':
                     return (
-                        <div>
-                            <h1>Hi {this.state.kidName}, you're playing {this.state.gameID}</h1>
-                            <WhackAMole />
-                        </div>
+                        <React.Fragment>
+                            {/* <h1>Hi {this.state.kidName}, you're playing {this.state.gameID}</h1> */}
+                            {/* <WhackAMole /> */}
+                            <Puzzle />
+                        </React.Fragment>
                     );
                 default:
                     return (
