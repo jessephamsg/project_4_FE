@@ -10,7 +10,6 @@ import { useSpring, useSprings, animated, interpolate } from 'react-spring';
 import './style_module.css';
 
 
-
 const setCardPosition = (order, down, originalIndex, curIndex, y) => {
   return (
     index => {
@@ -59,7 +58,7 @@ const DraggableList = ({ items, winningOrder, img, level, updateGameStats }) => 
             key={i}
             style={{
               transform: interpolate([y], (y) => `translate3d(0,${y}px,0)`),
-              backgroundImage: `url(${img[i]}.png)`,
+              backgroundImage: `url(${require(`./config/assets/${img[i]}.png`)})`,
             }}
             className = "draggableDiv"
             children={items[i]}
