@@ -1,0 +1,38 @@
+.navbar {
+    background-color: white;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+}
+
+.navBarLeft {
+    width: 60%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.navBarRight {
+    width: 15%;
+    display: flex;
+    justify-content: flex-end;
+    background-color: #009688;
+    justify-content: space-evenly;
+}
+
+ul {
+    display: flex;
+    flex-flow: row nowrap;
+    list-style: none;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+li {
+    list-style: none;
+    padding: 0.3rem 2rem;
+}
+
