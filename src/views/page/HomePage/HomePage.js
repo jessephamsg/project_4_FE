@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import ChildCard from '../../Component/Card/ChildCard'
+import ChildCard from '../../common/components/Card/ChildCard'
 import './style_module.css'
 
 
