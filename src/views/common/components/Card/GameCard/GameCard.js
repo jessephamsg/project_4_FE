@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './style_module.css'
-import gamePic from '../../../public/puzzlegame1.jpg'
+import gamePic from '../../../assets/puzzlegame1.jpg'
 
 export class GameCard extends Component {
 

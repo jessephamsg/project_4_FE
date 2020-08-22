@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import './style_module.css'
-import GameCard from '../../Component/Card/GameCard'
+import GameCard from '../../common/components/Card/GameCard'
 
 export class ChildDashboard extends Component {
 
