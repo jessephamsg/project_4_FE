@@ -1,24 +1,8 @@
-import React, { Component, useState} from 'react'
+import React, { Component} from 'react'
 import './style_module.css'
 import Button from '../../common/elements/Buttons'
 import api from '../../../api'
 
-
-// function RegisterPage () {
-//     const [payload, setPayload] = useState({
-//         username : '',
-//         password : '',
-//         email : ''
-//     })
-
-//     const updateUsername = async (e) => {
-//         e.preventDefault()
-//         console.log(e.target.value)
-//         console.log(e.target.name)
-        
-//         await setPayload(payload => {payload[e.target.name] = e.target.value} )
-//         console.log(payload.username)
-//     }
 
 export class RegisterPage extends Component {
     constructor(props) {
@@ -95,6 +79,7 @@ export class RegisterPage extends Component {
                         onChange={this.handleChange}
                         required='true'>
                     </input>
+
                     <input 
                         type='password' 
                         name='password2' 
@@ -103,6 +88,7 @@ export class RegisterPage extends Component {
                         onChange={this.handleChange}
                         required='true'>
                     </input>
+
                     <input 
                         type='email' 
                         name ='email' 
@@ -111,6 +97,7 @@ export class RegisterPage extends Component {
                         onChange={this.handleChange}
                         required='true'> 
                     </input>
+
                     <Button type='submit' text='Register!'/>
                 </form>
             </div>

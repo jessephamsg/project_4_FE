@@ -14,10 +14,12 @@ const api = Axios.create({
 
 const getAllParents = payload => api.get('/parent', payload)
 const registerParent = payload => api.post('/parents',payload)
+const login = payload => api.post('/login', payload)
 
 const apis = {
     getAllParents,
-    registerParent
+    registerParent,
+    login,
 }
 
 export default apis
