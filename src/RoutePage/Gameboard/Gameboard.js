@@ -47,7 +47,7 @@ export class Gameboard extends Component {
                     return (
                         <div>
                             <h1>Hi {this.state.kidName}, you're playing {this.state.gameID}</h1>
-                            <WhackAMole />
+                            <WhackAMole gameID={this.state.gameID}/>
                         </div>
                     );
                 default:
