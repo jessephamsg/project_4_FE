@@ -18,18 +18,19 @@ class PuzzleGame extends Component {
     constructor (props) {
         super (props) 
         this.state = {
-            totalLevel: 3,
-            currentLevel: 0,
-            totalScore: 0,
-            currentLevelSettings: {
-                items: 4,
-                winningOrder: [0, 3, 2, 1],
-                assets: ['https://imgur.com/UEO12ij', 'https://imgur.com/CdSGRWS', 'https://imgur.com/x6BBBlX', 'https://imgur.com/LV2iqWS'],
-            },
+            totalLevel: null,
+            totalScore: null,
             startTime: [],
             pauseTime: [],
-            viewGame: false,
+            currentLevel: null,
+            currentLevelSettings: {
+                items: null,
+                winningOrder: null,
+                options: [],
+                assets: [],
+            },
             gameStats: {},
+            viewGame: false,
             viewBoard: false,
         }
         this.updateCurrentLevel = this.updateCurrentLevel.bind(this);
@@ -40,15 +41,17 @@ class PuzzleGame extends Component {
     componentDidMount () {
         const totalLevel = Object.keys(gameConfig.settings());
         const gameStats = {};
-        const currentLevelSettings = gameConfig.settings()[0]
+        const currentLevelSettings = gameConfig.settings()[0] //need to update totalScore from API too
         for(const level of totalLevel) {
             gameStats[level] = {
-                submittedAt: [],
+                submittedAt: [],// should only be empty on first fetch --> the following fetch should get from API
                 isCorrect: [],
                 totalScore: 0
             }
         }
         this.setState({
+            totalScore: 0,
+            currentLevel: 0,
             currentLevelSettings,
             totalLevel,
             gameStats
@@ -83,27 +86,39 @@ class PuzzleGame extends Component {
     }
  
     render () {
+        if(this.state.currentLevel == null) {
+            return (
+                <div>insert loading screen here</div>
+            )
+        }
         return (
             <React.Fragment>
                 {this.state.viewGame === true ? 
                     <div className="gameContainer">
                         <h1>Level: {this.state.currentLevel}</h1>
-                        <DragglebleList 
-                            items={[...Array(this.state.currentLevelSettings.items).keys()]} 
-                            winningOrder={this.state.currentLevelSettings.winningOrder} 
-                            img={this.state.currentLevelSettings.assets[1]}
-                            level={this.state.currentLevel}
-                            updateGameStats={this.updateGameStats}
-                        />
-                        <ListOptions
-                        />
-                        <SelectLevelBoard 
-                            totalLevel={this.state.totalLevel} 
-                            updateCurrentLevel={this.updateCurrentLevel}
-                        />
-                        <ScoreBoard
-                            totalScore={this.state.totalScore}
-                        />
+                        <div className='gameContentWrapper'>
+                            <div className='gameMainContent'>
+                                <ListOptions
+                                    options={this.state.currentLevelSettings.options}
+                                />
+                                <DragglebleList 
+                                    items={[...Array(this.state.currentLevelSettings.items).keys()]} 
+                                    winningOrder={this.state.currentLevelSettings.winningOrder} 
+                                    img={this.state.currentLevelSettings.assets[1]}
+                                    level={this.state.currentLevel}
+                                    updateGameStats={this.updateGameStats}
+                                />
+                            </div>
+                            <div className='gameStatsBoards'>
+                            <SelectLevelBoard 
+                                totalLevel={this.state.totalLevel} 
+                                updateCurrentLevel={this.updateCurrentLevel}
+                            />
+                            <ScoreBoard
+                                totalScore={this.state.totalScore}
+                            />
+                            </div>
+                        </div>
                     </div>
                     : 
                     <WelcomeBoard 
