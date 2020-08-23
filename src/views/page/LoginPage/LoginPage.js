@@ -1,10 +1,12 @@
-import React, { Component, Fragment, useState } from 'react'
+import React, { Component, Fragment, useState ,useContext} from 'react'
 import './style_module.css'
 import Button from '../../common/elements/Buttons'
 import api from '../../../api'
+import { AuthContext } from '../../../AuthContext';
 
 function LoginPage () {
     const [state, setstate] = useState({parentName: '', password: ''})
+    const authContext = useContext(AuthContext);
 
     const handleChange = async e => {
         e.preventDefault()
@@ -16,19 +18,29 @@ function LoginPage () {
             const login = await api.login(state)
             const token = await JSON.stringify(login.data)
             if (login) {
-                console.log(JSON.stringify(login.data))
-                localStorage.setItem("CurrentUser", login.data.currentUser._id) // set localstorage a token
-                // extract isAuthenticated and current user from login.data
-                // then createcontext and use react hook to set currentuser data to current state
-                // then wrap in app.js and put authcontex.provider
+                console.log(token)
+                localStorage.setItem("currentUser", login.data.currentUser._id) // set localstorage a token
+                const {isAuthenticated, currentUser} = login.data
+                console.log(isAuthenticated)
+                console.log(currentUser.parentName) // containers userid and username
+                authContext.setUser(currentUser.parentName)
+                authContext.setIsAuthenticated(isAuthenticated)
             }
         } catch (e) {
             console.log(e)
         }
     }
-    const getlocalstorage = e => {
-        const session = localStorage.getItem('CurrentUser')
-        console.log(JSON.parse(session))
+    const getlocalstorage = async e => {
+        e.preventDefault()
+        
+        try {
+            const id = localStorage.getItem("currentUser")
+            console.log(typeof id + id)
+            const result = await api.isAuthenticated(id)
+            console.log(result)
+        }catch (e) {
+            console.log(e)
+        }
     }
 
         return (

@@ -27,8 +27,6 @@ function Button(props) {
     cursor:'pointer'
   }
   let style = hoverState? styleOnHover : styleOnOff
-
-  console.log(hoverState)
           
   return (
     <button
