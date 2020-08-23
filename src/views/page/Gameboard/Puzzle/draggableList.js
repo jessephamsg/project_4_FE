@@ -1,12 +1,12 @@
 // Adapted from: https://github.com/chenglou/react-motion/tree/master/demos/demo8-draggable-list
 
-import { render } from 'react-dom';
 import React, { useRef, useState } from 'react';
 import clamp from 'lodash-es/clamp';
 import swap from 'lodash-move';
 import isEqual from 'lodash.isequal';
 import { useDrag } from 'react-use-gesture';
 import { useSpring, useSprings, animated, interpolate } from 'react-spring';
+import SubmitButton from '../../../common/components/SubmitButton';
 import './style_module.css';
 
 
@@ -26,13 +26,6 @@ const DraggableList = ({ items, winningOrder, img, level, updateGameStats }) => 
 
   const order = useRef(items.map((_, index) => index)) 
   const [springs, setSprings] = useSprings(items.length, setCardPosition(order.current)) 
-  const [isCorrect, setSubmit] = useState([false]);
-  const {value} = useSpring({
-    value: isCorrect[isCorrect.length-1] ? 'green' : 'blue',
-    from: {
-      value: 'blue'
-    }
-  })
 
   const bind = useDrag(({ args: [originalPosition], down, movement: [, y] }) => {
     const currentPosition = order.current.indexOf(originalPosition)
@@ -65,16 +58,7 @@ const DraggableList = ({ items, winningOrder, img, level, updateGameStats }) => 
           />
         ))}
       </div>
-      <div>
-      <animated.button 
-        onClick = {() => {
-          updateStats()
-          setSubmit([...isCorrect, isEqual(order.current, winningOrder)]);
-        }}
-        style={{color: value}}>
-        Submit Answer
-      </animated.button>
-      </div>
+      <SubmitButton order={order} winningOrder={winningOrder} updateStats={updateStats}/>
     </div>
   )
 }

@@ -7,7 +7,7 @@ import SelectLevelBoard from '../../../common/components/SlidingBoard/selectLeve
 import WelcomeBoard from '../../../common/components/SlidingBoard/welcomeBoard';
 import ScoreBoard from '../../../common/components/SlidingBoard/scoreBoard';
 import DragglebleList from './draggableList';
-import ListOptions from './listOptions';
+import ListOptions from './listOptions'
 
 //STYLES
 import './style_module.css';
