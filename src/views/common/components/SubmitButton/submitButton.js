@@ -17,7 +17,7 @@ const SubmitButton = (props) => {
         from: {opacity: 0},
         enter: {opacity: 1},
         leave: {opacity: 0},
-        config: { tension: 220, friction: 120 },
+        config: { duration: 2000 },
       })
 
     const updateStats = () => {

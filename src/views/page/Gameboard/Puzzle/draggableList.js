@@ -22,7 +22,7 @@ const setCardPosition = (order, down, originalIndex, curIndex, y) => {
   )
 }
 
-const DraggableList = ({ items, winningOrder, img, level, updateGameStats }) => {
+const DraggableList = ({ items, winningOrder, img, currentOption, level, updateGameStats }) => {
 
   const order = useRef(items.map((_, index) => index)) 
   const [springs, setSprings] = useSprings(items.length, setCardPosition(order.current)) 
@@ -51,7 +51,7 @@ const DraggableList = ({ items, winningOrder, img, level, updateGameStats }) => 
             key={i}
             style={{
               transform: interpolate([y], (y) => `translate3d(0,${y}px,0)`),
-              backgroundImage: `url(${require(`./config/assets/${img[i]}.png`)})`,
+              backgroundImage: `url(${require(`./config/assets/${img[currentOption][i]}.png`)})`,
             }}
             className = "draggableDiv"
             children={items[i]}

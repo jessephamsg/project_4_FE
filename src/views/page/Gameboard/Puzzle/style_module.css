@@ -65,6 +65,8 @@
 .gameStatsBoards {
     display: flex;
     flex-direction: column;
+    align-content: flex-end;
+    margin-top: 470px;
 }
 
 .levelOptions {

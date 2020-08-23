@@ -23,6 +23,7 @@ class PuzzleGame extends Component {
             startTime: [],
             pauseTime: [],
             currentLevel: null,
+            currentOption: null,
             currentLevelSettings: {
                 items: null,
                 winningOrder: null,
@@ -36,6 +37,7 @@ class PuzzleGame extends Component {
         this.updateCurrentLevel = this.updateCurrentLevel.bind(this);
         this.updateGameStats = this.updateGameStats.bind(this);
         this.updateStartTime = this.updateStartTime.bind(this);
+        this.updateOption = this.updateOption.bind(this);
     }
 
     componentDidMount () {
@@ -54,7 +56,8 @@ class PuzzleGame extends Component {
             currentLevel: 0,
             currentLevelSettings,
             totalLevel,
-            gameStats
+            gameStats,
+            currentOption: 1
         })
     }
 
@@ -84,6 +87,12 @@ class PuzzleGame extends Component {
             viewGame: true
         })
     }
+
+    updateOption (option,level) {
+        this.setState({
+            currentOption: option
+        })
+    }
  
     render () {
         if(this.state.currentLevel == null) {
@@ -100,11 +109,14 @@ class PuzzleGame extends Component {
                             <div className='gameMainContent'>
                                 <ListOptions
                                     options={this.state.currentLevelSettings.options}
+                                    level={this.state.currentLevel}
+                                    updateOption={this.updateOption}
                                 />
                                 <DragglebleList 
                                     items={[...Array(this.state.currentLevelSettings.items).keys()]} 
                                     winningOrder={this.state.currentLevelSettings.winningOrder} 
-                                    img={this.state.currentLevelSettings.assets[1]}
+                                    img={this.state.currentLevelSettings.assets}
+                                    currentOption={this.state.currentOption}
                                     level={this.state.currentLevel}
                                     updateGameStats={this.updateGameStats}
                                 />

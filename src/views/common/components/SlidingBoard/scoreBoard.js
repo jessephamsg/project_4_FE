@@ -1,6 +1,8 @@
 //DEPENDENCIES
 import React, {useState} from 'react';
 import {useSpring, animated} from 'react-spring';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 //COMMON STYLES
 import slidingBoardAnimation from './animation';
@@ -8,6 +10,7 @@ import './style_module.css';
 
 //COMMON ASSETS
 import GameSmallButton from '../../elements/GameSmallButton';
+import GameRoundButton from '../../elements/GameRoundButton';
 import GameH2 from '../../elements/GameH2';
 import GameH4 from '../../elements/GameH4';
 
@@ -19,7 +22,11 @@ const ScoreBoard = (props) => {
 
     return (
         <React.Fragment>
-            <div onClick={(e) => {showBoard(!isShowing)}}><GameSmallButton text={'My Score'}/></div>
+            <div onClick={(e) => {showBoard(!isShowing)}}>
+                <GameRoundButton 
+                    icon={'https://icon-library.com/images/white-star-icon-png/white-star-icon-png-29.jpg'}>
+                </GameRoundButton>
+            </div>
             <animated.div 
                 style={boardProps}
                 className="scoreBoardWrapper"
