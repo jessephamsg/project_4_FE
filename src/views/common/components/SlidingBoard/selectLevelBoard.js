@@ -4,6 +4,7 @@ import {useSpring, animated} from 'react-spring';
 
 //COMMON STYLES
 import slidingBoardAnimation from './animation';
+import GameRoundButton from '../../elements/GameRoundButton';
 import './style_module.css';
 
 //COMMON ASSETS
@@ -22,7 +23,12 @@ const SelectLevelBoard = (props) => {
 
     return (
         <React.Fragment>
-            <button onClick={() => showBoard(!isShowing)}>Levels</button>
+            <GameRoundButton
+                onClick={() => showBoard(!isShowing)}
+                icon={'https://www.freeiconspng.com/thumbs/white-arrow-png/white-arrow-transparent-png-22.png'}
+            >
+            </GameRoundButton>
+            {/* <button onClick={() => showBoard(!isShowing)}>Levels</button> */}
             <animated.div 
                 style={boardProps}
                 className="selectLvlBoardWrapper"
