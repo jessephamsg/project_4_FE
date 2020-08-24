@@ -2,6 +2,10 @@
 import React, {Component} from 'react';
 import gameConfig from './config/gameSettings';
 
+//GAME STANDARD MODELS
+import GameStatsModel from '../../../../models/GameStats';
+import LevelStatsModel from '../../../../models/LevelStats';
+
 //COMPONENTS
 import SelectLevelBoard from '../../../common/components/SlidingBoard/selectLevelBoard';
 import WelcomeBoard from '../../../common/components/SlidingBoard/welcomeBoard';
@@ -10,6 +14,7 @@ import DragglebleList from './draggableList';
 import ListOptions from './listOptions'
 
 //STYLES
+//import layout from '../../../common/layouts/gameContainer.styles.css';
 import './style_module.css';
 
 
@@ -17,23 +22,7 @@ class PuzzleGame extends Component {
 
     constructor (props) {
         super (props) 
-        this.state = {
-            totalLevel: null,
-            totalScore: null,
-            startTime: [],
-            pauseTime: [],
-            currentLevel: null,
-            currentOption: null,
-            currentLevelSettings: {
-                items: null,
-                winningOrder: null,
-                options: [],
-                assets: [],
-            },
-            gameStats: {},
-            viewGame: false,
-            viewBoard: false,
-        }
+        this.state = GameStatsModel.gameInitialState()
         this.updateCurrentLevel = this.updateCurrentLevel.bind(this);
         this.updateGameStats = this.updateGameStats.bind(this);
         this.updateStartTime = this.updateStartTime.bind(this);
@@ -45,11 +34,7 @@ class PuzzleGame extends Component {
         const gameStats = {};
         const currentLevelSettings = gameConfig.settings()[0] //need to update totalScore from API too
         for(const level of totalLevel) {
-            gameStats[level] = {
-                submittedAt: [],// should only be empty on first fetch --> the following fetch should get from API
-                isCorrect: [],
-                totalScore: 0
-            }
+            gameStats[level] = LevelStatsModel.levelInitialStats();
         }
         this.setState({
             totalScore: 0,
@@ -103,7 +88,7 @@ class PuzzleGame extends Component {
         return (
             <React.Fragment>
                 {this.state.viewGame === true ? 
-                    <div className="gameContainer">
+                    <div id='gameContainerPuzzle'>
                         <h1>Level: {this.state.currentLevel}</h1>
                         <div className='gameContentWrapper'>
                             <div className='gameMainContent'>
@@ -122,19 +107,21 @@ class PuzzleGame extends Component {
                                 />
                             </div>
                             <div className='gameStatsBoards'>
-                            <SelectLevelBoard 
-                                totalLevel={this.state.totalLevel} 
-                                updateCurrentLevel={this.updateCurrentLevel}
-                            />
-                            <ScoreBoard
-                                totalScore={this.state.totalScore}
-                            />
+                                <SelectLevelBoard 
+                                    totalLevel={this.state.totalLevel} 
+                                    updateCurrentLevel={this.updateCurrentLevel}
+                                />
+                                <ScoreBoard
+                                    totalScore={this.state.totalScore}
+                                />
                             </div>
                         </div>
                     </div>
                     : 
                     <WelcomeBoard 
                         updateStartTime = {this.updateStartTime}
+                        backgroundImg={'https://i.imgur.com/EaRny9V.png'}
+                        gameTitle={'Puzzle Game'}
                     />
                 } 
             </React.Fragment>
