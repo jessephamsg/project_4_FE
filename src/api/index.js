@@ -5,7 +5,7 @@ import Axios from 'axios';
 const api = Axios.create({
     withCredentials: true,
     // headers: {
-    //     Accept : "application/json",
+    //     'Accept' : "application/json",
     //     "Content-Type": "x-www-form-urlencoded"
     // },
     // baseURL: 'http://localhost:4000',
@@ -15,7 +15,8 @@ const api = Axios.create({
 const getAllParents = payload => api.get('/parent', payload)
 const registerParent = payload => api.post('/parents',payload)
 const login = payload => api.post('/login', payload)
-const isAuthenticated = id => api.get(`/isAuthenticated/${id}`)
+// const isAuthenticated = id => api.get(`/isAuthenticated/${id}`)
+const isAuthenticated = payload => api.post('/isAuthenticated', payload)
 
 
 const apis = {
