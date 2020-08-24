@@ -1,12 +1,17 @@
 // Adapted from: https://github.com/chenglou/react-motion/tree/master/demos/demo8-draggable-list
 
+//DEPENDENCIES
 import React, { useRef, useState } from 'react';
 import clamp from 'lodash-es/clamp';
 import swap from 'lodash-move';
 import isEqual from 'lodash.isequal';
 import { useDrag } from 'react-use-gesture';
 import { useSpring, useSprings, animated, interpolate } from 'react-spring';
+
+//COMMON COMPONENTS
 import SubmitButton from '../../../common/components/SubmitButton';
+
+//STYLES
 import './style_module.css';
 
 

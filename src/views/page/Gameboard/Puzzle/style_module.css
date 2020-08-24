@@ -1,3 +1,18 @@
+#gameContainerPuzzle {
+    background-image: url('https://i.imgur.com/Lb0hkFM.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 900px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
 .content {
     position: relative;
     width: 100%;
@@ -27,22 +42,7 @@
     color: #ffffff00;
 }
 
-.gameContainer {
-    width: 100%;
-    height: 900px;
-    background-image: url('https://i.imgur.com/Lb0hkFM.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-    padding: 30px;
-}
-
-.gameContainer > h1 {
+#gameContainerPuzzle > h1 {
     font-family: 'Luckiest Guy', cursive;
     font-size: 50px;
     color: #009688;
