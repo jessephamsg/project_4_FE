@@ -1,8 +1,6 @@
 //DEPENDENCIES
 import React, {Component} from 'react';
 import gameConfig from './config/gameSettings';
-import { useDrag } from 'react-use-gesture';
-import { useSpring, useSprings, animated, interpolate } from 'react-spring';
 
 //GAME STANDARD MODELS
 import GameStatsModel from '../../../../models/GameStats';
@@ -19,19 +17,32 @@ class FruitNinja extends Component {
     constructor(props) {
         super(props)
         this.state = GameStatsModel.gameInitialState();
+        this.updateItemPositions=this.updateItemPositions.bind(this);
+        this.handleSubmit=this.handleSubmit.bind(this);
+    }
+
+    setCurrentLevelSettings () {
+        let currentLevelSettings = {
+            img: [],
+            positions: [],
+            size: [],
+            winningCriteria: gameConfig.settings()[0].winningCriteria
+        };
+        for (const itemObj of gameConfig.settings()[0].items) {
+            currentLevelSettings.img.push(itemObj.img);
+            currentLevelSettings.positions.push({x: itemObj.x, y: itemObj.y});
+            currentLevelSettings.size.push(itemObj.size);
+        }
+        return currentLevelSettings;
     }
 
     componentDidMount () {
         const totalLevel = Object.keys(gameConfig.settings());
         const gameStats = {};
-        let currentLevelSettings = [];
-        for (const itemObj of gameConfig.settings()[0].items) {
-            for (let i=0; i < itemObj.freq; i++) {
-                currentLevelSettings.push(itemObj.img)
-            }
-        }
+        const currentLevelSettings = this.setCurrentLevelSettings();
         for(const level of totalLevel) {
             gameStats[level] = LevelStatsModel.levelInitialStats();
+            gameStats[level].currentState = {};
         }
         this.setState({
             totalScore: 0,
@@ -42,9 +53,34 @@ class FruitNinja extends Component {
             currentOption: 1
         })
     }
+
+    updateItemPositions (level, id, x, y) {
+        let currentGameStats = {...this.state.gameStats};
+        currentGameStats[`${level}`].currentState[`${id}`] = {x, y}
+        this.setState({gameStats: currentGameStats});
+    }
+
+    handleSubmit () {
+        const currentStats = this.state.gameStats[this.state.currentLevel];
+        const winningCondition = this.state.currentLevelSettings.winningCriteria;
+        const currentGameState = currentStats.currentState;
+        const numberOfItems = Object.keys(currentGameState).length;
+        const isCorrect = []
+        if(numberOfItems === winningCondition.freq) {
+            for (const item in currentGameState) {
+                currentGameState[item].x < winningCondition.xMax && currentGameState[item].x > winningCondition.xMin && currentGameState[item].y < winningCondition.yMax && currentGameState[item].y > winningCondition.yMin ?
+                isCorrect === undefined? isCorrect = [false] : isCorrect.push(false) :
+                isCorrect === undefined? isCorrect =[true] : isCorrect.push(true)
+                }
+        } else {
+            isCorrect === undefined? isCorrect = [false] : isCorrect.push(false) 
+        }
+        const result = isCorrect.every(check => {return check===true});
+        currentStats.isCorrect == undefined? currentStats.isCorrect = [result] : currentStats.isCorrect.push(result);
+        console.log(currentStats)
+    }
     
     render() {
-        console.log(this.state)
         if(this.state.currentLevel == null) {
             return (
                 <div>insert loading screen here</div>
@@ -52,11 +88,22 @@ class FruitNinja extends Component {
         }
         return (
             <div className='gameContainerFruitNinja'>
-                {this.state.currentLevelSettings.map(item => {
+                {this.state.currentLevelSettings.img.map((item, index) => {
                     return (
-                        <DraggableList item={item}/>
+                        <DraggableList 
+                            item={item} 
+                            position={this.state.currentLevelSettings.positions[index]}
+                            size={this.state.currentLevelSettings.size[index]}
+                            winningCriteria={this.state.currentLevelSettings.winningCriteria}
+                            updateItemPositions={this.updateItemPositions}
+                            level={this.state.currentLevel}
+                            id={index}
+                        />
                     )
                 })}
+                <button onClick={this.handleSubmit}>
+                    Check answer
+                </button>
             </div>
         )
     }
