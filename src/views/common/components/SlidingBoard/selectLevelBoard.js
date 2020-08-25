@@ -23,12 +23,11 @@ const SelectLevelBoard = (props) => {
 
     return (
         <React.Fragment>
+            <div onClick={() => showBoard(!isShowing)}>
             <GameRoundButton
-                onClick={() => showBoard(!isShowing)}
                 icon={'https://www.freeiconspng.com/thumbs/white-arrow-png/white-arrow-transparent-png-22.png'}
-            >
-            </GameRoundButton>
-            {/* <button onClick={() => showBoard(!isShowing)}>Levels</button> */}
+            />
+            </div>
             <animated.div 
                 style={boardProps}
                 className="selectLvlBoardWrapper"

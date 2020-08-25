@@ -20,13 +20,13 @@ const WelcomeBoard = (props) => {
         <div>
             <animated.div 
                 style={boardProps}
-                style={{backgroundImage:`url(https://i.imgur.com/EaRny9V.png)`}}
+                style={{backgroundImage:`url(${props.backgroundImg})`}}
                 className="welcomeBoard"
                 >
                 <div className="welcomeBoardContent">
                     <div className="welcomeBoardTitle">
                         <h5>The</h5>
-                        <h1>Puzzle Game</h1>
+                        <h1>{props.gameTitle}</h1>
                     </div>
                     <button className="startButton"
                         onClick={(e) => {

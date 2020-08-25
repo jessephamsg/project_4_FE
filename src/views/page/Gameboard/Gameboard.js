@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import WhackAMole from "./WhackAMole"
 import Puzzle from './Puzzle'
+import FruitNinja from './FruitNinja';
 
 export class Gameboard extends Component {
     constructor(props) {
@@ -55,6 +56,12 @@ export class Gameboard extends Component {
                         <React.Fragment>
                             <h1>Hi {this.state.kidName}, you're playing {this.state.gameID}</h1>
                             <WhackAMole gameID={this.state.gameID} />
+                        </React.Fragment>
+                    );
+                case '567':
+                    return (
+                        <React.Fragment>
+                            <FruitNinja />
                         </React.Fragment>
                     );
                 default:
