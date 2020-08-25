@@ -1,3 +1,3 @@
 Project 4 frontend
 
-- folder structured 1
+- folder structured (changes)
