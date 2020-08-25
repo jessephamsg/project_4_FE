@@ -14,11 +14,12 @@ import './style_module.css';
 
 
 class FruitNinja extends Component {
+
     constructor(props) {
         super(props)
         this.state = GameStatsModel.gameInitialState();
         this.updateItemPositions=this.updateItemPositions.bind(this);
-        this.handleSubmit=this.handleSubmit.bind(this);
+        this.updateGameStats=this.updateGameStats.bind(this);
     }
 
     setCurrentLevelSettings () {
@@ -60,7 +61,7 @@ class FruitNinja extends Component {
         this.setState({gameStats: currentGameStats});
     }
 
-    handleSubmit () {
+    updateGameStats () {
         const currentStats = this.state.gameStats[this.state.currentLevel];
         const winningCondition = this.state.currentLevelSettings.winningCriteria;
         const currentGameState = currentStats.currentState;
@@ -101,7 +102,7 @@ class FruitNinja extends Component {
                         />
                     )
                 })}
-                <button onClick={this.handleSubmit}>
+                <button onClick={this.updateGameStats}>
                     Check answer
                 </button>
             </div>
