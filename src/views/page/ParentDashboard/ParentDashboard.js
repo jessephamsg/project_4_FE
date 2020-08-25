@@ -5,10 +5,11 @@ import './style_module.css'
 export class ParentDashboard extends Component {
 
     render() {
+
         return (
             <Fragment>
                 <div className='ParentDashboard'>
-                    <h1>Hi parent, here are the list of all your children</h1>
+                    <h1>Hi {this.props.match.params.parent}, here are the list of all your children</h1>
                     <div className='childList'>
                         <ChildReport childname='Matty' icon={'https://i.imgur.com/1JCz8yg.png'}/>
                         <ChildReport childname='Patty' icon={'https://i.imgur.com/1JCz8yg.png'}/>

@@ -3,11 +3,15 @@ import './style_module.css'
 import Button from '../../common/elements/Buttons'
 import api from '../../../api'
 import { AuthContext } from '../../../AuthContext';
+import local from '../../../storage/localStorage'
+import {useHistory} from 'react-router-dom'
+
+
 
 function LoginPage () {
     const [state, setstate] = useState({parentName: '', password: ''})
-    const authContext = useContext(AuthContext);
-
+    const context = useContext(AuthContext); // extract value from authcontext
+    const history = useHistory()
     const handleChange = async e => {
         e.preventDefault()
         setstate({...state,[e.target.name]:e.target.value})
@@ -16,13 +20,14 @@ function LoginPage () {
         e.preventDefault()
         try {
             const login = await api.login(state)
-            if (login) {
-                localStorage.setItem("currentUser", login.data.currentUser._id) // set localstorage a token
-                // const {isAuthenticated, currentUser} = login.data
-                // authContext.setUser(currentUser.parentName)
-                // authContext.setIsAuthenticated(isAuthenticated)
-                
-            }
+                const { _id, parentName} = login.data.currentUser
+                console.log(login.data)
+                local.set("currentID", _id) // set localstorage a token
+                local.set("currentUser",parentName)
+                context.setUser(parentName)
+                context.setIsAuthenticated(true)
+                history.push(`/home/${parentName}`) // does not refresh entire page
+                // window.location.href = `/home/${parentName}` // refresh the entire page
         } catch (e) {
             console.log(e)
         }

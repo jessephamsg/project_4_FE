@@ -17,13 +17,17 @@ const registerParent = payload => api.post('/parents',payload)
 const login = payload => api.post('/login', payload)
 // const isAuthenticated = id => api.get(`/isAuthenticated/${id}`)
 const isAuthenticated = payload => api.post('/isAuthenticated', payload)
+const getAuthUser = () => api.get('/user');
+const logOut = () => api.get('/logout')
 
 
 const apis = {
     getAllParents,
     registerParent,
     login,
-    isAuthenticated
+    isAuthenticated,
+    getAuthUser,
+    logOut
 }
 
 export default apis
