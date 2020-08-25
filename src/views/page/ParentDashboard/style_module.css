@@ -13,12 +13,35 @@
     align-items: center;
     overflow: hidden;
 }
-.childList {
+.main-container {
     display: flex;
     flex-flow: row nowrap;
-    max-width: 70%;
-    align-items: center;
+    width:95%;
+    align-items: flex-start;
     margin: 10rem auto;
     justify-content: space-around;
-    overflow-y: scroll;
+    border: 1px solid black;
+    padding: 0.5rem;
+}
+.left-container {
+    border: 1px solid black;
+    max-width:30%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    text-align:center;
+    margin: 0.5rem;
+}
+h3 {
+    margin: 2px auto;
+}
+.right-container {
+    border: 1px solid black;
+    flex: 1 1 auto;
+    margin: 0.5rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: flex-start;
 }
