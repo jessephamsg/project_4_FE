@@ -59,8 +59,10 @@ class PuzzleGame extends Component {
         let gameStats = {...this.state.gameStats}
         const overallTotal = this.state.totalScore + totalScore;
         const updatedGameStats = gameUtils.updateDefaultGameStatsObj(gameStats, level, submittedAt, isCorrect, totalScore)
-        this.setState({gameStats: updatedGameStats});
-        this.setState({totalScore: overallTotal});
+        this.setState({
+            gameStats: updatedGameStats,
+            totalScore: overallTotal
+        });
     }
 
     updateStartTime (startTime) {

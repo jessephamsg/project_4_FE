@@ -9,6 +9,9 @@ import GameStatsModel from '../../../../models/GameStats';
 import LevelStatsModel from '../../../../models/LevelStats';
 
 //COMPONENTS
+import SelectLevelBoard from '../../../common/components/SlidingBoard/selectLevelBoard';
+import WelcomeBoard from '../../../common/components/SlidingBoard/welcomeBoard';
+import ScoreBoard from '../../../common/components/SlidingBoard/scoreBoard';
 import SubmitButton from '../../../common/components/SubmitButton';
 import DraggableList from './draggableList';
 
@@ -23,16 +26,18 @@ class FruitNinja extends Component {
         this.state = GameStatsModel.gameInitialState();
         this.updateItemPositions=this.updateItemPositions.bind(this);
         this.updateGameStats=this.updateGameStats.bind(this);
+        this.updateStartTime = this.updateStartTime.bind(this);
+        this.updateCurrentLevel = this.updateCurrentLevel.bind(this);
     }
 
-    setCurrentLevelSettings () {
+    setCurrentLevelSettings (level) {
         let currentLevelSettings = {
             img: [],
             positions: [],
             size: [],
-            winningCriteria: gameConfig.settings()[0].winningCriteria
+            winningCriteria: gameConfig.settings()[level].winningCriteria
         };
-        for (const itemObj of gameConfig.settings()[0].items) {
+        for (const itemObj of gameConfig.settings()[level].items) {
             currentLevelSettings.img.push(itemObj.img);
             currentLevelSettings.positions.push({x: itemObj.x, y: itemObj.y});
             currentLevelSettings.size.push(itemObj.size);
@@ -42,7 +47,7 @@ class FruitNinja extends Component {
 
     componentDidMount () {
         const totalLevel = Object.keys(gameConfig.settings());
-        const currentLevelSettings = this.setCurrentLevelSettings();
+        const currentLevelSettings = this.setCurrentLevelSettings(0);
         const gameStats = {};
         for(const level of totalLevel) {
             gameStats[level] = LevelStatsModel.levelInitialStats();
@@ -55,6 +60,13 @@ class FruitNinja extends Component {
             totalLevel,
             gameStats,
             currentOption: 1
+        })
+    }
+
+    updateStartTime (startTime) {
+        this.setState({
+            startTime: this.state.startTime === undefined ? [startTime] : [...this.state.startTime, startTime],
+            viewGame: true
         })
     }
 
@@ -87,6 +99,14 @@ class FruitNinja extends Component {
         return itemsInBasket
     }
 
+    updateCurrentLevel (level) {
+        const currentLevelSettings = this.setCurrentLevelSettings(level)
+        this.setState({
+            currentLevel: level,
+            currentLevelSettings
+        });
+    }
+
     updateGameStats () {
         const level = this.state.currentLevel;
         let gameStats = {...this.state.gameStats}
@@ -98,9 +118,10 @@ class FruitNinja extends Component {
         const updatedGameStats = gameUtils.updateDefaultGameStatsObj(gameStats, level, submitTime, isCorrect, score);
         gameStats[`${level}`].currentState = {...this.state.gameStats[this.state.currentLevel].currentState};
         gameStats[`${level}`].currentBasket = [...this.state.gameStats[this.state.currentLevel].currentBasket];
-        this.setState({gameStats});
-        this.setState({totalScore: overallTotal});
-        console.log(this.state)
+        this.setState({
+            gameStats,
+            totalScore: overallTotal
+        });
     }
     
     render() {
@@ -110,25 +131,47 @@ class FruitNinja extends Component {
             )
         }
         return (
-            <div className='gameContainerFruitNinja'>
-                {this.state.currentLevelSettings.img.map((item, index) => {
-                    return (
-                        <DraggableList 
-                            item={item} 
-                            position={this.state.currentLevelSettings.positions[index]}
-                            size={this.state.currentLevelSettings.size[index]}
-                            winningCriteria={this.state.currentLevelSettings.winningCriteria}
-                            updateItemPositions={this.updateItemPositions}
-                            level={this.state.currentLevel}
-                            id={index}
-                        />
-                    )
-                })}
-                <SubmitButton 
-                    order={this.state.gameStats[this.state.currentLevel].currentBasket} 
-                    winningOrder={this.state.currentLevelSettings.winningCriteria.items} 
-                    updateStats={this.updateGameStats}/>
-            </div>
+            <React.Fragment>
+                {this.state.viewGame === true ? 
+                    <div className='gameContainerFruitNinja'>
+                        <div>
+                            <h1>Level: {this.state.currentLevel}</h1>
+                            {this.state.currentLevelSettings.img.map((item, index) => {
+                                return (
+                                    <DraggableList 
+                                        item={item} 
+                                        position={this.state.currentLevelSettings.positions[index]}
+                                        size={this.state.currentLevelSettings.size[index]}
+                                        winningCriteria={this.state.currentLevelSettings.winningCriteria}
+                                        updateItemPositions={this.updateItemPositions}
+                                        level={this.state.currentLevel}
+                                        id={index}
+                                    />
+                                )
+                            })}
+                            <SubmitButton 
+                                order={this.state.gameStats[this.state.currentLevel].currentBasket} 
+                                winningOrder={this.state.currentLevelSettings.winningCriteria.items} 
+                                updateStats={this.updateGameStats}/>
+                        </div>
+                        <div className='gameStatsBoards'>
+                            <SelectLevelBoard 
+                                totalLevel={this.state.totalLevel} 
+                                updateCurrentLevel={this.updateCurrentLevel}
+                            />
+                            <ScoreBoard
+                                totalScore={this.state.totalScore}
+                            />
+                        </div>
+                    </div>
+                    :
+                    <WelcomeBoard 
+                        updateStartTime = {this.updateStartTime}
+                        backgroundImg={'https://i.imgur.com/EaRny9V.png'}
+                        gameTitle={'Fruit Ninja'}
+                    />
+                }
+            </React.Fragment>
         )
     }
 }
