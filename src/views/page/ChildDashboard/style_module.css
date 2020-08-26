@@ -6,6 +6,36 @@
     flex-flow: column nowrap;
     align-items: center;
 }
+.gameList {
+    background-color: rgb(255, 208, 0);
+    border: 5px solid black;
+    border-radius: 5%;
+    margin: 0 auto;
+    margin-top: 3rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    max-width: 700px;
+    max-height: 700px;
+    overflow-x: hidden;
+}
+.gameList::-webkit-scrollbar {
+    width: 20px;
+  }
+.gameList::-webkit-scrollbar-track {
+    display: none;
+}
+.gameList::-webkit-scrollbar-thumb {
+    background: rgb(173, 144, 10);
+    border-radius: 10px;
+  }
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.gameList {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 
 .icon_container {
     display: flex;
