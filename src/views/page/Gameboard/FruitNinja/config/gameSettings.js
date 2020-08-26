@@ -46,8 +46,7 @@ export default {
                     size: 70
                 }],
                 winningCriteria: {
-                    name: 'apple',
-                    freq: 2,
+                    items: ['apple', 'apple'],
                     xMin: 734,
                     xMax: 1074,
                     yMin: 511,

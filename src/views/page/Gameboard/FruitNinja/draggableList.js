@@ -24,7 +24,7 @@ const DraggableList = ({ item, position, size, winningCriteria, updateItemPositi
     const bind = useDrag(
         ({ args: [item, id], down, offset: [mx, my] ,tap}) => {
           set({ x: mx , y: my , immediate: down})
-          if(item === winningCriteria.name) updateItemPositions(level, id, mx, my); 
+          updateItemPositions(item, level, id, mx, my); 
         },
         { 
           filterTaps: true, 

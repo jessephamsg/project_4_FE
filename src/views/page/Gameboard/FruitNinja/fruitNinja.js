@@ -1,12 +1,15 @@
 //DEPENDENCIES
 import React, {Component} from 'react';
 import gameConfig from './config/gameSettings';
+import isEqual from 'lodash.isequal';
+import gameUtils from '../utils';
 
 //GAME STANDARD MODELS
 import GameStatsModel from '../../../../models/GameStats';
 import LevelStatsModel from '../../../../models/LevelStats';
 
 //COMPONENTS
+import SubmitButton from '../../../common/components/SubmitButton';
 import DraggableList from './draggableList';
 
 //STYLES
@@ -39,8 +42,8 @@ class FruitNinja extends Component {
 
     componentDidMount () {
         const totalLevel = Object.keys(gameConfig.settings());
-        const gameStats = {};
         const currentLevelSettings = this.setCurrentLevelSettings();
+        const gameStats = {};
         for(const level of totalLevel) {
             gameStats[level] = LevelStatsModel.levelInitialStats();
             gameStats[level].currentState = {};
@@ -55,30 +58,49 @@ class FruitNinja extends Component {
         })
     }
 
-    updateItemPositions (level, id, x, y) {
+    updateItemPositions (item, level, id, x, y) {
         let currentGameStats = {...this.state.gameStats};
-        currentGameStats[`${level}`].currentState[`${id}`] = {x, y}
+        const isInBasket = this.isInBasket(x, y)
+        currentGameStats[`${level}`].currentState[`${id}`] = {item, x, y, isInBasket}
+        currentGameStats[`${level}`].currentBasket = []
         this.setState({gameStats: currentGameStats});
     }
 
-    updateGameStats () {
-        const currentStats = this.state.gameStats[this.state.currentLevel];
+    isInBasket (x, y) {
         const winningCondition = this.state.currentLevelSettings.winningCriteria;
-        const currentGameState = currentStats.currentState;
-        const numberOfItems = Object.keys(currentGameState).length;
-        const isCorrect = []
-        if(numberOfItems === winningCondition.freq) {
-            for (const item in currentGameState) {
-                currentGameState[item].x < winningCondition.xMax && currentGameState[item].x > winningCondition.xMin && currentGameState[item].y < winningCondition.yMax && currentGameState[item].y > winningCondition.yMin ?
-                isCorrect === undefined? isCorrect = [false] : isCorrect.push(false) :
-                isCorrect === undefined? isCorrect =[true] : isCorrect.push(true)
-                }
-        } else {
-            isCorrect === undefined? isCorrect = [false] : isCorrect.push(false) 
+        const isInBasket = 
+        (x < winningCondition.xMax && x > winningCondition.xMin 
+        && y < winningCondition.yMax && y > winningCondition.yMin) === true ?
+        true : false
+        return isInBasket
+    }
+
+    getCurrentBasketOrder () {
+        let currentGameStats = {...this.state.gameStats};
+        const currentGameState = currentGameStats[this.state.currentLevel].currentState;
+        const itemsInBasket = [];
+        for (const itemID in currentGameState) {
+            if(currentGameState[`${itemID}`].isInBasket) itemsInBasket.push(currentGameState[`${itemID}`].item) 
         }
-        const result = isCorrect.every(check => {return check===true});
-        currentStats.isCorrect == undefined? currentStats.isCorrect = [result] : currentStats.isCorrect.push(result);
-        console.log(currentStats)
+        currentGameStats[this.state.currentLevel].currentBasket = [...itemsInBasket]
+        this.setState({gameStats: currentGameStats});
+        return itemsInBasket
+    }
+
+    updateGameStats () {
+        const level = this.state.currentLevel;
+        let gameStats = {...this.state.gameStats}
+        const {isCorrect, submitTime, score} = gameUtils.getSubmissionStats(
+            this.getCurrentBasketOrder(),
+            this.state.currentLevelSettings.winningCriteria.items
+        )
+        const overallTotal = this.state.totalScore + score;
+        const updatedGameStats = gameUtils.updateDefaultGameStatsObj(gameStats, level, submitTime, isCorrect, score);
+        gameStats[`${level}`].currentState = {...this.state.gameStats[this.state.currentLevel].currentState};
+        gameStats[`${level}`].currentBasket = [...this.state.gameStats[this.state.currentLevel].currentBasket];
+        this.setState({gameStats});
+        this.setState({totalScore: overallTotal});
+        console.log(this.state)
     }
     
     render() {
@@ -102,9 +124,10 @@ class FruitNinja extends Component {
                         />
                     )
                 })}
-                <button onClick={this.updateGameStats}>
-                    Check answer
-                </button>
+                <SubmitButton 
+                    order={this.state.gameStats[this.state.currentLevel].currentBasket} 
+                    winningOrder={this.state.currentLevelSettings.winningCriteria.items} 
+                    updateStats={this.updateGameStats}/>
             </div>
         )
     }

@@ -1,6 +1,7 @@
 //DEPENDENCIES
 import React, {Component} from 'react';
 import gameConfig from './config/gameSettings';
+import gameUtils from '../utils';
 
 //GAME STANDARD MODELS
 import GameStatsModel from '../../../../models/GameStats';
@@ -31,8 +32,8 @@ class PuzzleGame extends Component {
 
     componentDidMount () {
         const totalLevel = Object.keys(gameConfig.settings());
-        const gameStats = {};
         const currentLevelSettings = gameConfig.settings()[0] //need to update totalScore from API too
+        const gameStats = {};
         for(const level of totalLevel) {
             gameStats[level] = LevelStatsModel.levelInitialStats();
         }
@@ -56,13 +57,9 @@ class PuzzleGame extends Component {
 
     updateGameStats (level, isCorrect, submittedAt, totalScore) {
         let gameStats = {...this.state.gameStats}
-        const overallTotal = this.state.totalScore + totalScore
-        gameStats[`${level}`] = {
-            submittedAt: this.state.gameStats[`${level}`].submittedAt === undefined ? [submittedAt] : [...this.state.gameStats[`${level}`].submittedAt, submittedAt],
-            isCorrect: this.state.gameStats[`${level}`].isCorrect === undefined ? [isCorrect] : [...this.state.gameStats[`${level}`].isCorrect, isCorrect],
-            totalScore: this.state.gameStats[`${level}`].totalScore + totalScore
-        }
-        this.setState({gameStats});
+        const overallTotal = this.state.totalScore + totalScore;
+        const updatedGameStats = gameUtils.updateDefaultGameStatsObj(gameStats, level, submittedAt, isCorrect, totalScore)
+        this.setState({gameStats: updatedGameStats});
         this.setState({totalScore: overallTotal});
     }
 
