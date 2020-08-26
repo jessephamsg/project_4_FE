@@ -25,6 +25,15 @@ class ParentDashboard extends Component {
         modal: false,
         iconModal : false
       }
+
+    getAllParent = async (currentId) => {
+        const result = await api.getParentById(currentId)
+        this.setState ({
+            parentData : result.data.data,
+            kidList : result.data.data.kidsList
+        })
+        console.log(this.state.kidList[0])
+    }
       
     toggleAddModal = () => {
         this.setState({
@@ -53,34 +62,22 @@ class ParentDashboard extends Component {
         const parentID = currentUser.data.data._id
         const payload = {
             parentID : parentID,
-            kidName : this.state.kidName,
-            kidBDay : this.state.kidBDay,
-            kidAge : calAge(this.state.kidBDay),
-            kidMaxScreenTime : 10,
-            kidIcon : this.state.kidIcon,
+            name : this.state.kidName,
+            dob : this.state.dob,
+            age : calAge(this.state.dob),
+            maxScreenTime : 10,
+            icon : this.state.icon,
         }
         const createKid = await api.createKid(payload) // create kid and add to kidlist
-        
-        if (createKid) {
+        if (!createKid){alert('something went wrong with creation', createKid)}
+        await this.getAllParent(parentID) // map childlist data
         await this.toggleAddModal()
-        } else {
-            alert('something went wrong with creation', createKid)
-        }
     }
     componentDidMount () {
-        const getAllParent = async (currentId) => {
-            const result = await api.getParentById(currentId)
-            this.setState ({
-                parentData : result.data.data,
-                kidList : result.data.data.kidsList
-            })
-            console.log(this.state.kidList[0])
-        }
-        const currentId = local.get('currentID')
+        const currentId = local.get('currentId')
         console.log(currentId)
-        getAllParent(currentId)
+        this.getAllParent(currentId)
     }
-
     
 
 
@@ -88,7 +85,7 @@ class ParentDashboard extends Component {
         return (
             <Fragment>
                 <div className='parentDashboard'>
-                    <h1>Hi {this.props.match.params.parent}, here are the list of all your children</h1>
+                    <h1>Hi {this.props.match.params.username}</h1>
                     <div className='main-container'>
                         <div className='left-container'>
                             <div>
@@ -97,7 +94,7 @@ class ParentDashboard extends Component {
                             </div>
                         </div>
                         <div className='right-container'>
-                            {!this.state.kidList ? <h1>loading</h1> :
+                            {!this.state.kidList ? <h1>You have not enter a child yet</h1> :
                             this.state.kidList.map((kid) => 
                                 <ChildReport childname={kid.kidName} icon={kid.kidIcon} key={kid.kidID} />
                             )}
@@ -122,9 +119,9 @@ class ParentDashboard extends Component {
                                 required
                                 label="DOB"
                                 hint ="DOB"
-                                name ="kidBDay"
+                                name ="dob"
                                 type ="date" 
-                                value={this.state.kidBDay}
+                                value={this.state.dob}
                                 onChange={this.handleChange}
                             />
 
@@ -141,9 +138,9 @@ class ParentDashboard extends Component {
                                 }
                                 required
                                 hint ="select an icon or a url image of your choice"
-                                name ="kidIcon"
+                                name ="icon"
                                 type ="text" 
-                                value={this.state.kidIcon}
+                                value={this.state.icon}
                                 onChange={this.handleChange}
                             >
                             </MDBInputGroup>
@@ -175,7 +172,7 @@ class ParentDashboard extends Component {
                                         <input 
                                             type= 'radio' 
                                             id={key} 
-                                            name='kidIcon' 
+                                            name='icon' 
                                             value={avatar[key]} 
                                             onClick={this.handleChange}
                                         />
