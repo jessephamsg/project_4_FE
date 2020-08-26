@@ -4,7 +4,7 @@ import './style_module.css'
 import {AuthContext} from '../../../../AuthContext'
 import apis from '../../../../api';
 import local from '../../../../storage/localStorage';
-import {useHistory} from 'react-router-dom'
+// import { Redirect } from 'react-router-dom';
 
 
 // const NavBar = props => {
@@ -55,6 +55,7 @@ import {useHistory} from 'react-router-dom'
 
 export class NavBar extends Component {
     static contextType = AuthContext
+
     logout = async () => {
         const logout = await apis.logOut()
         console.log(logout.data)
@@ -65,12 +66,14 @@ export class NavBar extends Component {
     }
     goToParentDashboard = async () => {
         // child protection system goes in here 
+
         window.location.href = `/dashboard/${this.context.user}`
     }
 
     render() {
         console.log(this.context)
         return (
+
             <div className='navbar'>
                 <ul>
                     <div className='navBarLeft'>
@@ -92,6 +95,7 @@ export class NavBar extends Component {
                     }
                 </ul>
             </div>
+
         )
     }
 }

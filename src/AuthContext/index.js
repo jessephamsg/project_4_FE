@@ -60,8 +60,8 @@ export default ({ children }) => {
         setUser(user);
         setIsAuthenticated(true)
         setIsLoaded(true);
-        console.log('line32')
-    }, []); // using UseEffect to always get user when refreshing page. 
+        console.log('use Effect line32')
+    }, [user]); // using UseEffect to always get user when refreshing page. 
 
     return (
         <div>

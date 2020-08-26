@@ -12,6 +12,7 @@ function LoginPage () {
     const [state, setstate] = useState({parentName: '', password: ''})
     const context = useContext(AuthContext); // extract value from authcontext
     const history = useHistory()
+    
     const handleChange = async e => {
         e.preventDefault()
         setstate({...state,[e.target.name]:e.target.value})

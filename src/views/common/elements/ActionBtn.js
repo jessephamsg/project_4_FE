@@ -15,7 +15,8 @@ function ActionBtn(props) {
     }
   return (
     <button
-        style = {style} >
+        style = {style} 
+        onClick={props.onClick}>
         {props.text}
     </button>
   );
