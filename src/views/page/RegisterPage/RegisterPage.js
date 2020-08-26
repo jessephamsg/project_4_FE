@@ -24,9 +24,9 @@ export class RegisterPage extends Component {
     register = async e => {
         e.preventDefault()
         const payload = {
-            parentName : this.state.username,
-            parentEmail : this.state.email,
-            parentPassword : this.state.password
+            username : this.state.username,
+            email : this.state.email,
+            password : this.state.password
         }
         if (this.state.password !== this.state.password2) {
             await this.setState({
@@ -40,7 +40,6 @@ export class RegisterPage extends Component {
                 passwordError :false
             })
         }
-        
         try {
             const response = await api.registerParent(payload);
             if (response) window.location.href='/login'

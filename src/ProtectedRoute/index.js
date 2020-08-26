@@ -7,7 +7,7 @@ const ProtectedRoute = ({ children, ...rest }) => {
     <Route
       {...rest}
       render={({ location }) =>
-        localStorage.getItem("currentUser") ? (
+        local.get("currentUser") ? (
             children
          ) 
          : 

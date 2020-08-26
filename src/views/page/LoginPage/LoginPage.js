@@ -9,9 +9,10 @@ import {useHistory} from 'react-router-dom'
 
 
 function LoginPage () {
-    const [state, setstate] = useState({parentName: '', password: ''})
+    const [state, setstate] = useState({username: '', password: ''})
     const context = useContext(AuthContext); // extract value from authcontext
     const history = useHistory()
+    
     const handleChange = async e => {
         e.preventDefault()
         setstate({...state,[e.target.name]:e.target.value})
@@ -20,13 +21,14 @@ function LoginPage () {
         e.preventDefault()
         try {
             const login = await api.login(state)
-                const { _id, parentName} = login.data.currentUser
+                const { _id, username} = login.data.currentUser
                 console.log(login.data)
-                local.set("currentID", _id) // set localstorage a token
-                local.set("currentUser",parentName)
-                context.setUser(parentName)
+                local.set("currentId", _id) // set localstorage a token
+                local.set("currentUser",username)
+                context.setUserId(_id)
+                context.setUser(username)
                 context.setIsAuthenticated(true)
-                history.push(`/home/${parentName}`) // does not refresh entire page
+                history.push(`/home/${username}`) // does not refresh entire page
                 // window.location.href = `/home/${parentName}` // refresh the entire page
         } catch (e) {
             console.log(e)
@@ -38,7 +40,7 @@ function LoginPage () {
                     <form onSubmit={login}>
                         <input 
                             type='text' 
-                            name='parentName' 
+                            name='username' 
                             placeholder='username' 
                             value={state.username} 
                             onChange={handleChange} >
