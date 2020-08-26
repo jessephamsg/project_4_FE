@@ -13,6 +13,7 @@ export class Gameboard extends Component {
 
     getGameID() {
         const gameID = this.props.match.params.gameid;
+        console.log(gameID)
         this.setState({
             gameID: gameID,
         })
@@ -20,6 +21,7 @@ export class Gameboard extends Component {
 
     getKidName() {
         const kidName = this.props.match.params.childname;
+        console.log(kidName)
         this.setState({
             kidName: kidName,
         })

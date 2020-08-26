@@ -1,5 +1,3 @@
-//localStorage codes go here ==> should look somewhat like BE Repo code
-
 const set = (key,value) => {
     localStorage.setItem(key, value)
     return true;
