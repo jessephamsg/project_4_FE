@@ -33,6 +33,10 @@
     margin-bottom: 0px;
 }
 
+.navLink:hover {
+    cursor: pointer;    
+}
+
 li {
     list-style: none;
     padding: 0.3rem 2rem;

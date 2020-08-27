@@ -5,7 +5,7 @@ import './style_module.css'
 import ActionBtn from '../../common/elements/ActionBtn'
 import { ModalInput } from '../../common/components/Modal';
 import Input from '../../common/elements/Input';
-import {AuthContext} from '../../../AuthContext';
+import {AuthService} from '../../../services/AuthService';
 import api from '../../../api';
 import avatar from '../../common/assets/avatar'
 import local from '../../../storage/localStorage';
@@ -20,7 +20,7 @@ const calAge = (input) => {
 
 }
 class ParentDashboard extends Component {
-    static contextType = AuthContext
+    static contextType = AuthService
     state = {
         modal: false,
         iconModal : false
