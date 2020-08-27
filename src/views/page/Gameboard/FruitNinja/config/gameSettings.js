@@ -5,15 +5,15 @@ export default {
                 items: [{
                     name: 'apple',
                     img: 'apple',
-                    x: 80,
-                    y: 161,
+                    x: 837,
+                    y: 276,
                     size: 100
                 }, {
                     name: 'apple',
                     img: 'apple',
-                    x: 526,
-                    y: 642,
-                    size: 60
+                    x: 107,
+                    y: 655,
+                    size: 160
                 }, {
                     name: 'cherry',
                     img: 'cherry',
@@ -35,22 +35,22 @@ export default {
                 }, {
                     name: 'blueberry',
                     img: 'blueberry',
-                    x: 289,
-                    y: 469,
+                    x: 365,
+                    y: 318,
                     size: 90
                 }, {
                     name: 'blueberry',
                     img: 'blueberry',
-                    x: 522,
-                    y: 600,
+                    x: 611,
+                    y: 281,
                     size: 70
                 }],
                 winningCriteria: {
                     items: ['apple', 'apple'],
-                    xMin: 734,
-                    xMax: 1074,
-                    yMin: 511,
-                    yMax: 720,  
+                    xMin: 864,
+                    xMax: 1435,
+                    yMin: 413,
+                    yMax: 843,  
                 }
             },
             1: {
@@ -63,9 +63,9 @@ export default {
                 }, {
                     name: 'apple',
                     img: 'apple',
-                    x: 526,
-                    y: 642,
-                    size: 60
+                    x: 89,
+                    y: 587,
+                    size: 160
                 }, {
                     name: 'cherry',
                     img: 'cherry',
@@ -83,168 +83,168 @@ export default {
                     img: 'cherry',
                     x: 1005,
                     y: 201,
-                    size: 70,
+                    size: 170,
                 }, {
                     name: 'cherry',
                     img: 'cherry',
-                    x: 1144,
-                    y: 289,
+                    x: 911,
+                    y: 436,
                     size: 70,
                 }, {
                     name: 'blueberry',
                     img: 'blueberry',
-                    x: 1005,
-                    y: 201,
-                    size: 80
+                    x: 593,
+                    y: 268,
+                    size: 100
                 }, {
                     name: 'blueberry',
                     img: 'blueberry',
-                    x: 290,
-                    y: 570,
-                    size: 90
+                    x: 332,
+                    y: 403,
+                    size: 150
                 }, {
                     name: 'blueberry',
                     img: 'blueberry',
-                    x: 522,
-                    y: 600,
+                    x: 1041,
+                    y: 52,
                     size: 70
                 }, {
                     name: 'blueberry',
                     img: 'blueberry',
-                    x: 289,
-                    y: 469,
-                    size: 70
-                }, {
-                    name: 'pineapple',
-                    img: 'pineapple',
-                    x: 400,
-                    y: 700,
+                    x: 789,
+                    y: 423,
                     size: 70
                 }, {
                     name: 'pineapple',
                     img: 'pineapple',
-                    x: 389,
-                    y: 569,
+                    x: 134,
+                    y: 530,
+                    size: 170
+                }, {
+                    name: 'pineapple',
+                    img: 'pineapple',
+                    x: 1186,
+                    y: 195,
                     size: 70
                 }],
                 winningCriteria: {
                     items: ['apple', 'apple', 'blueberry', 'pineapple'],
-                    xMin: 734,
-                    xMax: 1074,
-                    yMin: 511,
-                    yMax: 720,  
+                    xMin: 864,
+                    xMax: 1435,
+                    yMin: 413,
+                    yMax: 843, 
                 }  
             },
             2: {
                 items: [{
                     name: 'apple',
                     img: 'apple',
-                    x: 80,
-                    y: 161,
-                    size: 100
+                    x: 139,
+                    y: 114,
+                    size: 100,
                 }, {
                     name: 'apple',
                     img: 'apple',
-                    x: 526,
-                    y: 642,
-                    size: 60
+                    x: 1248,
+                    y: 228,
+                    size: 80,
                 }, {
                     name: 'cherry',
                     img: 'cherry',
-                    x: 257,
-                    y: 163, 
+                    x: 292,
+                    y: 140, 
                     size: 65,
                 }, {
                     name: 'cherry',
                     img: 'cherry',
-                    x: 364,
-                    y: 130,
+                    x: 378,
+                    y: 227,
                     size: 70,
                 }, {
                     name: 'cherry',
                     img: 'cherry',
-                    x: 1005,
+                    x: 1105,
                     y: 201,
                     size: 70,
                 }, {
                     name: 'mango',
                     img: 'mango',
-                    x: 905,
-                    y: 301,
-                    size: 80,
+                    x: 1219,
+                    y: 163,
+                    size: 180,
                 }, {
                     name: 'cherry',
                     img: 'cherry',
-                    x: 1144,
-                    y: 289,
+                    x: 619,
+                    y: 309,
                     size: 70,
                 }, {
                     name: 'blueberry',
                     img: 'blueberry',
-                    x: 1005,
-                    y: 201,
-                    size: 80
+                    x: 534,
+                    y: 456,
+                    size: 180,
                 }, {
                     name: 'lemon',
                     img: 'lemon',
-                    x: 805,
-                    y: 501,
-                    size: 180
+                    x: 1041,
+                    y: 52,
+                    size: 180,
                 }, {
                     name: 'blueberry',
                     img: 'blueberry',
-                    x: 290,
-                    y: 570,
-                    size: 90
+                    x: 789,
+                    y: 423,
+                    size: 90,
                 }, {
                     name: 'blueberry',
                     img: 'blueberry',
-                    x: 522,
-                    y: 600,
-                    size: 70
+                    x: 609,
+                    y: 198,
+                    size: 70,
                 }, {
                     name: 'blueberry',
                     img: 'blueberry',
-                    x: 289,
-                    y: 469,
-                    size: 70
+                    x: 363,
+                    y: 308,
+                    size: 70,
                 }, {
                     name: 'raspberry',
                     img: 'raspberry',
-                    x: 600,
-                    y: 300,
-                    size: 80
+                    x: 1208,
+                    y: 209,
+                    size: 80,
                 }, {
                     name: 'pineapple',
                     img: 'pineapple',
-                    x: 400,
-                    y: 700,
-                    size: 70
+                    x: 864,
+                    y: 278,
+                    size: 70,
                 }, {
                     name: 'pineapple',
                     img: 'pineapple',
-                    x: 389,
-                    y: 569,
-                    size: 70
+                    x: 472,
+                    y: 433,
+                    size: 160,
                 }, {
                     name: 'strawberry',
                     img: 'strawberry',
-                    x: 589,
-                    y: 669,
-                    size: 170
+                    x: 38,
+                    y: 539,
+                    size: 170,
                 }, {
                     name: 'watermelon',
                     img: 'watermelon',
-                    x: 689,
-                    y: 769,
-                    size: 80
+                    x: 101,
+                    y: 550,
+                    size: 200,
                 }],
                 winningCriteria: {
                     items: ['apple', 'apple', 'blueberry', 'pineapple', 'watermelon', 'strawberry'],
-                    xMin: 734,
-                    xMax: 1074,
-                    yMin: 511,
-                    yMax: 720,  
+                    xMin: 864,
+                    xMax: 1435,
+                    yMin: 413,
+                    yMax: 843, 
                 }  
             }
         }

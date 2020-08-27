@@ -62,7 +62,7 @@ const DraggableList = ({ items, winningOrder, img, currentOption, level, updateG
           />
         ))}
       </div>
-      <SubmitButton order={order.current} winningOrder={winningOrder} updateStats={updateStats}/>
+      <SubmitButton order={order} winningOrder={winningOrder} updateStats={updateStats}/>
     </div>
   )
 }
