@@ -110,6 +110,7 @@ class FruitNinja extends Component {
     updateGameStats () {
         const level = this.state.currentLevel;
         let gameStats = {...this.state.gameStats}
+        let currentOrder = {...this.state.currentOrder}
         const {isCorrect, submitTime, score} = gameUtils.getSubmissionStats(
             this.getCurrentBasketOrder(),
             this.state.currentLevelSettings.winningCriteria.items
@@ -118,10 +119,13 @@ class FruitNinja extends Component {
         const updatedGameStats = gameUtils.updateDefaultGameStatsObj(gameStats, level, submitTime, isCorrect, score);
         gameStats[`${level}`].currentState = {...this.state.gameStats[this.state.currentLevel].currentState};
         gameStats[`${level}`].currentBasket = [...this.state.gameStats[this.state.currentLevel].currentBasket];
+        currentOrder.order.current = this.state.gameStats[this.state.currentLevel].currentBasket
         this.setState({
             gameStats,
-            totalScore: overallTotal
+            totalScore: overallTotal,
+            currentOrder
         });
+        console.log(this.state.gameStats)
     }
     
     render() {
@@ -150,7 +154,7 @@ class FruitNinja extends Component {
                                 )
                             })}
                             <SubmitButton 
-                                order={this.state.gameStats[this.state.currentLevel].currentBasket} 
+                                order={this.state.currentOrder.order} 
                                 winningOrder={this.state.currentLevelSettings.winningCriteria.items} 
                                 updateStats={this.updateGameStats}/>
                         </div>

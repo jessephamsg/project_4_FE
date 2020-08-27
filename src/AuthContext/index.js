@@ -22,11 +22,11 @@ export default ({ children }) => {
     }, [user]); // using UseEffect to always get user when refreshing page. 
 
     return (
-        <div>
+        <React.Fragment>
             {!isLoaded ? <h1>Loading</h1> :
                 <AuthContext.Provider value={{ user, setUser, isAuthenticated, setIsAuthenticated, userId, setUserId }}>
                     {children}
                 </AuthContext.Provider>}
-        </div>
+        </React.Fragment>
     )
 }

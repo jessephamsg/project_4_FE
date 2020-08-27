@@ -3,3 +3,8 @@
 .App {
   text-align: center;
 }
+
+#root {
+  display: flex;
+  flex-direction: column;
+}

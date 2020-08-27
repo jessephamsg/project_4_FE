@@ -8,6 +8,7 @@ export default  {
             currentLevel: null,
             currentOption: null,
             currentLevelSettings: {},
+            currentOrder: {order: {current: {}}},
             gameStats: {},
             viewGame: false,
             viewBoard: false,

@@ -48,7 +48,7 @@ class PuzzleGame extends Component {
     }
 
     updateCurrentLevel (level) {
-        const currentLevelSettings = gameConfig.settings()[`${level}`]
+        const currentLevelSettings = {...gameConfig.settings()[`${level}`]}
         this.setState({
             currentLevel: level,
             currentLevelSettings
@@ -74,11 +74,12 @@ class PuzzleGame extends Component {
 
     updateOption (option,level) {
         this.setState({
-            currentOption: option
+            currentOption: option,
         })
     }
  
     render () {
+        console.log(this.state)
         if(this.state.currentLevel == null) {
             return (
                 <div>insert loading screen here</div>
