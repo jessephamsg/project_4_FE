@@ -7,6 +7,7 @@ import swap from 'lodash-move';
 import isEqual from 'lodash.isequal';
 import { useDrag } from 'react-use-gesture';
 import { useSpring, useSprings, animated, interpolate } from 'react-spring';
+import gameUtils from '../utils'
 
 //COMMON COMPONENTS
 import SubmitButton from '../../../common/components/SubmitButton';
@@ -41,9 +42,7 @@ const DraggableList = ({ items, winningOrder, img, currentOption, level, updateG
   })
 
   const updateStats = () => {
-    const isCorrect = isEqual(order.current, winningOrder);
-    const submitTime = Date.now();
-    const score = isCorrect === true ? 5 : 0.5
+    const {isCorrect, submitTime, score} = gameUtils.getSubmissionStats(order.current, winningOrder)
     updateGameStats(level, isCorrect, submitTime, score);
   }
   
@@ -63,7 +62,7 @@ const DraggableList = ({ items, winningOrder, img, currentOption, level, updateG
           />
         ))}
       </div>
-      <SubmitButton order={order} winningOrder={winningOrder} updateStats={updateStats}/>
+      <SubmitButton order={order.current} winningOrder={winningOrder} updateStats={updateStats}/>
     </div>
   )
 }

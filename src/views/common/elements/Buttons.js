@@ -1,15 +1,32 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+
 
 function Button(props) {
+  const [hoverState, setHoverState] = useState(false)
+
+  const hoverIn = e => {
+    e.preventDefault()
+    e.target.style.cursor='pointer'
+    e.target.style.backgroundColor='#004f48'
+  }
+
+  const style = {
+    // fontFamily: 'Schoolbell, cursive',
+    fontSize : '16px',
+    backgroundColor: '#009688',
+    padding: '15px',
+    border: 'none',
+    borderRadius: '3px',
+    color: 'white',
+    margin: '5px',
+  }
+   
   return (
     <button
-        style = {{
-            backgroundColor: '#009688',
-            padding: '20px',
-            border: 'none',
-            borderRadius: '3px',
-            color: 'white',
-        }}
+        type ={props.type}
+        style = {style}
+        onClick= {props.onClick}
+        onMouseOver = {hoverIn}
     >{props.text}
     </button>
   );

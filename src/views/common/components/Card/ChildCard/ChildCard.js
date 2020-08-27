@@ -16,5 +16,4 @@ export class ChildCard extends Component {
         )
     }
 }
-
 export default ChildCard

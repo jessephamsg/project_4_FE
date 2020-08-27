@@ -1,5 +1,3 @@
-// Adapted from: https://github.com/chenglou/react-motion/tree/master/demos/demo8-draggable-list
-
 //DEPENDENCIES
 import React, { useRef, useState } from 'react';
 import { useDrag } from 'react-use-gesture';
@@ -12,29 +10,44 @@ import SubmitButton from '../../../common/components/SubmitButton';
 import './style_module.css';
 
 
-const DraggableList = ({ item }) => {
+const DraggableList = ({ item, position, size, winningCriteria, updateItemPositions, id, level }) => {
 
-    const initialX = Math.floor(Math.random() * 200 );
-    const initialY = Math.floor(Math.random() * 100 );
-    const [{ x, y }, set] = useSpring(() => ({ x: initialX, y: initialY }))
+    const initialX = position.x;
+    const initialY = position.y;
+
+    const [{ x, y }, set] = useSpring(() => ({ 
+      x: initialX, 
+      y: initialY,
+      config: { mass: 5, tension: 350, friction: 40 } 
+    }))
+
     const bind = useDrag(
-        ({ movement: [mx, my], tap }) => { set({ x: mx , y: my }) },
-        { filterTaps: true }
+        ({ args: [item, id], down, offset: [mx, my] ,tap}) => {
+          set({ x: mx , y: my , immediate: down})
+          updateItemPositions(item, level, id, mx, my); 
+        },
+        { 
+          filterTaps: true, 
+          delay: 1000,
+        }
     )
   
   return (
     <div>
         <div>
           <animated.div
-            {...bind()}
+            {...bind(item, id)}
             style={{
-                transform: interpolate([x, y], (x, y) => `translate3d(${x}px,${y}px,0)`),
                 backgroundImage: `url(${require(`./config/assets/${item}.png`)})`,
+                position: 'absolute',
+                left: x.interpolate(x => `${x}px`),
+                top: y.interpolate(y => `${y}px`),
+                width: `${size}px`,
+                height: `${size}px`
             }}
             className = "fruitWrapper"
           />
       </div>
-      {/* <SubmitButton /> */}
     </div>
   )
 }

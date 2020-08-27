@@ -7,6 +7,8 @@ import HomePage from '../views/page/HomePage';
 import ChildDashboard from '../views/page/ChildDashboard';
 import ParentDashboard from '../views/page/ParentDashboard';
 import Gameboard from '../views/page/Gameboard';
+import ChildReportPage from '../views/page/ChildReportPage'
+import ProtectedRoute from './ProtectedRoute';
 
 
 
@@ -19,10 +21,12 @@ class RoutePage extends Component {
                     <Route exact path='/'  component={LandingPage}/>
                     <Route path='/login' component ={LoginPage}/>
                     <Route path='/register' component ={RegisterPage}/>
-                    <Route path={`/home/parent`} component= {HomePage}/>{/*`/home/${this.state.parent}`*/}
-                    <Route exact path={`/home/dashboard/:childname`} component ={ChildDashboard}/> {/*`/home/dashboard/${this.state.childname}`*/}
-                    <Route path={`/dashboard/:parent`} component = {ParentDashboard}/> {/*`/home/dashboard/${this.state.childname}`*/}
-                    <Route path='/game/:gameid/child/:childname' component={Gameboard}/>
+                    <Route path='/child/:childname/game/:gameid' component={Gameboard}/>
+                    <ProtectedRoute path={`/home/:username`} component={HomePage}> </ProtectedRoute>
+                    <ProtectedRoute exact path={`/home/dashboard/:childname`}component={ChildDashboard}> </ProtectedRoute>
+                    <ProtectedRoute path={`/dashboard/:username`}component={ParentDashboard}> </ProtectedRoute>
+                    {/* <ProtectedRoute path='/child/:childname/game/:gameid'component={Gameboard}> </ProtectedRoute> */}
+                    <ProtectedRoute exact path='/child/:childname/report' component={ChildReportPage}> </ProtectedRoute>
                 </Switch>
             </Router>
         )
