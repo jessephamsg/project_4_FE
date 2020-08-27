@@ -7,7 +7,6 @@ class Footer extends Component {
         return (
             <footer>
                 <p> &copy; {new Date().getFullYear()} | Project 4 title | Developed by JJYJ  Lina, Tam, Yuejia</p>
-                <a href='/'><button type='button' style={{width:'100%'}}>About Us</button></a>
             </footer>
         )
     }

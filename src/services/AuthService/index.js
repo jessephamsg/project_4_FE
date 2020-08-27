@@ -1,8 +1,7 @@
 import React, { createContext, useState, useEffect, Component} from 'react';
-import api from '../api';
-import localStorage from '../storage/localStorage'
-import local from '../storage/localStorage';
-export const AuthContext = createContext(); // create context
+import local from '../../storage/localStorage';
+
+export const AuthService = createContext(); // create context
 
 
 export default ({ children }) => {
@@ -12,7 +11,7 @@ export default ({ children }) => {
     const [userId, setUserId] = useState(null)
 
     useEffect(() => {
-        const user = localStorage.get('currentUser')
+        const user = local.get('currentUser')
         const userId = local.get('currentId')
         setUser(user);
         setUserId(userId)
@@ -24,9 +23,9 @@ export default ({ children }) => {
     return (
         <div>
             {!isLoaded ? <h1>Loading</h1> :
-                <AuthContext.Provider value={{ user, setUser, isAuthenticated, setIsAuthenticated, userId, setUserId }}>
+                <AuthService.Provider value={{ user, setUser, isAuthenticated, setIsAuthenticated, userId, setUserId }}>
                     {children}
-                </AuthContext.Provider>}
+                </AuthService.Provider>}
         </div>
     )
 }
