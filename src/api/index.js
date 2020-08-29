@@ -14,9 +14,10 @@ const api = Axios.create({
 
 const getAllParents = payload => api.get('/parent', payload)
 const registerParent = payload => api.post('/parents',payload)
-const getParentById = (id)=> api.get(`/parents/${id}`)
+// const getAllByParentID = (id)=> api.get(`/parents/${id}`)
 
 const createKid = payload => api.post('/kids',payload)
+const getAllChildByParentID = id => api.get(`/kids/all/${id}`)
 
 const login = payload => api.post('/login', payload)
 // const isAuthenticated = id => api.get(`/isAuthenticated/${id}`)
@@ -34,7 +35,8 @@ const apis = {
     getAuthUser,
     logOut,
     createKid,
-    getParentById
+    getAllChildByParentID
+    // getParentById
 }
 
 export default apis

@@ -12,7 +12,7 @@ function App() {
     
     <AuthProvider>
         <Router>
-        <NavBar/>
+          <NavBar/>
           <RoutePage/>
           <Footer/>
         </Router>

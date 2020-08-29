@@ -8,7 +8,7 @@ export class RegisterPage extends Component {
     constructor(props) {
         super(props)  
         this.state = {
-             username: '',
+             name: '',
              email : '',
              password : '',
              password2 : ''
@@ -24,7 +24,7 @@ export class RegisterPage extends Component {
     register = async e => {
         e.preventDefault()
         const payload = {
-            username : this.state.username,
+            name : this.state.name,
             email : this.state.email,
             password : this.state.password
         }
@@ -63,9 +63,9 @@ export class RegisterPage extends Component {
                 <form className='registerForm' onSubmit= {this.register}>
                     <input 
                         type='text' 
-                        name='username' 
-                        placeholder='username' 
-                        value={this.state.username} 
+                        name='name' 
+                        placeholder='name' 
+                        value={this.state.name} 
                         onChange={this.handleChange}
                         required='true'>
                     </input>
