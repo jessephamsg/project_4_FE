@@ -1,6 +1,9 @@
 export default  {
+
     gameInitialState () {
         return {
+            id: null,
+            name: null,
             totalLevel: null,
             totalScore: null,
             startTime: [],
@@ -12,6 +15,18 @@ export default  {
             gameStats: {},
             viewGame: false,
             viewBoard: false,
+        }
+    },
+
+    gameStatsPayload (gameID, level, startTime, endTime, score, attemptsBeforeSuccess, numberOfPauses) {
+        return {
+            gameID,
+            level,
+            startTime,
+            endTime,
+            score, 
+            attemptsBeforeSuccess,
+            numberOfPauses
         }
     }
 }

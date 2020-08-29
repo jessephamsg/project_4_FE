@@ -42,7 +42,7 @@ const DraggableList = ({ items, winningOrder, img, currentOption, level, updateG
   })
 
   const updateStats = () => {
-    const {isCorrect, submitTime, score} = gameUtils.getSubmissionStats(order.current, winningOrder)
+    const {isCorrect, submitTime, score} = gameUtils.getSubmissionStats(order.current, winningOrder);
     updateGameStats(level, isCorrect, submitTime, score);
   }
   

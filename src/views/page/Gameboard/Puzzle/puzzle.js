@@ -2,24 +2,36 @@
 import React, {Component} from 'react';
 import gameConfig from './config/gameSettings';
 import gameUtils from '../utils';
+import {AuthService} from '../../../../services/AuthService';
+
+//API CALLS
+import axios from 'axios';
+import apis from '../../../../api';
 
 //GAME STANDARD MODELS
 import GameStatsModel from '../../../../models/GameStats';
 import LevelStatsModel from '../../../../models/LevelStats';
+
+//LOCAL STORAGE
+import LocalGameState from '../../../../storage/gameLocalState';
 
 //COMPONENTS
 import SelectLevelBoard from '../../../common/components/SlidingBoard/selectLevelBoard';
 import WelcomeBoard from '../../../common/components/SlidingBoard/welcomeBoard';
 import ScoreBoard from '../../../common/components/SlidingBoard/scoreBoard';
 import DragglebleList from './draggableList';
-import ListOptions from './listOptions'
+import ListOptions from './listOptions';
 
 //STYLES
 //import layout from '../../../common/layouts/gameContainer.styles.css';
 import './style_module.css';
 
 
+const gameName = 'puzzle';
+
 class PuzzleGame extends Component {
+
+    static contextType = AuthService
 
     constructor (props) {
         super (props) 
@@ -31,19 +43,97 @@ class PuzzleGame extends Component {
     }
 
     componentDidMount () {
+        this.getGameID();
+        this.setGameSettings();
+    }
+
+    updateStartTime (startTime) {
+        const gameName = this.state.name;
+        const result = LocalGameState.getGameLocal();
+        if (result !== null) {
+            if (result[`${gameName}`] !== null) {
+                this.setState({
+                    startTime: this.state.startTime === undefined ? [startTime] : [...this.state.startTime, startTime],
+                    viewGame: true
+                });
+            } else {
+                LocalGameState.createGameLocal(gameName);
+                this.createKidStats();
+                this.setState({viewGame: true});
+            }
+        } else {
+                LocalGameState.createGameLocal(gameName);
+                this.createKidStats();
+                this.setState({viewGame: true});
+        }
+    }
+
+    async getGameID () {
+        const gameObject = await apis.getGameID(gameName)
+        const gameID = gameObject.data.data[0]._id;
+        this.setState({
+            name: gameName,
+            id: gameID
+        });
+    }
+
+    setGameSettings () {
         const totalLevel = Object.keys(gameConfig.settings());
-        const currentLevelSettings = gameConfig.settings()[0] //need to update totalScore from API too
+        const currentLevel = LocalGameState.getGameLocal()[gameName].currentLevel || 0;
+        const currentOption = LocalGameState.getGameLocal()[gameName].currentOption || 1;
+        const currentLevelSettings = gameConfig.settings()[currentLevel] //need to update totalScore from API too
         const gameStats = {};
         for(const level of totalLevel) {
             gameStats[level] = LevelStatsModel.levelInitialStats();
         }
         this.setState({
             totalScore: 0,
-            currentLevel: 0,
+            currentLevel: currentLevel,
             currentLevelSettings,
             totalLevel,
             gameStats,
-            currentOption: 1
+            currentOption: currentOption
+        })
+    }
+
+    updateGameStats (level, isCorrect, submittedAt, totalScore) {
+        let gameStats = {...this.state.gameStats}
+        const overallTotal = this.state.totalScore + totalScore;
+        const updatedGameStats = gameUtils.updateDefaultGameStatsObj(gameStats, level, submittedAt, isCorrect, totalScore);
+        this.setState({
+            gameStats: updatedGameStats,
+            totalScore: overallTotal
+        });
+        this.updateKidStats(level, this.state.gameStats);
+    }
+
+    async updateKidStats (level, levelStatsState) {
+        const gameID = this.state.id;
+        const kidID = this.context.userId;//this is currently parentsID need to edit
+        const {startTime, endTime, score, attemptsBeforeSuccess} = gameUtils.analyseLevelStats(levelStatsState[`${level}`]);
+        const kidStatsPayload = GameStatsModel.gameStatsPayload(gameID, level, startTime, endTime, score, attemptsBeforeSuccess, null);
+        const result = await apis.updateKidStats(kidID, gameID, level, kidStatsPayload);
+    }
+
+    async createKidStats () {
+        const gameID = this.state.id;
+        const kidID = this.context.userId;
+        const totalLevels = this.state.totalLevel;
+        const kidStatsPayloadArr = [];
+        for (const level of totalLevels) {
+            const levelPayload = GameStatsModel.gameStatsPayload(gameID, level, '', '', 0, 0, null);
+            kidStatsPayloadArr.push(levelPayload)
+        }
+        const result = await apis.createKidStats(kidID, gameID, kidStatsPayloadArr);
+    }
+
+    updateOption (option,level) {
+        this.setState({
+            currentOption: option,
+        });
+        LocalGameState.updateGameLocal(gameName, {
+            currentLevel: level, 
+            currentOption: option
         })
     }
 
@@ -53,28 +143,9 @@ class PuzzleGame extends Component {
             currentLevel: level,
             currentLevelSettings
         });
-    }
-
-    updateGameStats (level, isCorrect, submittedAt, totalScore) {
-        let gameStats = {...this.state.gameStats}
-        const overallTotal = this.state.totalScore + totalScore;
-        const updatedGameStats = gameUtils.updateDefaultGameStatsObj(gameStats, level, submittedAt, isCorrect, totalScore)
-        this.setState({
-            gameStats: updatedGameStats,
-            totalScore: overallTotal
-        });
-    }
-
-    updateStartTime (startTime) {
-        this.setState({
-            startTime: this.state.startTime === undefined ? [startTime] : [...this.state.startTime, startTime],
-            viewGame: true
-        })
-    }
-
-    updateOption (option,level) {
-        this.setState({
-            currentOption: option,
+        LocalGameState.updateGameLocal(gameName, {
+            currentLevel: level, 
+            currentOption: 1
         })
     }
  

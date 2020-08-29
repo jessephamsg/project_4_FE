@@ -10,6 +10,7 @@ import api from '../../../api';
 import avatar from '../../common/assets/avatar'
 import local from '../../../storage/localStorage';
 
+
 const calAge = (input) => {
     // input date is in "YYYY-MM-DD"
     const splitDate = input.split("-")
@@ -19,7 +20,9 @@ const calAge = (input) => {
     return age
 
 }
+
 class ParentDashboard extends Component {
+    
     static contextType = AuthService
     state = {
         modal: false,

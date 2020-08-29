@@ -20,7 +20,7 @@ class RoutePage extends Component {
                 <Route exact path='/'  component={LandingPage}/>
                 <Route path='/login' component ={LoginPage}/>
                 <Route path='/register' component ={RegisterPage}/>
-                <Route path='/child/:childname/game/:gameid' component={Gameboard}/>
+                <Route path='/child/:childname/game/:gameName' component={Gameboard}/>
                 <ProtectedRoute path={`/home/:username`} component={HomePage}> </ProtectedRoute>
                 <ProtectedRoute exact path={`/home/dashboard/:childname`}component={ChildDashboard}> </ProtectedRoute>
                 <ProtectedRoute path={`/dashboard/:username`}component={ParentDashboard}> </ProtectedRoute>
