@@ -21,14 +21,14 @@ function LoginPage () {
         e.preventDefault()
         try {
             const login = await api.login(state)
-                const { _id, username} = login.data.currentUser
+                const { _id, name} = login.data.currentUser
                 console.log(login.data)
                 local.set("currentId", _id) // set localstorage a token
-                local.set("currentUser",username)
+                local.set("currentUser",name)
                 context.setUserId(_id)
-                context.setUser(username)
+                context.setUser(name)
                 context.setIsAuthenticated(true)
-                history.push(`/home/${username}`) // does not refresh entire page
+                history.push(`/home/${name}`) // does not refresh entire page
         } catch (e) {
             console.log(e)
         }

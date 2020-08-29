@@ -26,13 +26,14 @@ class ParentDashboard extends Component {
         iconModal : false
       }
 
-    getAllParent = async (currentId) => {
-        const result = await api.getParentById(currentId)
+    getAllChildByParentID = async (currentId) => {
+        console.log('getting')
+        const result = await api.getAllChildByParentID(currentId)
+        console.log(result.data.data)
         this.setState ({
-            parentData : result.data.data,
-            kidList : result.data.data.kidsList
+            kidList : result.data.data.length? result.data.data : null
         })
-        console.log(this.state.kidList[0])
+        console.log(this.state.kidList)
     }
       
     toggleAddModal = () => {
@@ -63,20 +64,21 @@ class ParentDashboard extends Component {
         const payload = {
             parentID : parentID,
             name : this.state.kidName,
-            dob : this.state.dob,
-            age : calAge(this.state.dob),
+            bDay : this.state.bDay,
+            age : calAge(this.state.bDay),
             maxScreenTime : 10,
             icon : this.state.icon,
         }
+        console.log(payload)
         const createKid = await api.createKid(payload) // create kid and add to kidlist
         if (!createKid){alert('something went wrong with creation', createKid)}
-        await this.getAllParent(parentID) // map childlist data
+        await this.getAllChildByParentID(parentID) // map childlist data
         await this.toggleAddModal()
     }
     componentDidMount () {
         const currentId = local.get('currentId')
         console.log(currentId)
-        this.getAllParent(currentId)
+        this.getAllChildByParentID(currentId)
     }
     
 
@@ -94,10 +96,12 @@ class ParentDashboard extends Component {
                             </div>
                         </div>
                         <div className='right-container'>
-                            {!this.state.kidList ? <h1>You have not enter a child yet</h1> :
-                            this.state.kidList.map((kid) => 
-                                <ChildReport childname={kid.kidName} icon={kid.kidIcon} key={kid.kidID} />
-                            )}
+                            {!this.state.kidList ? 
+                                <h1>You have not enter a child yet</h1> :
+                                this.state.kidList.map(kid => {
+                                return <ChildReport childname={kid.name} icon={kid.icon} key={kid._id} data={kid} />
+                                })
+                            }
                         </div>
                     </div>
                 </div>
@@ -117,11 +121,11 @@ class ParentDashboard extends Component {
 
                             <MDBInput 
                                 required
-                                label="DOB"
-                                hint ="DOB"
-                                name ="dob"
+                                label="bDay"
+                                hint ="bDay"
+                                name ="bDay"
                                 type ="date" 
-                                value={this.state.dob}
+                                value={this.state.bDay}
                                 onChange={this.handleChange}
                             />
 

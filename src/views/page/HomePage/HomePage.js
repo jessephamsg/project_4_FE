@@ -6,24 +6,23 @@ import api from '../../../api'
 
 
 export class HomePage extends Component {
-    state={
+    state= {
         kidlist : null
     }
 
 
-    getAllParent = async (currentId) => {
-        const result = await api.getParentById(currentId)
+    getAllChildByParentID = async (currentId) => {
+        const result = await api.getAllChildByParentID(currentId)
         this.setState ({
-            parentData : result.data.data,
-            kidList : result.data.data.kidsList
+            kidList : result.data.data.length ? result.data.data : null
         })
-        console.log(this.state.kidList[0])
+        console.log(this.state.kidList)
     }
 
     componentDidMount () {
         const currentId = local.get('currentId')
         console.log(currentId)
-        this.getAllParent(currentId)
+        this.getAllChildByParentID(currentId)
     }
     
 
@@ -34,10 +33,12 @@ export class HomePage extends Component {
                 <div className='homepage'>
                     <h1>Hi friend, What is your name?</h1>
                     <div className='childList'>
-                        {!this.state.kidList ? <h1>You have not enter a child yet</h1> :
-                            this.state.kidList.map((kid) => 
-                                <ChildCard childname={kid.kidName} icon={kid.kidIcon} key={kid.kidID} />
-                            )}
+                        {!this.state.kidList ? 
+                        <h1>You have not enter a child yet</h1> 
+                        :
+                        this.state.kidList.map((kid) => 
+                            <ChildCard childname={kid.name} icon={kid.icon} key={kid._id} />
+                        )}
                     </div>
                 </div>
                 
