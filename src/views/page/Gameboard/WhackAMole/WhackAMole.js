@@ -12,6 +12,9 @@ import SelectLevelBoard from '../../../common/components/SlidingBoard/selectLeve
 import WelcomeBoard from '../../../common/components/SlidingBoard/welcomeBoard';
 import ScoreBoard from '../../../common/components/SlidingBoard/scoreBoard';
 
+//CHILDREM
+import MoleHole from './MoleHole';
+
 //STYLES
 import './style_module.css';
 
@@ -30,6 +33,25 @@ export class WhackAMole extends Component {
         //     gameStats: {},
         //     viewGame: false,
         //     viewBoard: false,
+        this.state = {
+            ...this.state,
+            1:'translate(0, 110%)',
+            2:'translate(0, 110%)',
+            3:'translate(0, 110%)',
+            4:'translate(0, 110%)',
+            5:'translate(0, 110%)',
+            6:'translate(0, 110%)',
+            7:'translate(0, 110%)',
+            8:'translate(0, 110%)',
+            9:'translate(0, 110%)',
+            shake: 'translate(0, 0)',
+            gameHasStarted: false,
+            moleHasBeenWhacked: false,
+            score: 0,
+            lastMole: '',
+
+        };
+
         this.updateCurrentLevel = this.updateCurrentLevel.bind(this);
         this.updateGameStats = this.updateGameStats.bind(this);
         this.updateStartTime = this.updateStartTime.bind(this);
@@ -84,6 +106,43 @@ export class WhackAMole extends Component {
         })
     }
 
+    lockOutClick() {
+        window.setTimeout(() => {
+            this.setState({ moleHasBeenWhacked: false })
+        }, 350)
+    }
+
+    addToScore(e) {
+        if (this.state.moleHasBeenWhacked) { return; }
+        let target = e.target;
+        target.parentNode.classList.add('game__cross');
+        target.classList.add('no-background');
+        this.lockOutClick();
+        this.setState({
+            background: '75px',
+            moleHasBeenWhacked: true,
+            score: [parseInt(this.state.score, 10) + 1]
+        });
+        window.setTimeout(function () {
+            target.parentNode.classList.remove('game__cross');
+            target.classList.remove('no-background');
+        }, 500)
+    }
+
+    createMoleHoles() {
+        var holes = [];
+        for (let i = 1; i <= 8; i++) {
+            holes.push(<MoleHole key={i} context={this.state}
+                onClick={this.addToScore.bind(this)} holeNumber={i} />);
+        }
+        console.log(holes);
+        return (
+            <div className="board">
+                {holes}
+            </div>
+        );
+    }
+
     render() {
         if (this.state.currentLevel == null) {
             return (
@@ -96,7 +155,7 @@ export class WhackAMole extends Component {
                     <div id='gameContainer'>
                         <div className='gameContentLeft'>
                             <h1>Level: {this.state.currentLevel}</h1>
-                            <h1>Score: {this.state.currentLevel}</h1>
+                            <h1>Score: {this.state.score}</h1>
                             <h1>Timer: {this.state.currentLevel}</h1>
                             <div className='gameStatsBoards'>
                                 <SelectLevelBoard
@@ -111,7 +170,7 @@ export class WhackAMole extends Component {
 
                         <div className='gameContentWrapper'>
                             <div className='gameMainContent'>
-                                <h2>Whack a mole game here</h2>
+                                {this.createMoleHoles()}
                             </div>
                         </div>
                     </div>
