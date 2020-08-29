@@ -56,8 +56,8 @@ export class Gameboard extends Component {
                 case '456':
                     return (
                         <React.Fragment>
-                            <h1>Hi {this.state.kidName}, you're playing {this.state.gameID}</h1>
-                            <WhackAMole gameID={this.state.gameID} />
+                            {/* <h1>Hi {this.state.kidName}, you're playing {this.state.gameID}</h1> */}
+                            <WhackAMole />
                         </React.Fragment>
                     );
                 case '567':
