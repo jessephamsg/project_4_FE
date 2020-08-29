@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react'
-import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBInputGroup } from 'mdbreact';
 import ChildReport from '../../common/components/Card/ChildReport'
 import './style_module.css'
 import ActionBtn from '../../common/elements/ActionBtn'
@@ -7,85 +6,127 @@ import { ModalInput } from '../../common/components/Modal';
 import Input from '../../common/elements/Input';
 import {AuthService} from '../../../services/AuthService';
 import api from '../../../api';
-import avatar from '../../common/assets/avatar'
 import local from '../../../storage/localStorage';
+import Utility from '../../common/Utility';
+import EditChildModal from '../../common/components/Modal/EditChildModal'
+import NewChildModal from '../../common/components/Modal/NewChildModal'
 
-const calAge = (input) => {
-    // input date is in "YYYY-MM-DD"
-    const splitDate = input.split("-")
-    const userDate = new Date(splitDate[0],splitDate[1],splitDate[2])
-    const today = new Date()
-    const age = Math.round((Math.abs(today.getTime() - userDate.getTime()) / (1000 * 3600 * 24 * 365.25)))
-    return age
 
-}
+
 class ParentDashboard extends Component {
     static contextType = AuthService
     state = {
-        modal: false,
-        iconModal : false
+        kidList :[],
+        isAddModalOpen : false,
+        isEditModalOpen :false,
+        editedKid : {
+            name : '',
+            bDay : '',
+            icon : '',
+            maxScreenTime : 0,
+            age : 0
+        }
       }
 
     getAllChildByParentID = async (currentId) => {
         console.log('getting')
         const result = await api.getAllChildByParentID(currentId)
-        console.log(result.data.data)
+        console.log(result.data.data.length)
         this.setState ({
             kidList : result.data.data.length? result.data.data : null
         })
-        console.log(this.state.kidList)
+    }
+    toggleEditChildModal = (index) => {
+        const dummyKid = {
+                name : '',
+                bDay : '',
+                icon : '',
+                maxScreenTime : 0,
+                age : 0
+        }
+        this.setState({
+            editedKid : this.state.kidList[index] || dummyKid,
+            isEditModalOpen : !this.state.isEditModalOpen
+        })
     }
       
     toggleAddModal = () => {
-        this.setState({
-          modal: !this.state.modal
-        });
-    }
-
-    toggleIconModal = () => {
-        this.setState({
-          iconModal: !this.state.iconModal
-        });
-    }
-    addIcon = async e => {
-        e.preventDefault()
-        await this.toggleIconModal()
-    }
-
-    handleChange = event => {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
-    addChild = async e => {
-        e.preventDefault()
-        const currentUser = await api.getAuthUser()
-        const parentID = currentUser.data.data._id
-        const payload = {
-            parentID : parentID,
-            name : this.state.kidName,
-            bDay : this.state.bDay,
-            age : calAge(this.state.bDay),
-            maxScreenTime : 10,
-            icon : this.state.icon,
+        const altNewKid = {
+            name : '',
+            bDay : '',
+            icon : '',
+            maxScreenTime : 0,
+            age : 0
         }
+        this.setState({
+            addKid : this.state.addKid || altNewKid,
+            isAddModalOpen: !this.state.isAddModalOpen
+        });
+    }
+
+    handleChange = e => {
+        console.log(e.target.name)
+        const newState = Object.assign(this.state.editedKid,{[e.target.name]: e.target.value})
+        this.setState({
+            editedKid : newState
+        })
+        console.log(this.state.editedKid)
+    }
+
+    addChild = async (payload) => {
         console.log(payload)
-        const createKid = await api.createKid(payload) // create kid and add to kidlist
-        if (!createKid){alert('something went wrong with creation', createKid)}
-        await this.getAllChildByParentID(parentID) // map childlist data
+        await api.createKid(payload) // create kid and add to kidlist
+        await this.getAllChildByParentID(payload.parentID) // map childlist data
         await this.toggleAddModal()
     }
+
     componentDidMount () {
         const currentId = local.get('currentId')
         console.log(currentId)
         this.getAllChildByParentID(currentId)
     }
-    
-
+    updateChild = async (e) => {
+        e.preventDefault()
+        const kidId = this.state.editedKid._id
+        const payload = {
+            name : this.state.editedKid.name,
+            bDay : this.state.editedKid.bDay,
+            age : Utility.calAge(this.state.editedKid.bDay),
+            maxScreenTime : this.state.editedKid.maxScreenTime,
+            icon : this.state.editedKid.icon,
+            isPlaying : this.state.editedKid.isPlaying
+        }
+        console.log(payload)
+        console.log(this.state.editedKid)
+        await api.updateKid(payload, kidId)
+        await this.toggleEditChildModal()
+    }
 
     render() {
         return (
             <Fragment>
+                <EditChildModal
+                    isModalOpen = {this.state.isEditModalOpen}
+                    name = {this.state.editedKid.name}
+                    bDay = { this.state.editedKid.bDay}
+                    maxScreenTime = {this.state.editedKid.maxScreenTime}
+                    icon = {this.state.editedKid.icon}
+                    toggleModal = {this.toggleEditChildModal}
+                    submit = {this.updateChild}
+                    handleChange= {this.handleChange}
+                    iconModal = {this.state.iconModal}
+                    toggleIconModal = {this.toggleIconModal}
+                />
+                <NewChildModal
+                    isModalOpen = {this.state.isAddModalOpen}
+                    toggleModal = {this.toggleAddModal}
+                    submit = {this.addChild}
+                    handleChange= {this.handleChange}
+                    iconModal = {this.state.iconModal}
+                    toggleIconModal = {this.toggleIconModal}
+                    addChild = {this.addChild}
+                />
+
                 <div className='parentDashboard'>
                     <h1>Hi {this.props.match.params.username}</h1>
                     <div className='main-container'>
@@ -98,102 +139,23 @@ class ParentDashboard extends Component {
                         <div className='right-container'>
                             {!this.state.kidList ? 
                                 <h1>You have not enter a child yet</h1> :
-                                this.state.kidList.map(kid => {
-                                return <ChildReport childname={kid.name} icon={kid.icon} key={kid._id} data={kid} />
-                                })
+                                this.state.kidList.map((kid,index) => {
+                                return (
+                                    <ChildReport 
+                                        childname={kid.name} 
+                                        icon={kid.icon} 
+                                        key={kid._id} 
+                                        id={kid._id} 
+                                        data={kid}
+                                        index= {index}
+                                        toggleEditChildModal = {this.toggleEditChildModal}
+                                    />
+
+                                )})
                             }
                         </div>
                     </div>
                 </div>
-                <MDBContainer>
-                    <form onSubmit={this.addChild}>
-                    <MDBModal isOpen={this.state.modal} toggle={this.toggleAddModal}>
-                        <MDBModalHeader toggle={this.toggleAddModal}>MDBModal title</MDBModalHeader>
-                        <MDBModalBody>
-                            <MDBInput
-                                required 
-                                label="Your child's name"
-                                name = "kidName"
-                                type ="text" 
-                                value={this.state.kidname}
-                                onChange={this.handleChange}
-                            />
-
-                            <MDBInput 
-                                required
-                                label="bDay"
-                                hint ="bDay"
-                                name ="bDay"
-                                type ="date" 
-                                value={this.state.bDay}
-                                onChange={this.handleChange}
-                            />
-
-                            <MDBInputGroup
-                                material
-                                containerClassName='mb-3 mt-0'
-                                prepend={
-                                    <MDBBtn
-                                    className= 'px-2 mx-0'
-                                    color='primary' 
-                                    onClick={this.toggleIconModal}
-                                    > Select Icon
-                                    </MDBBtn>
-                                }
-                                required
-                                hint ="select an icon or a url image of your choice"
-                                name ="icon"
-                                type ="text" 
-                                value={this.state.icon}
-                                onChange={this.handleChange}
-                            >
-                            </MDBInputGroup>
-
-                        </MDBModalBody>
-                        <MDBModalFooter>
-                        <MDBBtn color="secondary" onClick={this.toggleAddModal}>Close</MDBBtn>
-                        <MDBBtn color="primary" type="submit">Add child</MDBBtn>
-                        </MDBModalFooter>
-                    </MDBModal>
-                    </form>
-                </MDBContainer>
-
-                <MDBContainer>
-                    <form onSubmit={this.addIcon}>
-                    <MDBModal isOpen={this.state.iconModal} toggle={this.toggleIconModal}>
-                        <MDBModalHeader toggle={this.toggleIconModal}>choose an icon </MDBModalHeader>
-                        <MDBModalBody className='iconSelection'>
-
-                            {Object.keys(avatar).map((key,index) => {
-                                return <div className='icon' key={index}>
-                                        <label htmlFor= {key}>
-                                            <img src={avatar[key]}
-                                                alt={key} 
-                                                title={key}
-                                                className='iconImg'
-                                                />
-                                        </label>
-                                        <input 
-                                            type= 'radio' 
-                                            id={key} 
-                                            name='icon' 
-                                            value={avatar[key]} 
-                                            onClick={this.handleChange}
-                                        />
-                                    </div>
-                                })
-                            }
-
-                        </MDBModalBody>
-                        <MDBModalFooter>
-                        <MDBBtn color="secondary" onClick={this.toggleIconModal}>Close</MDBBtn>
-                        <MDBBtn color="primary" type="submit">Add Icon</MDBBtn>
-                        </MDBModalFooter>
-                    </MDBModal>
-                    </form>
-                </MDBContainer>
-
-
             </Fragment>
         )
     }

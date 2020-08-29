@@ -1,51 +1,82 @@
 import React, { Component } from 'react'
 import './style_module.css'
 import ActionBtn from '../../../elements/ActionBtn'
+import { withRouter } from 'react-router-dom'
+// import avatar from '../../../assets/avatar'
+// import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBInputGroup } from 'mdbreact';
+// import Utility from '../../../Utility'
+// import api from '../../../../../api'
+// import EditChildModal from '../../Modal/EditChildModal'
 
 export class ChildReport extends Component {
-
-    editChild () {
-        alert('editing')
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+             editModal : false,
+             iconModal : false,
+             isEditModalOpen : false
+        }
+    }
+    
+    handleChange = event => {
+        console.log('changing')
+        this.setState({
+            [event.target.name]: event.target.value
+        })
     }
 
-    deleteChild () {
+    toggleIconModal = () => {
+        this.setState({
+          iconModal: !this.state.iconModal
+        });
+    }
+    addIcon = async e => {
+        e.preventDefault()
+        await this.toggleIconModal()
+    }
+
+    deleteChild = () => {
         alert('deleting')
+    }
+    directToChildReportPage = () => {
+        this.props.history.push(`/child/${this.props.childname}/report`)
+    }
+    toggleEditChildModal = () => {
+        this.props.toggleEditChildModal(this.props.index)
     }
 
     render() {
-        console.log(this.props.data)
         return (
-            <div className='ChildReport'>
-                {/* <a href= {`/child/${this.props.childname}/report`}>
-                <div className='icon_container'>
-                    <img className='childIcon' src={this.props.icon} alt= 'childname' title='childname'/>
-                </div>
-                    <h2> {this.props.childname} statistic use flipcard </h2>
-                </a> */}
-                
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
+            <div className='childReport'>                
+                <div className="flip-card">
+                    <div className="flip-card-inner">
+                        <div className="flip-card-front">
                             <img 
                                 src={this.props.icon} 
                                 alt={`${this.props.childname}` + "icon"}
                                 title={`${this.props.childname}` + "icon"} 
-                                className='childIcon' 
-                                style={{width:"300px" , height:"300px"}}/>
+                                className='childIcon'
+                            />
+                            <h1> {this.props.childname}</h1>
+                            <p>Last played at :</p>
                         </div>
-                    <div class="flip-card-back">
-                        <h1>{this.props.childname}</h1> 
-                        <p>Architect Engineer</p> 
-                        <p>We love that guy</p>
-                        <ActionBtn text='Edit' onClick={this.editChild}/>
-                        <ActionBtn text='Graduate' onClick={this.deleteChild}/>
-                        <ActionBtn text='See Performance' onClick={this.directToChildReportPage} />
+                        <div className="flip-card-back">
+                            <div>
+                                <h1>{this.props.childname}</h1> 
+                                <h1>Age : {this.props.data.age}</h1> 
+                            </div>
+                            <div className ='action'>
+                                <ActionBtn text='Edit' onClick={this.toggleEditChildModal}/>
+                                <ActionBtn text='Del' onClick={this.deleteChild}/>
+                                <ActionBtn text='See' onClick={this.directToChildReportPage} />
+                            </div>
+                        </div>
                     </div>
                 </div>
-                </div>
-                
+
             </div>
         )
     }
 }
-export default ChildReport
+export default withRouter(ChildReport)
