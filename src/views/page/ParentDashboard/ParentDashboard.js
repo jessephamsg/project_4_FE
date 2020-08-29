@@ -9,16 +9,10 @@ import {AuthService} from '../../../services/AuthService';
 import api from '../../../api';
 import avatar from '../../common/assets/avatar'
 import local from '../../../storage/localStorage';
+import Utility from '../../common/Utility';
 
-const calAge = (input) => {
-    // input date is in "YYYY-MM-DD"
-    const splitDate = input.split("-")
-    const userDate = new Date(splitDate[0],splitDate[1],splitDate[2])
-    const today = new Date()
-    const age = Math.round((Math.abs(today.getTime() - userDate.getTime()) / (1000 * 3600 * 24 * 365.25)))
-    return age
 
-}
+
 class ParentDashboard extends Component {
     static contextType = AuthService
     state = {
@@ -29,11 +23,11 @@ class ParentDashboard extends Component {
     getAllChildByParentID = async (currentId) => {
         console.log('getting')
         const result = await api.getAllChildByParentID(currentId)
-        console.log(result.data.data)
+        console.log(result.data.data.length)
         this.setState ({
             kidList : result.data.data.length? result.data.data : null
         })
-        console.log(this.state.kidList)
+        console.log(this.state.kidList.length)
     }
       
     toggleAddModal = () => {
@@ -65,8 +59,8 @@ class ParentDashboard extends Component {
             parentID : parentID,
             name : this.state.kidName,
             bDay : this.state.bDay,
-            age : calAge(this.state.bDay),
-            maxScreenTime : 10,
+            age : Utility.calAge(this.state.bDay),
+            maxScreenTime : this.state.maxScreenTime,
             icon : this.state.icon,
         }
         console.log(payload)
@@ -99,12 +93,20 @@ class ParentDashboard extends Component {
                             {!this.state.kidList ? 
                                 <h1>You have not enter a child yet</h1> :
                                 this.state.kidList.map(kid => {
-                                return <ChildReport childname={kid.name} icon={kid.icon} key={kid._id} data={kid} />
-                                })
+                                return (
+                                    <ChildReport 
+                                        childname={kid.name} 
+                                        icon={kid.icon} 
+                                        key={kid._id} 
+                                        id={kid._id} 
+                                        data={kid}
+                                    />
+                                )})
                             }
                         </div>
                     </div>
                 </div>
+
                 <MDBContainer>
                     <form onSubmit={this.addChild}>
                     <MDBModal isOpen={this.state.modal} toggle={this.toggleAddModal}>
@@ -126,6 +128,15 @@ class ParentDashboard extends Component {
                                 name ="bDay"
                                 type ="date" 
                                 value={this.state.bDay}
+                                onChange={this.handleChange}
+                            />
+
+                            <MDBInput 
+                                required
+                                label="Maximum screen Time in seconds"
+                                name ="maxScreenTime"
+                                type ="number" 
+                                value={this.state.maxScreenTime}
                                 onChange={this.handleChange}
                             />
 

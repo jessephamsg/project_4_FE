@@ -3,6 +3,7 @@ import React, { Component, Fragment } from 'react'
 export class ChildReportPage extends Component {
 
     render() {
+        console.log(this.state)
         return (
             <Fragment>
             <div>

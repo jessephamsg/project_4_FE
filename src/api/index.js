@@ -17,7 +17,9 @@ const registerParent = payload => api.post('/parents',payload)
 // const getAllByParentID = (id)=> api.get(`/parents/${id}`)
 
 const createKid = payload => api.post('/kids',payload)
+const updateKid = (payload, id) => api.put(`/kids/${id}` , payload)
 const getAllChildByParentID = id => api.get(`/kids/all/${id}`)
+const getOneKid = id => api.get(`/kids/${id}`)
 
 const login = payload => api.post('/login', payload)
 // const isAuthenticated = id => api.get(`/isAuthenticated/${id}`)
@@ -35,7 +37,9 @@ const apis = {
     getAuthUser,
     logOut,
     createKid,
-    getAllChildByParentID
+    getAllChildByParentID,
+    updateKid,
+    getOneKid
     // getParentById
 }
 
