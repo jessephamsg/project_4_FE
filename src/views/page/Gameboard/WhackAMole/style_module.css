@@ -82,21 +82,20 @@
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
-    cursor: url("./assets/hammerUps.png"), auto;
+    cursor: url("./assets/hammerUps.png") 25 75, auto;
     background-color: yellow;
 }
 
 .board:active {
-    cursor: url("./assets/hammerDowns.png"), auto;
+    cursor: url("./assets/hammerDowns.png") 25 75, auto;
 }
-
 
 .game__hole {
     margin: 2px;
     overflow: hidden;
     width: 30vw;
     height: 30vw;
-    background-color: teal;
+    /* background-color: teal; */
 }
 
 .game__mound {
@@ -110,7 +109,7 @@
     bottom: 99%;
     pointer-events: none;
     backface-visibility: hidden;
-    background-color: tomato;
+    /* background-color: tomato; */
 }
 
 .game__mole {
@@ -121,8 +120,8 @@
     height: 100%;
     transform: translate(0, 50%);
     transition: all 0.4s;
-    cursor: pointer;
-    background-color: turquoise;
+    /* cursor: pointer; */
+    /* background-color: turquoise; */
 }
 
 .game__whack {
