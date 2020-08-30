@@ -39,6 +39,7 @@
 
 .gameMainContent {
     display: flex;
+    flex-flow: column nowrap;
     width: 80%;
     /* background-color: sandybrown; */
 }
@@ -83,7 +84,7 @@
     justify-content: center;
     flex-wrap: wrap;
     cursor: url("./assets/hammerUps.png") 25 75, auto;
-    background-color: yellow;
+    /* background-color: yellow; */
 }
 
 .board:active {

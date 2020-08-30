@@ -14,7 +14,7 @@ import ScoreBoard from '../../../common/components/SlidingBoard/scoreBoard';
 
 //CHILDREM
 import MoleHole from './MoleHole';
-import StartButton from './StartButton';
+import Timer from './Timer';
 
 //STYLES
 import './style_module.css';
@@ -45,18 +45,42 @@ export class WhackAMole extends Component {
             7: 'translate(0, 110%)',
             8: 'translate(0, 110%)',
             9: 'translate(0, 110%)',
-            shake: 'translate(0, 0)',
+            10: 'translate(0, 110%)',
+            11: 'translate(0, 110%)',
+            12: 'translate(0, 110%)',
+            13: 'translate(0, 110%)',
+            14: 'translate(0, 110%)',
+            15: 'translate(0, 110%)',
+            16: 'translate(0, 110%)',
             gameHasStarted: false,
             moleHasBeenWhacked: false,
             score: 0,
-            lastMole: '',
-
+            numOfMoles: 8,
+            lastMole: Math.ceil(Math.random() * 9),
+            remainingTime: 5,
+            molePopDuration: 1500,
+            molePopInterval: 1500,
         };
 
         this.updateCurrentLevel = this.updateCurrentLevel.bind(this);
         this.updateGameStats = this.updateGameStats.bind(this);
         this.updateStartTime = this.updateStartTime.bind(this);
         this.updateOption = this.updateOption.bind(this);
+        this.startGame = this.startGame.bind(this)
+        this.reduceTime = this.reduceTime.bind(this)
+    }
+
+    populateMoles() {
+        var arrMoles = [];
+        for (let i = 1; i <= 9; i++) {
+            arrMoles.push(<MoleHole key={i} moleStyle={this.state}
+                onClick={this.addToScore.bind(this)} holeNumber={i} />);
+        }
+        return (
+            <div className="board">
+                {arrMoles}
+            </div>
+        );
     }
 
     componentDidMount() {
@@ -107,66 +131,35 @@ export class WhackAMole extends Component {
         })
     }
 
-    // animate(el) {
-    //     anime({
-    //         targets: el,
-    //         direction: 'alternate',
-    //         loop: true,
-    //         easing: 'easeInQuad',
-    //         duration: 1600,
-    //         scale: function (el, i, l) {
-    //             return (l - i) + .08;
-    //         },
-    //     });
-    // }
-
-    timeOut(num) {
-        if (this.state.gameHasStarted) { return };
-        this.setState({
-            buttonDisplay: 'none',
-            display: 'block',
-            gameOver: 'none',
-            titleMargin: 0
-        });
-        this.shakeScreen();
-        window.setTimeout(() => {
-            this.startGame();
-        }, num);
+    async reduceTime() {
+        await this.setState({
+            remainingTime: this.state.remainingTime - 1
+        })
     }
 
-    startGame() {
-        if (this.state.gameHasStarted) { return; }
-
-        this.setState({
-            gameHasStarted: true,
-            score: 0
-        });
-
-        let x = 0;
-        const intervalID = setInterval(() => {
-            this.displayMoles();
-            if (++x === 16) {
-                window.clearInterval(intervalID);
-                this.clearMoles();
-                this.setState({ gameHasStarted: false });
-                window.setTimeout(() => {
-                    this.setState({
-                        display: 'none',
-                        gameOver: 'block',
-                        buttonMessage: 'Play again',
-                        buttonDisplay: 'inline-block',
-                        titleMargin: '15px'
-                    });
-                    // this.animate(this.refs.gameOver);
-                }, 1500)
-            }
-        }, 1500);
+    async stopTimer() {
+        await this.setState({
+            remainingTime: 20,
+            gameHasStarted: false,
+        })
+        console.log("this.state.gameHasStarted: ", this.state.gameHasStarted)
     }
 
     lockOutClick() {
         window.setTimeout(() => {
             this.setState({ moleHasBeenWhacked: false })
         }, 1000)
+    }
+
+    async startGame() {
+        if (this.state.gameHasStarted) { return; }
+        console.log("this.state.gameHasStarted: ", this.state.gameHasStarted);
+        await this.setState({
+            gameHasStarted: true,
+            score: 0
+        });
+        console.log("this.state.gameHasStarted: ", this.state.gameHasStarted);
+        this.displayMoles();
     }
 
     addToScore(e) {
@@ -187,16 +180,29 @@ export class WhackAMole extends Component {
     }
 
     displayMoles() {
+        // const duration = this.state.molePopDuration;
+        const interval = this.state.molePopInterval;
         let activeMole = Math.ceil(Math.random() * 9);
-        if (this.state.lastMole[0] === activeMole) {
-            this.displayMoles();
-            return;
+        const creatingMoles = setInterval(() => {
+            while (activeMole === this.state.lastMole[0]) {
+                activeMole = Math.ceil(Math.random() * 9);
+                this.clearMoles();
+            }
+            console.log("activeMole: ", activeMole);
+            console.log("this.state.lastMole: ", this.state.lastMole);
+            this.setState({
+                [activeMole]: 'translate(0, 15%)',
+                lastMole: [activeMole]
+            });
+            console.log("this.state.remainingTime: ", this.state.remainingTime)
+            if (this.state.remainingTime <= 0) {
+                clearInterval(creatingMoles);
+                this.stopTimer();
+                this.clearMoles();
+                console.log("times up")
+            }
         }
-        this.clearMoles();
-        this.setState({
-            [activeMole]: 'translate(0, 15%)',
-            lastMole: [activeMole]
-        });
+            , interval);
     }
 
     clearMoles() {
@@ -207,38 +213,6 @@ export class WhackAMole extends Component {
                 });
             }
         }
-    }
-
-    createMoleHoles() {
-        var holes = [];
-        for (let i = 1; i <= 8; i++) {
-            holes.push(<MoleHole key={i} context={this.state}
-                onClick={this.addToScore.bind(this)} holeNumber={i} />);
-        }
-        console.log(holes);
-        return (
-            <div className="board">
-                {holes}
-            </div>
-        );
-    }
-
-    shakeScreen() {
-        let posOrNeg = '+';
-        let i = 0;
-        let shake = () => {
-            if (i === 15) {
-                this.setState({ shake: 'translate(0, 0)' });
-                return;
-            }
-            window.setTimeout(() => {
-                posOrNeg = posOrNeg === '-' ? '+' : '-';
-                this.setState({ shake: `translate(${posOrNeg}${i}px, 0)` });
-                shake();
-            }, 80);
-            i++
-        };
-        shake();
     }
 
     render() {
@@ -254,7 +228,8 @@ export class WhackAMole extends Component {
                         <div className='gameContentLeft'>
                             <h1>Level: {this.state.currentLevel}</h1>
                             <h1>Score: {this.state.score}</h1>
-                            <h1>Timer: {this.state.currentLevel}</h1>
+                            <Timer key={this.state.gameHasStarted} reduceTime={this.reduceTime} remainingTime={this.state.remainingTime} gameHasStarted={this.state.gameHasStarted} />
+                            <button onClick={this.startGame}>Start</button>
                             <div className='gameStatsBoards'>
                                 <SelectLevelBoard
                                     totalLevel={this.state.totalLevel}
@@ -268,8 +243,7 @@ export class WhackAMole extends Component {
 
                         <div className='gameContentWrapper'>
                             <div className='gameMainContent'>
-                                <StartButton context={this.state} onClick={this.timeOut.bind(this)} />
-                                {this.createMoleHoles()}
+                                {this.populateMoles()}
                             </div>
                         </div>
                     </div>
