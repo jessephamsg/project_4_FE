@@ -9,6 +9,7 @@ import { withRouter } from 'react-router-dom'
 
 
 export class NavBar extends Component {
+    
     static contextType = AuthService
 
     logout = async () => {

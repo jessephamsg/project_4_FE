@@ -1,32 +1,30 @@
 import Axios from 'axios';
 
-// const REACT_APP_BACKEND_URL = 'something backend hosted website'
 
 const api = Axios.create({
     withCredentials: true,
-    // headers: {
-    //     'Accept' : "application/json",
-    //     "Content-Type": "x-www-form-urlencoded"
-    // },
-    // baseURL: 'http://localhost:4000',
     baseURL: process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000',
 })
 
-const getAllParents = payload => api.get('/parent', payload)
-const registerParent = payload => api.post('/parents',payload)
-// const getAllByParentID = (id)=> api.get(`/parents/${id}`)
+//PARENTS
+const getAllParents = payload => api.get('/parent', payload);
+const registerParent = payload => api.post('/parents', payload);
 
 const createKid = payload => api.post('/kids',payload)
 const updateKid = (payload, id) => api.put(`/kids/${id}` , payload)
 const getAllChildByParentID = id => api.get(`/kids/all/${id}`)
 const getOneKid = id => api.get(`/kids/${id}`)
 
-const login = payload => api.post('/login', payload)
-// const isAuthenticated = id => api.get(`/isAuthenticated/${id}`)
-const isAuthenticated = payload => api.post('/isAuthenticated', payload)
+//AUTHENTICATION
+const login = payload => api.post('/login', payload);
+const isAuthenticated = payload => api.post('/isAuthenticated', payload);
 const getAuthUser = () => api.get('/user');
-const logOut = () => api.get('/logout')
+const logOut = () => api.get('/logout');
 
+//GAME STATS
+const getGameID = gameName => api.get(`/games/${gameName}`);
+const createKidStats = (kidID, gameID, payload) => api.post(`/kids/${kidID}/game/${gameID}`, payload);
+const updateKidStats = (kidID, gameID, level, payload) => api.put(`/kids/${kidID}/game/${gameID}?level=${level}`, payload);
 
 
 const apis = {
@@ -38,9 +36,13 @@ const apis = {
     logOut,
     createKid,
     getAllChildByParentID,
+    getGameID,
+    createKidStats,
+    updateKidStats,
     updateKid,
     getOneKid
     // getParentById
 }
+
 
 export default apis

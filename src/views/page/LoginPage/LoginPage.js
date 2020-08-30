@@ -7,8 +7,8 @@ import local from '../../../storage/localStorage'
 import {useHistory} from 'react-router-dom'
 
 
-
 function LoginPage () {
+    
     const [state, setstate] = useState({username: '', password: ''})
     const context = useContext(AuthService); // extract value from authcontext
     const history = useHistory()
