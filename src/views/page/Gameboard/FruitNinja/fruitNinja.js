@@ -1,12 +1,10 @@
 //DEPENDENCIES
 import React, {Component} from 'react';
 import gameConfig from './config/gameSettings';
-import isEqual from 'lodash.isequal';
-import gameUtils from '../utils';
+import gameUtils from '../stateControllers/utils/utils';
 
-//GAME STANDARD MODELS
-import GameStatsModel from '../../../../models/GameStats';
-import LevelStatsModel from '../../../../models/LevelStats';
+//STATE CONTROLLERS
+import stateControllers from '../stateControllers'
 
 //COMPONENTS
 import SelectLevelBoard from '../../../common/components/SlidingBoard/selectLevelBoard';
@@ -19,15 +17,40 @@ import DraggableList from './draggableList';
 import './style_module.css';
 
 
+const gameName = 'fruitNinja';
+
 class FruitNinja extends Component {
 
     constructor(props) {
         super(props)
-        this.state = GameStatsModel.gameInitialState();
+        this.state = stateControllers.InitialiseState.buildIntialStates();
         this.updateItemPositions=this.updateItemPositions.bind(this);
         this.updateGameStats=this.updateGameStats.bind(this);
         this.updateStartTime = this.updateStartTime.bind(this);
         this.updateCurrentLevel = this.updateCurrentLevel.bind(this);
+    }
+
+    componentDidMount () {
+        this.setGameSettings();
+    }
+
+    async setGameSettings () {
+        const {totalLevel, currentLevel, currentOption} = stateControllers.InitialiseState.getLatestLocalGameState(gameConfig, gameName);
+        const gameStats = {};
+        for(const level of totalLevel) {
+            gameStats[level] = stateControllers.InitialiseState.buildInitialKeyGameStats();
+            gameStats[level].currentState = {};
+        }
+        this.setState({
+            name: gameName,
+            id: await stateControllers.InitialiseState.getGameID(gameName),
+            totalScore: 0, //needs to get from API using Kid's actual ID when kids repo is checked and set up
+            currentLevel,
+            currentLevelSettings: this.setCurrentLevelSettings(0),
+            totalLevel,
+            gameStats,
+            currentOption
+        })
     }
 
     setCurrentLevelSettings (level) {
@@ -45,29 +68,56 @@ class FruitNinja extends Component {
         return currentLevelSettings;
     }
 
-    componentDidMount () {
-        const totalLevel = Object.keys(gameConfig.settings());
-        const currentLevelSettings = this.setCurrentLevelSettings(0);
-        const gameStats = {};
-        for(const level of totalLevel) {
-            gameStats[level] = LevelStatsModel.levelInitialStats();
-            gameStats[level].currentState = {};
+    async updateStartTime (startTime) {
+        this.setState({ viewGame: true })
+        if (stateControllers.InitialiseState.isFirstTimePlayingGame(gameName) === false) {
+            this.setState({
+                startTime: this.state.startTime === undefined ? [startTime] : [...this.state.startTime, startTime],
+            });
+        } else {
+            this.createKidStats();
         }
-        this.setState({
-            totalScore: 0,
-            currentLevel: 0,
-            currentLevelSettings,
-            totalLevel,
-            gameStats,
-            currentOption: 1
-        })
     }
 
-    updateStartTime (startTime) {
+    async createKidStats () {
+        const {id, totalLevel} = this.state;
+        const kidID = this.context.userId;
+        await stateControllers.InitialiseState.createKidsStats(id, gameName, kidID, totalLevel)
+    }
+
+    updateGameStats () {
+        const level = this.state.currentLevel;
+        let gameStats = {...this.state.gameStats}
+        let currentOrder = {...this.state.currentOrder}
+        const {isCorrect, submitTime, score} = gameUtils.getSubmissionStats(
+            this.getCurrentBasketOrder(),
+            this.state.currentLevelSettings.winningCriteria.items
+        )
+        const overallTotal = this.state.totalScore + score;
+        const updatedGameStats = stateControllers.UpdateState.updateDefaultGameStatsObj(gameStats, level, submitTime, isCorrect, score);
+        gameStats[`${level}`].currentState = {...this.state.gameStats[this.state.currentLevel].currentState};
+        gameStats[`${level}`].currentBasket = [...this.state.gameStats[this.state.currentLevel].currentBasket];
+        currentOrder.order.current = this.state.gameStats[this.state.currentLevel].currentBasket
         this.setState({
-            startTime: this.state.startTime === undefined ? [startTime] : [...this.state.startTime, startTime],
-            viewGame: true
-        })
+            gameStats,
+            totalScore: overallTotal,
+            currentOrder
+        });
+        this.updateKidStats(level, this.state.gameStats);
+    }
+
+    async updateKidStats (level, levelStatsState) {
+        const gameID = this.state.id;
+        const kidID = this.context.userId;//this is currently parentsID need to edit
+        await stateControllers.UpdateState.updateKidsStats(gameID, level, levelStatsState, kidID);
+    }
+
+    updateCurrentLevel (level) {
+        this.setState({
+            currentLevel: level,
+            currentLevelSettings: this.setCurrentLevelSettings(level)
+        });
+        stateControllers.UpdateState.updateLocalViewState(gameName, level, 1)
     }
 
     updateItemPositions (item, level, id, x, y) {
@@ -98,31 +148,6 @@ class FruitNinja extends Component {
         this.setState({gameStats: currentGameStats});
         return itemsInBasket
     }
-
-    updateCurrentLevel (level) {
-        const currentLevelSettings = this.setCurrentLevelSettings(level)
-        this.setState({
-            currentLevel: level,
-            currentLevelSettings
-        });
-    }
-
-    updateGameStats () {
-        const level = this.state.currentLevel;
-        let gameStats = {...this.state.gameStats}
-        const {isCorrect, submitTime, score} = gameUtils.getSubmissionStats(
-            this.getCurrentBasketOrder(),
-            this.state.currentLevelSettings.winningCriteria.items
-        )
-        const overallTotal = this.state.totalScore + score;
-        const updatedGameStats = gameUtils.updateDefaultGameStatsObj(gameStats, level, submitTime, isCorrect, score);
-        gameStats[`${level}`].currentState = {...this.state.gameStats[this.state.currentLevel].currentState};
-        gameStats[`${level}`].currentBasket = [...this.state.gameStats[this.state.currentLevel].currentBasket];
-        this.setState({
-            gameStats,
-            totalScore: overallTotal
-        });
-    }
     
     render() {
         if(this.state.currentLevel == null) {
@@ -150,7 +175,7 @@ class FruitNinja extends Component {
                                 )
                             })}
                             <SubmitButton 
-                                order={this.state.gameStats[this.state.currentLevel].currentBasket} 
+                                order={this.state.currentOrder.order} 
                                 winningOrder={this.state.currentLevelSettings.winningCriteria.items} 
                                 updateStats={this.updateGameStats}/>
                         </div>

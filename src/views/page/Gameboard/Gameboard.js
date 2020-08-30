@@ -1,30 +1,27 @@
 import React, { Component } from 'react'
-import WhackAMole from "./WhackAMole"
-import Puzzle from './Puzzle'
-import FruitNinja from './FruitNinja';
+import Components from './components.js';
+
 
 export class Gameboard extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            gameID: null,
+            gameName: null,
             kidName: null
         }
     }
 
     getGameID() {
-        const gameID = this.props.match.params.gameid;
-        console.log(gameID)
+        const gameName = this.props.match.params.gameName;
         this.setState({
-            gameID: gameID,
+            gameName,
         })
     }
 
     getKidName() {
         const kidName = this.props.match.params.childname;
-        console.log(kidName)
         this.setState({
-            kidName: kidName,
+            kidName,
         })
     }
 
@@ -39,44 +36,12 @@ export class Gameboard extends Component {
     }
 
     render() {
-        const gameID = this.state.gameID;
-        if (this.state.gameID === null) {
-            return (
-                <div> Loading...</div>
-            )
-        }
-        else {
-            switch (gameID) {
-                case '234':
-                    return (
-                        <React.Fragment>
-                            <Puzzle />
-                        </React.Fragment>
-                    );
-                case '456':
-                    return (
-                        <React.Fragment>
-                            {/* <h1>Hi {this.state.kidName}, you're playing {this.state.gameID}</h1> */}
-                            <WhackAMole />
-                        </React.Fragment>
-                    );
-                case '567':
-                    return (
-                        <React.Fragment>
-                            <FruitNinja />
-                        </React.Fragment>
-                    );
-                default:
-                    return (
-                        <div>
-                            <h1>Hi {this.state.kidName}, you're playing {this.state.gameID}</h1>
-                            <h2> Default </h2>
-                        </div>
-                    );
-            }
-
-        }
-
+        const gameName = this.state.gameName;
+        return (
+            <div>
+                {Components (gameName)}
+            </div>
+        )
     }
 }
 

@@ -2,13 +2,14 @@ import React, { Component} from 'react'
 import './style_module.css'
 import Button from '../../common/elements/Buttons'
 import api from '../../../api'
+import Input from '../../common/elements/Input/Input'
 
 
 export class RegisterPage extends Component {
     constructor(props) {
         super(props)  
         this.state = {
-             username: '',
+             name: '',
              email : '',
              password : '',
              password2 : ''
@@ -24,7 +25,7 @@ export class RegisterPage extends Component {
     register = async e => {
         e.preventDefault()
         const payload = {
-            username : this.state.username,
+            name : this.state.name,
             email : this.state.email,
             password : this.state.password
         }
@@ -57,18 +58,25 @@ export class RegisterPage extends Component {
     return (
         <div className='registerPage'>
             <div className='register'>
-            <h1>Sign Up</h1>
             {this.state.passwordError? <p>{this.state.passwordMsg}</p> : null}
             {this.state.error? <p>{this.state.errorMsg}</p> : null}
                 <form className='registerForm' onSubmit= {this.register}>
-                    <input 
+                    <Input
                         type='text' 
-                        name='username' 
-                        placeholder='username' 
-                        value={this.state.username} 
+                        name='name' 
+                        placeholder='name' 
+                        value={this.state.name} 
+                        onChange={this.handleChange}
+                        required='true'
+                    />
+                    {/* <input 
+                        type='text' 
+                        name='name' 
+                        placeholder='name' 
+                        value={this.state.name} 
                         onChange={this.handleChange}
                         required='true'>
-                    </input>
+                    </input> */}
 
                     <input 
                         type='password' 

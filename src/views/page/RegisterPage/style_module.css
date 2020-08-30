@@ -19,7 +19,8 @@
     align-items: center;
 }
 
-form {
+.registerForm {
     display: flex;
     flex-flow: column nowrap;
+    min-width:300px; 
 }

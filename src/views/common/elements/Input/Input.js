@@ -1,19 +1,16 @@
 import React from 'react'
+import './style_module.css'
 
 function Input(props) {
-    const handleChange = (event) => {
-        event.preventDefault()
-        props.onChange(event)
-    }
     return (
         <input 
             type={props.type}
             name={props.name}
             placeholder={props.placeholder}
             value={props.value}
-            onChange={(e) => {handleChange(e)}}
-        >    
-        </input>
+            onChange={props.onChange}
+            require = {props.require || false}
+        />    
     )
 }
 

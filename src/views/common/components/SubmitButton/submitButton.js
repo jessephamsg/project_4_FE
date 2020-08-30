@@ -21,6 +21,7 @@ const SubmitButton = (props) => {
       })
 
     const updateStats = () => {
+        console.log(props.order, props.winningOrder)
         props.updateStats();
     }
 
@@ -36,7 +37,7 @@ const SubmitButton = (props) => {
             <button 
                 onClick = {() => {
                 updateStats()
-                setSubmit([...isCorrect, isEqual(props.order, props.winningOrder)]);
+                setSubmit([...isCorrect, isEqual(props.order.current, props.winningOrder)]);
                 setClick(!isClicked)
                 }}
                 className='submitButton'
