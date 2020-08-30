@@ -29,6 +29,7 @@ class ParentDashboard extends Component {
     getAllChildByParentID = async () => {
         const currentId = local.get('currentId')
         const result = await api.getAllChildByParentID(currentId)
+        console.log(result.data.data)
         this.setState ({
             kidList : result.data.data.length? result.data.data : null
         })
@@ -70,9 +71,10 @@ class ParentDashboard extends Component {
     }
 
     addChild = async (payload) => {
+        console.log(payload)
         await api.createKid(payload) // create kid and add to kidlist
         await this.getAllChildByParentID() // map childlist data
-        await this.toggleAddModal()
+        // await this.toggleAddModal()
     }
     updateChild = async (e) => {
         e.preventDefault()

@@ -2,6 +2,7 @@ import React, { Component} from 'react'
 import './style_module.css'
 import Button from '../../common/elements/Buttons'
 import api from '../../../api'
+import Input from '../../common/elements/Input/Input'
 
 
 export class RegisterPage extends Component {
@@ -57,18 +58,25 @@ export class RegisterPage extends Component {
     return (
         <div className='registerPage'>
             <div className='register'>
-            <h1>Sign Up</h1>
             {this.state.passwordError? <p>{this.state.passwordMsg}</p> : null}
             {this.state.error? <p>{this.state.errorMsg}</p> : null}
                 <form className='registerForm' onSubmit= {this.register}>
-                    <input 
+                    <Input
+                        type='text' 
+                        name='name' 
+                        placeholder='name' 
+                        value={this.state.name} 
+                        onChange={this.handleChange}
+                        required='true'
+                    />
+                    {/* <input 
                         type='text' 
                         name='name' 
                         placeholder='name' 
                         value={this.state.name} 
                         onChange={this.handleChange}
                         required='true'>
-                    </input>
+                    </input> */}
 
                     <input 
                         type='password' 
