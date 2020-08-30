@@ -1,10 +1,7 @@
 //DEPENDENCIES
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { useDrag } from 'react-use-gesture';
-import { useSpring, useSprings, animated, interpolate } from 'react-spring';
-
-//COMMON COMPONENTS
-import SubmitButton from '../../../common/components/SubmitButton';
+import { useSpring, animated, interpolate } from 'react-spring';
 
 //STYLES
 import './style_module.css';

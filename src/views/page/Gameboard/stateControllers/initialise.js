@@ -29,7 +29,7 @@ export default {
         if (result === null) {
             isFirstTime = true
         } else {
-            if(result[`${gameName}`] === null) isFirstTime = true
+            if(result[`${gameName}`] === undefined) isFirstTime = true
         }
         return isFirstTime
     },
@@ -44,8 +44,7 @@ export default {
         const totalLevel = Object.keys(gameConfig.settings());
         let currentLevel = DEFAULT_CURRENT_LEVEL, currentOption = DEFAULT_CURRENT_OPTION;
         if (this.isFirstTimePlayingGame(gameName) === false) ({currentLevel, currentOption} = LocalGameState.getGameLocal()[gameName])
-        const currentLevelSettings = gameConfig.settings()[currentLevel]
-        return {totalLevel, currentLevel, currentOption, currentLevelSettings}
+        return {totalLevel, currentLevel, currentOption}
     },
 
     async createKidsStats (gameID, gameName, kidID, totalLevels) {

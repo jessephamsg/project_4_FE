@@ -38,7 +38,7 @@ class PuzzleGame extends Component {
     }
 
     async setGameSettings () {
-        const {totalLevel, currentLevel, currentOption, currentLevelSettings} = stateControllers.InitialiseState.getLatestLocalGameState(gameConfig, gameName);
+        const {totalLevel, currentLevel, currentOption} = stateControllers.InitialiseState.getLatestLocalGameState(gameConfig, gameName);
         const gameStats = {};
         for(const level of totalLevel) {
             gameStats[level] = stateControllers.InitialiseState.buildInitialKeyGameStats();
@@ -47,11 +47,11 @@ class PuzzleGame extends Component {
             name: gameName,
             id: await stateControllers.InitialiseState.getGameID(gameName),
             totalScore: 0, //needs to get from API using Kid's actual ID when kids repo is checked and set up
-            currentLevel: currentLevel,
-            currentLevelSettings,
+            currentLevel,
+            currentLevelSettings: gameConfig.settings()[currentLevel],
             totalLevel,
             gameStats,
-            currentOption: currentOption
+            currentOption
         })
     }
 
