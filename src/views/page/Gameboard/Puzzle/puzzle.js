@@ -1,19 +1,11 @@
 //DEPENDENCIES
 import React, {Component} from 'react';
 import gameConfig from './config/gameSettings';
-import gameUtils from '../utils';
+import gameUtils from '../utils/stats/utils';
 import {AuthService} from '../../../../services/AuthService';
 
-//API CALLS
-import axios from 'axios';
-import apis from '../../../../api';
-
-//GAME STANDARD MODELS
-import GameStatsModel from '../../../../models/GameStats';
-import LevelStatsModel from '../../../../models/LevelStats';
-
-//LOCAL STORAGE
-import LocalGameState from '../../../../storage/gameLocalState';
+//STATE CONTROLLERS
+import stateUtils from '../utils/states/'
 
 //COMPONENTS
 import SelectLevelBoard from '../../../common/components/SlidingBoard/selectLevelBoard';
@@ -35,7 +27,7 @@ class PuzzleGame extends Component {
 
     constructor (props) {
         super (props) 
-        this.state = GameStatsModel.gameInitialState()
+        this.state = stateUtils.InitialiseState.buildIntialStates();
         this.updateCurrentLevel = this.updateCurrentLevel.bind(this);
         this.updateGameStats = this.updateGameStats.bind(this);
         this.updateStartTime = this.updateStartTime.bind(this);
@@ -43,57 +35,42 @@ class PuzzleGame extends Component {
     }
 
     componentDidMount () {
-        this.getGameID();
         this.setGameSettings();
     }
 
-    updateStartTime (startTime) {
-        const gameName = this.state.name;
-        const result = LocalGameState.getGameLocal();
-        if (result !== null) {
-            if (result[`${gameName}`] !== null) {
-                this.setState({
-                    startTime: this.state.startTime === undefined ? [startTime] : [...this.state.startTime, startTime],
-                    viewGame: true
-                });
-            } else {
-                LocalGameState.createGameLocal(gameName);
-                this.createKidStats();
-                this.setState({viewGame: true});
-            }
-        } else {
-                LocalGameState.createGameLocal(gameName);
-                this.createKidStats();
-                this.setState({viewGame: true});
-        }
-    }
-
-    async getGameID () {
-        const gameObject = await apis.getGameID(gameName)
-        const gameID = gameObject.data.data[0]._id;
-        this.setState({
-            name: gameName,
-            id: gameID
-        });
-    }
-
-    setGameSettings () {
-        const totalLevel = Object.keys(gameConfig.settings());
-        const currentLevel = LocalGameState.getGameLocal()[gameName].currentLevel || 0;
-        const currentOption = LocalGameState.getGameLocal()[gameName].currentOption || 1;
-        const currentLevelSettings = gameConfig.settings()[currentLevel] //need to update totalScore from API too
+    async setGameSettings () {
+        const {totalLevel, currentLevel, currentOption, currentLevelSettings} = stateUtils.InitialiseState.getLatestLocalGameState(gameConfig, gameName);
         const gameStats = {};
         for(const level of totalLevel) {
-            gameStats[level] = LevelStatsModel.levelInitialStats();
+            gameStats[level] = stateUtils.InitialiseState.buildInitialKeyGameStats();
         }
         this.setState({
-            totalScore: 0,
+            name: gameName,
+            id: await stateUtils.InitialiseState.getGameID(gameName),
+            totalScore: 0, //needs to get from API using Kid's actual ID when kids repo is checked and set up
             currentLevel: currentLevel,
             currentLevelSettings,
             totalLevel,
             gameStats,
             currentOption: currentOption
         })
+    }
+
+    async updateStartTime (startTime) {
+        this.setState({ viewGame: true })
+        if (stateUtils.InitialiseState.isFirstTimePlayingGame(gameName) === false) {
+            this.setState({
+                startTime: this.state.startTime === undefined ? [startTime] : [...this.state.startTime, startTime],
+            });
+        } else {
+            this.createKidStats();
+        }
+    }
+
+    async createKidStats () {
+        const {id, totalLevel} = this.state;
+        const kidID = this.context.userId;
+        await stateUtils.InitialiseState.createKidsStats(id, gameName, kidID, totalLevel)
     }
 
     updateGameStats (level, isCorrect, submittedAt, totalScore) {
@@ -110,43 +87,22 @@ class PuzzleGame extends Component {
     async updateKidStats (level, levelStatsState) {
         const gameID = this.state.id;
         const kidID = this.context.userId;//this is currently parentsID need to edit
-        const {startTime, endTime, score, attemptsBeforeSuccess} = gameUtils.analyseLevelStats(levelStatsState[`${level}`]);
-        const kidStatsPayload = GameStatsModel.gameStatsPayload(gameID, level, startTime, endTime, score, attemptsBeforeSuccess, null);
-        const result = await apis.updateKidStats(kidID, gameID, level, kidStatsPayload);
-    }
-
-    async createKidStats () {
-        const gameID = this.state.id;
-        const kidID = this.context.userId;
-        const totalLevels = this.state.totalLevel;
-        const kidStatsPayloadArr = [];
-        for (const level of totalLevels) {
-            const levelPayload = GameStatsModel.gameStatsPayload(gameID, level, '', '', 0, 0, null);
-            kidStatsPayloadArr.push(levelPayload)
-        }
-        const result = await apis.createKidStats(kidID, gameID, kidStatsPayloadArr);
+        await stateUtils.UpdateState.updateKidsStats(gameID, level, levelStatsState, kidID);
     }
 
     updateOption (option,level) {
         this.setState({
             currentOption: option,
         });
-        LocalGameState.updateGameLocal(gameName, {
-            currentLevel: level, 
-            currentOption: option
-        })
+        stateUtils.UpdateState.updateLocalViewState(gameName, level, option)
     }
 
     updateCurrentLevel (level) {
-        const currentLevelSettings = {...gameConfig.settings()[`${level}`]}
         this.setState({
             currentLevel: level,
-            currentLevelSettings
+            currentLevelSettings: {...gameConfig.settings()[`${level}`]}
         });
-        LocalGameState.updateGameLocal(gameName, {
-            currentLevel: level, 
-            currentOption: 1
-        })
+        stateUtils.UpdateState.updateLocalViewState(gameName, level, 1)
     }
  
     render () {

@@ -1,5 +1,4 @@
 import isEqual from 'lodash.isequal';
-import index from 'lodash-move/lib';
 
 
 export default {

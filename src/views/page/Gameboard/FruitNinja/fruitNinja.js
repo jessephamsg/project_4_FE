@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import gameConfig from './config/gameSettings';
 import isEqual from 'lodash.isequal';
-import gameUtils from '../utils';
+import gameUtils from '../utils/stats/utils';
 
 //GAME STANDARD MODELS
 import GameStatsModel from '../../../../models/GameStats';
