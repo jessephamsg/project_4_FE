@@ -4,7 +4,7 @@ import Button from '../../common/elements/Buttons'
 import api from '../../../api'
 import { AuthService } from '../../../services/AuthService';
 import local from '../../../storage/localStorage'
-import {useHistory} from 'react-router-dom'
+import {useHistory, Link} from 'react-router-dom'
 
 
 function LoginPage () {
@@ -53,7 +53,7 @@ function LoginPage () {
                             onChange={handleChange} > 
                         </input>
                         <Button type='submit' text='Sign in!'/>
-                        <a href='/register'>New? Sign up here!</a>
+                        <Link to='/register'>New? Sign up here!</Link>
                     </form>
                 </div>
                 </div>

@@ -12,6 +12,7 @@ const registerParent = payload => api.post('/parents', payload);
 
 const createKid = payload => api.post('/kids',payload)
 const updateKid = (payload, id) => api.put(`/kids/${id}` , payload)
+const deleteKid = id => api.delete(`/kids/${id}`)
 const getAllChildByParentID = id => api.get(`/kids/all/${id}`)
 const getOneKid = id => api.get(`/kids/${id}`)
 
@@ -40,6 +41,8 @@ const apis = {
     createKidStats,
     updateKidStats,
     updateKid,
+    deleteKid,
+    getAllChildByParentID,
     getOneKid
     // getParentById
 }

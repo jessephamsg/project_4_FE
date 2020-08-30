@@ -2,42 +2,18 @@ import React, { Component } from 'react'
 import './style_module.css'
 import ActionBtn from '../../../elements/ActionBtn'
 import { withRouter } from 'react-router-dom'
-// import avatar from '../../../assets/avatar'
-// import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBInputGroup } from 'mdbreact';
-// import Utility from '../../../Utility'
-// import api from '../../../../../api'
-// import EditChildModal from '../../Modal/EditChildModal'
 
 export class ChildReport extends Component {
-    constructor(props) {
-        super(props)
-    
-        this.state = {
-             editModal : false,
-             iconModal : false,
-             isEditModalOpen : false
-        }
-    }
-    
-    handleChange = event => {
-        console.log('changing')
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
 
-    toggleIconModal = () => {
-        this.setState({
-          iconModal: !this.state.iconModal
-        });
-    }
-    addIcon = async e => {
+    handleDeleteChild = (e) => {
         e.preventDefault()
-        await this.toggleIconModal()
-    }
-
-    deleteChild = () => {
-        alert('deleting')
+        console.log(this.props.id)
+        let res = window.confirm(`Are you sure you want to remove?${this.props.childname}`)
+        if(res) {
+            this.props.deleteChild(this.props.id)
+        } else {
+            return
+        }
     }
     directToChildReportPage = () => {
         this.props.history.push(`/child/${this.props.childname}/report`)
@@ -68,7 +44,7 @@ export class ChildReport extends Component {
                             </div>
                             <div className ='action'>
                                 <ActionBtn text='Edit' onClick={this.toggleEditChildModal}/>
-                                <ActionBtn text='Del' onClick={this.deleteChild}/>
+                                <ActionBtn text='Del' onClick={this.handleDeleteChild}/>
                                 <ActionBtn text='See' onClick={this.directToChildReportPage} />
                             </div>
                         </div>

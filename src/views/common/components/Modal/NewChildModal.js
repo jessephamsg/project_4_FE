@@ -46,6 +46,7 @@ export default class NewChildModal extends Component {
             icon : this.state.icon,
         }
         this.props.addChild(payload)
+        this.props.toggleModal()
     }
 
     render() {

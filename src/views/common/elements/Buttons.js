@@ -11,7 +11,7 @@ function Button(props) {
   }
 
   const style = {
-    // fontFamily: 'Schoolbell, cursive',
+    fontFamily: "'Luckiest Guy', cursive",
     fontSize : '16px',
     backgroundColor: '#009688',
     padding: '15px',
