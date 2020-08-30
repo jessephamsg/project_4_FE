@@ -4,7 +4,6 @@
     background-repeat: no-repeat;
     background-position: bottom;
     margin: 0 auto;
-    top: 5rem;
     width: 100%;
     min-height: 60rem;
     display: flex;
@@ -18,7 +17,7 @@
     flex-flow: row nowrap;
     width:95%;
     align-items: flex-start;
-    margin: 10rem auto;
+    margin: 3rem auto;
     justify-content: space-around;
     border: 1px solid black;
     padding: 0.5rem;

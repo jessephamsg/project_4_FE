@@ -10,9 +10,10 @@ const api = Axios.create({
 const getAllParents = payload => api.get('/parent', payload);
 const registerParent = payload => api.post('/parents', payload);
 
-//KIDS
-const createKid = payload => api.post('/kids', payload);
-const getAllChildByParentID = id => api.get(`/kids/all/${id}`);
+const createKid = payload => api.post('/kids',payload)
+const updateKid = (payload, id) => api.put(`/kids/${id}` , payload)
+const getAllChildByParentID = id => api.get(`/kids/all/${id}`)
+const getOneKid = id => api.get(`/kids/${id}`)
 
 //AUTHENTICATION
 const login = payload => api.post('/login', payload);
@@ -37,7 +38,10 @@ const apis = {
     getAllChildByParentID,
     getGameID,
     createKidStats,
-    updateKidStats
+    updateKidStats,
+    updateKid,
+    getOneKid
+    // getParentById
 }
 
 
