@@ -2,8 +2,6 @@ import React, { Component, Fragment } from 'react'
 import ChildReport from '../../common/components/Card/ChildReport'
 import './style_module.css'
 import ActionBtn from '../../common/elements/ActionBtn'
-import { ModalInput } from '../../common/components/Modal';
-import Input from '../../common/elements/Input';
 import {AuthService} from '../../../services/AuthService';
 import api from '../../../api';
 import local from '../../../storage/localStorage';
@@ -28,10 +26,9 @@ class ParentDashboard extends Component {
         }
       }
 
-    getAllChildByParentID = async (currentId) => {
-        console.log('getting')
+    getAllChildByParentID = async () => {
+        const currentId = local.get('currentId')
         const result = await api.getAllChildByParentID(currentId)
-        console.log(result.data.data.length)
         this.setState ({
             kidList : result.data.data.length? result.data.data : null
         })
@@ -65,7 +62,6 @@ class ParentDashboard extends Component {
     }
 
     handleChange = e => {
-        console.log(e.target.name)
         const newState = Object.assign(this.state.editedKid,{[e.target.name]: e.target.value})
         this.setState({
             editedKid : newState
@@ -74,16 +70,9 @@ class ParentDashboard extends Component {
     }
 
     addChild = async (payload) => {
-        console.log(payload)
         await api.createKid(payload) // create kid and add to kidlist
-        await this.getAllChildByParentID(payload.parentID) // map childlist data
+        await this.getAllChildByParentID() // map childlist data
         await this.toggleAddModal()
-    }
-
-    componentDidMount () {
-        const currentId = local.get('currentId')
-        console.log(currentId)
-        this.getAllChildByParentID(currentId)
     }
     updateChild = async (e) => {
         e.preventDefault()
@@ -96,11 +85,19 @@ class ParentDashboard extends Component {
             icon : this.state.editedKid.icon,
             isPlaying : this.state.editedKid.isPlaying
         }
-        console.log(payload)
-        console.log(this.state.editedKid)
         await api.updateKid(payload, kidId)
+        await this.getAllChildByParentID()
         await this.toggleEditChildModal()
     }
+    deleteChild = async (id) => {
+        await api.deleteKid(id)
+        await this.getAllChildByParentID()
+    }
+
+    componentDidMount () {
+        this.getAllChildByParentID()
+    }
+
 
     render() {
         return (
@@ -149,10 +146,10 @@ class ParentDashboard extends Component {
                                         data={kid}
                                         index= {index}
                                         toggleEditChildModal = {this.toggleEditChildModal}
+                                        deleteChild = {this.deleteChild}
                                     />
-
-                                )})
-                            }
+                                )}
+                            )}
                         </div>
                     </div>
                 </div>
