@@ -27,51 +27,24 @@
     display: flex;
     width: 25%;
     flex-flow: column nowrap;
-    /* background-color: thistle; */
 }
 
 .gameContentWrapper {
     display: flex;
     width: 100%;
     height: 100%;
-    /* background-color: aliceblue; */
 }
 
 .gameMainContent {
     display: flex;
     flex-flow: column nowrap;
     width: 80%;
-    /* background-color: sandybrown; */
 }
 
 .gameStatsBoards {
     display: flex;
     flex-direction: row;
     margin-top: 10px;
-    background-color: skyblue;
-}
-
-.game {
-    padding: 20px 0;
-    width: 100%;
-    text-align: center;
-    display: -webkit-flex;
-    -webkit-align-items: center;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.game__title {
-    -webkit-transform: translateZ(0px);
-    font-size: 2.1rem;
-    width: 100%;
-}
-
-.game__score {
-    margin-top: 1.3rem;
-    width: 100%;
-    font-size: 0.8rem;
 }
 
 .board {
@@ -96,7 +69,6 @@
     overflow: hidden;
     width: 30vw;
     height: 30vw;
-    /* background-color: teal; */
 }
 
 .game__mound {
@@ -110,7 +82,6 @@
     bottom: 99%;
     pointer-events: none;
     backface-visibility: hidden;
-    /* background-color: tomato; */
 }
 
 .game__mole {
@@ -121,8 +92,6 @@
     height: 100%;
     transform: translate(0, 50%);
     transition: all 0.4s;
-    /* cursor: pointer; */
-    /* background-color: turquoise; */
 }
 
 .game__whack {
@@ -139,56 +108,12 @@
     height: 100%;
 }
 
-.game__button-container {
-    width: 100%;
-}
-
-.game__start-button {
-    font-size: 1rem;
-    padding: 0.6rem 0.6rem 0.7rem 0.6rem;
-    color: white;
-    border: 2px solid #FCB942;
-    background: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-family: 'Amaranth', sans-serif;
-    letter-spacing: 0.13rem;
-}
-
-.game__start-button:hover {
-    border: 2px solid #FFD008;
-}
-
-.game__start-button:focus {
-    outline: none;
-}
-
-.game__start-button:active {
-    transform: translate(0, 0.5px);
-}
-
-.game__you-scored {
-    font-size: 1.1rem;
-}
-
-.game__game-over {
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 280px;
-    height: 190px;
-    margin-bottom: 30px;
-}
-
-.game__game-over-header {
-    margin: 62px 0 -10px 0;
-}
-
 .no-background {
     background: none;
 }
 
 @media screen and (min-width: 400px) {
-    .main-container {
+    #gameContainer {
         height: 100vh;
     }
     .game__mole {
@@ -197,18 +122,8 @@
 }
 
 @media screen and (min-width: 500px) {
-    .game__game-over {
-        width: 320px;
-        height: 200px;
-    }
-    .game__game-over-header {
-        margin: 70px 0 -10px 0;
-    }
     .game__cross {
         background-size: 75px;
-    }
-    .game {
-        width: 400px;
     }
     .game__mole {
         background-size: 65px;
