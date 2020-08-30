@@ -6,7 +6,7 @@ function GameRoundButton(props) {
         style = {{
             padding: '30px',
             border: 'none',
-            borderRadius: '50px',
+            borderRadius: '100px',
             backgroundColor: '#009688',
             backgroundImage:`url(${`${props.icon}`})`,
             backgroundSize: '30px',

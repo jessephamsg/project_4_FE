@@ -1,13 +1,12 @@
 // Adapted from: https://github.com/chenglou/react-motion/tree/master/demos/demo8-draggable-list
 
 //DEPENDENCIES
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import clamp from 'lodash-es/clamp';
 import swap from 'lodash-move';
-import isEqual from 'lodash.isequal';
 import { useDrag } from 'react-use-gesture';
-import { useSpring, useSprings, animated, interpolate } from 'react-spring';
-import gameUtils from '../utils'
+import { useSprings, animated, interpolate } from 'react-spring';
+import gameUtils from '../utils/stats/utils'
 
 //COMMON COMPONENTS
 import SubmitButton from '../../../common/components/SubmitButton';
@@ -42,7 +41,7 @@ const DraggableList = ({ items, winningOrder, img, currentOption, level, updateG
   })
 
   const updateStats = () => {
-    const {isCorrect, submitTime, score} = gameUtils.getSubmissionStats(order.current, winningOrder)
+    const {isCorrect, submitTime, score} = gameUtils.getSubmissionStats(order.current, winningOrder);
     updateGameStats(level, isCorrect, submitTime, score);
   }
   
@@ -62,7 +61,7 @@ const DraggableList = ({ items, winningOrder, img, currentOption, level, updateG
           />
         ))}
       </div>
-      <SubmitButton order={order.current} winningOrder={winningOrder} updateStats={updateStats}/>
+      <SubmitButton order={order} winningOrder={winningOrder} updateStats={updateStats}/>
     </div>
   )
 }

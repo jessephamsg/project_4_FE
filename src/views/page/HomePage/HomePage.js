@@ -6,10 +6,10 @@ import api from '../../../api'
 
 
 export class HomePage extends Component {
+    
     state= {
         kidlist : null
     }
-
 
     getAllChildByParentID = async (currentId) => {
         const result = await api.getAllChildByParentID(currentId)
@@ -25,8 +25,6 @@ export class HomePage extends Component {
         this.getAllChildByParentID(currentId)
     }
     
-
-
     render() {
         return (
             <Fragment>

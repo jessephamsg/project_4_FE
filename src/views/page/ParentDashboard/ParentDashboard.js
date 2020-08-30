@@ -10,8 +10,8 @@ import EditChildModal from '../../common/components/Modal/EditChildModal'
 import NewChildModal from '../../common/components/Modal/NewChildModal'
 
 
-
 class ParentDashboard extends Component {
+    
     static contextType = AuthService
     state = {
         kidList :[],
