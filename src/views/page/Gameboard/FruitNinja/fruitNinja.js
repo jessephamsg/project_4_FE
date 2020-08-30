@@ -1,7 +1,7 @@
 //DEPENDENCIES
 import React, {Component} from 'react';
 import gameConfig from './config/gameSettings';
-import gameUtils from '../utils/stats/utils';
+import gameUtils from '../stateControllers/utils/utils';
 
 //STATE CONTROLLERS
 import stateControllers from '../stateControllers'
