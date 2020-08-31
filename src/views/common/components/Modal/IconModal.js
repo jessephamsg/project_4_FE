@@ -36,7 +36,6 @@ export default function IconModal (props) {
                                 id={key} 
                                 name='icon' 
                                 value={avatar[key]} 
-                                // onClick={props.handleChange}
                                 onClick={handleChange}
                             />
                         </div>

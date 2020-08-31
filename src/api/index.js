@@ -9,6 +9,7 @@ const api = Axios.create({
 //PARENTS
 const getAllParents = payload => api.get('/parent', payload);
 const registerParent = payload => api.post('/parents', payload);
+const removeKidFromParent = (parentId, kidId) => api.put(`/parents/${parentId}/del/${kidId}`)
 
 const createKid = payload => api.post('/kids',payload)
 const updateKid = (payload, id) => api.put(`/kids/${id}` , payload)
@@ -43,7 +44,8 @@ const apis = {
     updateKid,
     deleteKid,
     getAllChildByParentID,
-    getOneKid
+    getOneKid,
+    removeKidFromParent
     // getParentById
 }
 

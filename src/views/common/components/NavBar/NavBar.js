@@ -14,12 +14,20 @@ export class NavBar extends Component {
 
     logout = async () => {
         const logout = await apis.logOut()
-        console.log(logout.data)
         local.del('currentUser')
-        local.del('currentID')
+        local.del('currentId')
         window.location.href = '/'
         
     }
+    // toggleAuthorizeModal = () => {
+    //     this.setState{{
+    //         isAuthorizeModal : !this.state.isAuthorizeModal
+    //     }}
+    // }
+    // authorize = () => {
+    //     await this.toggleAuthorizeModal()
+
+    // }
     goToParentDashboard = async () => {
         this.props.history.push(`/dashboard/${this.context.user}`)
     }
@@ -42,13 +50,13 @@ export class NavBar extends Component {
                     </div>
                     {!this.context.user ? 
                     <div className='navBarRight'>
-                        <Button text={'Sign Up'} onClick={() => routeTo.push('/register')}></Button>
-                        <Button text={'Log In'} onClick={() => routeTo.push('/login')}></Button>
+                        <Button className='navBtn' text={'Sign Up'} onClick={() => routeTo.push('/register')}></Button>
+                        <Button className='navBtn' text={'Log In'} onClick={() => routeTo.push('/login')}></Button>
                     </div> 
                     :
                     <div className='navBarRight'>
-                        <Button text={'Dashboard'} onClick={this.goToParentDashboard}></Button>
-                        <Button text={'Log Out'} onClick ={this.logout}></Button> 
+                        <Button className='navBtn' text={'Dashboard'} onClick={this.goToParentDashboard}></Button>
+                        <Button className='navBtn' text={'Log Out'} onClick ={this.logout}></Button> 
                     </div>
                     }
                 </ul>

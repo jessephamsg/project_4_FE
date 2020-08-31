@@ -6,39 +6,12 @@
     margin: 0 auto;
     width: 100%;
     min-height: 60rem;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: flex-start;
-    align-items: center;
     overflow: hidden;
 }
-.main-container {
-    display: flex;
-    flex-flow: row nowrap;
-    width:95%;
-    align-items: flex-start;
-    margin: 3rem auto;
-    justify-content: space-around;
-    border: 1px solid black;
-    padding: 0.5rem;
-}
-.left-container {
-    border: 1px solid black;
-    max-width:30%;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    text-align:center;
-    margin: 0.5rem;
-}
-h3 {
-    margin: 2px auto;
-}
-.right-container {
-    border: 1px solid black;
-    flex: 1 1 auto;
-    margin: 0.5rem;
+
+.childList-container {
+    width:90%;
+    margin: 0.5rem auto;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
@@ -77,3 +50,4 @@ h3 {
     width: 80px;
     height: auto;
 }
+

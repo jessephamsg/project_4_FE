@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './style_module.css'
 import ActionBtn from '../../../elements/ActionBtn'
 import { withRouter } from 'react-router-dom'
+import Button from '../../../elements/Buttons'
 
 export class ChildReport extends Component {
 
@@ -36,21 +37,21 @@ export class ChildReport extends Component {
                             />
                             <h1> {this.props.childname}</h1>
                             <p>Last played at :</p>
+                            <p>ScreenTime : {this.props.data.maxScreenTime} minutes</p>
                         </div>
                         <div className="flip-card-back">
                             <div>
                                 <h1>{this.props.childname}</h1> 
                                 <h1>Age : {this.props.data.age}</h1> 
                             </div>
-                            <div className ='action'>
-                                <ActionBtn text='Edit' onClick={this.toggleEditChildModal}/>
-                                <ActionBtn text='Del' onClick={this.handleDeleteChild}/>
-                                <ActionBtn text='See' onClick={this.directToChildReportPage} />
+                            <div className ='actionFooter'>
+                                <Button text='Edit' onClick={this.toggleEditChildModal} className='actionBtn' />
+                                <Button text='Del' onClick={this.handleDeleteChild} className='actionBtn' />
+                                <Button text='See' onClick={this.directToChildReportPage} className='actionBtn' />
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         )
     }

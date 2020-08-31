@@ -67,45 +67,35 @@ export class RegisterPage extends Component {
                         placeholder='name' 
                         value={this.state.name} 
                         onChange={this.handleChange}
-                        required='true'
+                        required={true}
                     />
-                    {/* <input 
-                        type='text' 
-                        name='name' 
-                        placeholder='name' 
-                        value={this.state.name} 
-                        onChange={this.handleChange}
-                        required='true'>
-                    </input> */}
-
-                    <input 
+                    <Input
                         type='password' 
                         name='password' 
                         placeholder='password' 
                         value={this.state.password} 
                         onChange={this.handleChange}
-                        required='true'>
-                    </input>
-
-                    <input 
+                        required={true}
+                    />
+                    <Input
                         type='password' 
                         name='password2' 
                         placeholder='re-type password' 
                         value={this.state.password2} 
                         onChange={this.handleChange}
-                        required='true'>
-                    </input>
-
-                    <input 
+                        required={true}
+                    />
+                    <Input
                         type='email' 
-                        name ='email' 
-                        value= {this.state.email} 
+                        name='email' 
                         placeholder='email' 
+                        value={this.state.email} 
                         onChange={this.handleChange}
-                        required='true'> 
-                    </input>
-
+                        required={true}
+                    />
+                <div className='registerBtn'>
                     <Button type='submit' text='Register!'/>
+                </div>
                 </form>
             </div>
         </div>

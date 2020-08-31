@@ -5,6 +5,7 @@ import api from '../../../api'
 import { AuthService } from '../../../services/AuthService';
 import local from '../../../storage/localStorage'
 import {useHistory, Link} from 'react-router-dom'
+import Input from '../../common/elements/Input/Input';
 
 
 function LoginPage () {
@@ -23,6 +24,8 @@ function LoginPage () {
             const login = await api.login(state)
                 const { _id, name} = login.data.currentUser
                 console.log(login.data)
+                // storeUser(_id,name)
+
                 local.set("currentId", _id) // set localstorage a token
                 local.set("currentUser",name)
                 context.setUserId(_id)
@@ -37,23 +40,29 @@ function LoginPage () {
             <Fragment>
                 <div className='loginPage'>
                 <div className='login'>
-                    <form onSubmit={login}>
-                        <input 
-                            type='text' 
-                            name='username' 
-                            placeholder='username' 
-                            value={state.username} 
-                            onChange={handleChange} >
-                        </input>
-                        <input 
-                            type='password' 
-                            name='password' 
-                            value={state.password} 
-                            placeholder='password'
-                            onChange={handleChange} > 
-                        </input>
+                    <form onSubmit={login} className='loginForm'>
+                    <Input
+                        type='text' 
+                        name='username' 
+                        placeholder='username' 
+                        value={state.username} 
+                        onChange={handleChange}
+                        required={true}
+                    />
+                    <Input
+                        type='password' 
+                        name='password' 
+                        placeholder='password' 
+                        value={state.password} 
+                        onChange={handleChange}
+                        required={true}
+                    />
+                    <div className='register-container'>
                         <Button type='submit' text='Sign in!'/>
-                        <Link to='/register'>New? Sign up here!</Link>
+                        <h4 id = 'h4Register' onClick={() => {history.push('/register')}}>
+                            New? Sign up here!
+                        </h4>
+                    </div>
                     </form>
                 </div>
                 </div>

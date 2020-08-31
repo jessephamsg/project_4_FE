@@ -8,11 +8,17 @@
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
+
+    
 }
 
-form {
+.loginForm {
     display: flex;
     flex-flow: column nowrap;
+    min-width:300px; 
+}
+#h4Register:hover {
+    cursor: pointer;
 }
 
 .loginPage {
@@ -22,4 +28,13 @@ form {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+.register-container {
+    margin-top : 2rem;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: stretch;
+}
+#h4Register {
+    align-self: center;
 }

@@ -7,7 +7,7 @@ function Button(props) {
   const hoverIn = e => {
     e.preventDefault()
     e.target.style.cursor='pointer'
-    e.target.style.backgroundColor='#004f48'
+    // e.target.style.backgroundColor='#004f48'
   }
 
   const style = {
@@ -23,10 +23,12 @@ function Button(props) {
    
   return (
     <button
-        type ={props.type}
-        style = {style}
-        onClick= {props.onClick}
-        onMouseOver = {hoverIn}
+      id = {props.id}
+      className={props.className}
+      type ={props.type}
+      style = {style}
+      onClick= {props.onClick}
+      onMouseOver = {hoverIn}
     >{props.text}
     </button>
   );

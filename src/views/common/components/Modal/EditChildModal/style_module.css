@@ -1,0 +1,37 @@
+.editForm {
+    font-family: 'Luckiest Guy', cursive;
+    font-size : 1.2rem;
+}
+
+.dobInput {
+    display: flex;
+    flex-flow:row nowrap;
+    align-items: center;
+    justify-items: space-around;
+}
+.dob {
+    font-family: 'Luckiest Guy', cursive;
+    font-size : 1.2rem;
+    color: rgb(153, 153, 153);
+    margin: 0 auto;
+    margin-right : 5px;
+}
+.iconInput {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+}
+#iconBtn {
+    min-width: 100px;
+    flex : 1 1 auto;
+}
+#editBtn {
+    min-width: 80%;
+}
+.editModalFooter {
+    margin-top : 2rem;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}

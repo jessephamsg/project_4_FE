@@ -1,4 +1,6 @@
 .childReport {
+    font-family: 'Luckiest Guy', cursive;
+    font-size : 1.2rem;
     display: flex;
     min-width: 20%;
     flex-flow: column nowrap;
@@ -63,4 +65,14 @@ a {
   transform: rotateY(180deg);
   justify-content: space-around;
   align-items: center;
+}
+.actionBtn:hover {
+  background-color: #102725!important
+}
+.actionFooter {
+  min-width: 300px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: stretch;
 }

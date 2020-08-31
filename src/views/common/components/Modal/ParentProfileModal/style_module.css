@@ -1,0 +1,31 @@
+.parentProfileContainer {
+    font-family: 'Luckiest Guy', cursive;
+    padding: 0.5rem;
+    font-size : 1.2rem;
+    top: 25%;
+    left:1%;
+    position:fixed;
+    background-color: #009688;
+    border : 0.5rem solid #004f48;
+    border-radius: 1rem;
+    height: 300px;
+    width: 400px;
+}
+.add , .edit {
+    width: 350px;
+    height: 70px;
+    transform: skew(0deg);
+    background-color: #009688;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: stretch;
+    margin : 0.5rem auto;
+    padding: 0.5rem;
+}
+#addChildBtn:hover,#editProfileBtn:hover {
+    background-color: #004f48!important;
+}
+
+

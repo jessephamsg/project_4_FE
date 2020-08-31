@@ -36,6 +36,9 @@
 .navLink:hover {
     cursor: pointer;    
 }
+.navBtn:hover {
+    background-color: #004f48!important;
+}
 
 li {
     list-style: none;
