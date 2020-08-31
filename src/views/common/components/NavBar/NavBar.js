@@ -19,6 +19,15 @@ export class NavBar extends Component {
         window.location.href = '/'
         
     }
+    // toggleAuthorizeModal = () => {
+    //     this.setState{{
+    //         isAuthorizeModal : !this.state.isAuthorizeModal
+    //     }}
+    // }
+    // authorize = () => {
+    //     await this.toggleAuthorizeModal()
+
+    // }
     goToParentDashboard = async () => {
         this.props.history.push(`/dashboard/${this.context.user}`)
     }
