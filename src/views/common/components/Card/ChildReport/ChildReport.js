@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './style_module.css'
-import ActionBtn from '../../../elements/ActionBtn'
 import { withRouter } from 'react-router-dom'
 import Button from '../../../elements/Buttons'
 
@@ -31,8 +30,8 @@ export class ChildReport extends Component {
                         <div className="flip-card-front">
                             <img 
                                 src={this.props.icon} 
-                                alt={`${this.props.childname}` + "icon"}
-                                title={`${this.props.childname}` + "icon"} 
+                                alt={this.props.childname+ "icon"}
+                                title={this.props.childname + "icon"} 
                                 className='childIcon'
                             />
                             <h1> {this.props.childname}</h1>

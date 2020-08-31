@@ -22,6 +22,7 @@ const login = payload => api.post('/login', payload);
 const isAuthenticated = payload => api.post('/isAuthenticated', payload);
 const getAuthUser = () => api.get('/user');
 const logOut = () => api.get('/logout');
+const checkPassword = (password,parentId) => api.post(`/checkPassword/${parentId}`, password)
 
 //GAME STATS
 const getGameID = gameName => api.get(`/games/${gameName}`);
@@ -45,7 +46,8 @@ const apis = {
     deleteKid,
     getAllChildByParentID,
     getOneKid,
-    removeKidFromParent
+    removeKidFromParent,
+    checkPassword
     // getParentById
 }
 
