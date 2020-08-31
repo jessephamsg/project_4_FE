@@ -11,7 +11,8 @@ function Button(props) {
   }
 
   const style = {
-    fontFamily: "'Luckiest Guy', cursive",
+    fontFamily: 'Lato, "sans-serif"',
+    fontWeight: '500',
     fontSize : '16px',
     backgroundColor: '#009688',
     padding: '15px',

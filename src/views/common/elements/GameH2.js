@@ -4,10 +4,11 @@ function GameH2(props) {
   return (
     <h2
         style = {{
-            fontFamily: 'Luckiest Guy',
-            fontSize: '40px',
+            fontFamily: "'Quicksand', 'sans-serif'",
+            lineHeight: '60px',
+            fontWeight: '700',
+            fontSize: '60px',
             color: 'blueviolet',
-            textShadow: '7px 7px #ffdfa5',
         }}
     >{props.text}
     </h2>

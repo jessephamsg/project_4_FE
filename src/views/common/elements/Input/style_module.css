@@ -15,18 +15,18 @@ input {
 .input[type=password],
 .input[type=date],
 .input[type=number] {
-    font-family: 'Luckiest Guy', cursive;
+    font-family: 'Lato', sans-serif;
     font-size : 1.2rem;
 }
 .input:focus {
     outline : none;
     border: none;
-    background-color :  #0096876c;
+    background-color :  #393a3a38;
     width: 100%;
     
 }
 .input::-webkit-input-placeholder {
     font-size : 1.2rem;
-    font-family: 'Luckiest Guy', cursive;
+    font-family: 'Lato', sans-serif;
     color: rgb(153, 153, 153)
 }

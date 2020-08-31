@@ -4,7 +4,8 @@ function GameH4(props) {
   return (
     <h4
         style = {{
-            fontFamily: 'Luckiest Guy',
+            fontFamily: "'Quicksand', 'sans-serif'",
+            fontWeight: '700',
             fontSize: '100px',
             color: 'blueviolet',
             textShadow: '7px 7px #ffdfa5',

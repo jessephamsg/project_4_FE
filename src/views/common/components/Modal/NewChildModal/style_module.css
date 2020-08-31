@@ -1,5 +1,5 @@
 .addForm {
-    font-family: 'Luckiest Guy', cursive;
+    font-family: 'Lato', sans-serif;
     font-size : 1.2rem;
 }
 
@@ -10,7 +10,7 @@
     justify-items: space-around;
 }
 .dob {
-    font-family: 'Luckiest Guy', cursive;
+    font-family: 'Lato', sans-serif;
     font-size : 1.2rem;
     color: rgb(153, 153, 153);
     margin: 0 auto;
