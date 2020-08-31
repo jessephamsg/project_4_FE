@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from 'react'
 import ChildReport from '../../common/components/Card/ChildReport'
 import './style_module.css'
-import ActionBtn from '../../common/elements/ActionBtn'
 import {AuthService} from '../../../services/AuthService';
 import api from '../../../api';
 import local from '../../../storage/localStorage';
 import Utility from '../../common/Utility';
 import EditChildModal from '../../common/components/Modal/EditChildModal'
 import NewChildModal from '../../common/components/Modal/NewChildModal'
+import ParentProfileModal from '../../common/components/Modal/ParentProfileModal';
 
 
 class ParentDashboard extends Component {
@@ -92,7 +92,10 @@ class ParentDashboard extends Component {
         await this.toggleEditChildModal()
     }
     deleteChild = async (id) => {
-        await api.deleteKid(id)
+        const kidId = id
+        const parentId = this.context.userId
+        await api.deleteKid(kidId)
+        await api.removeKidFromParent(parentId, kidId)
         await this.getAllChildByParentID()
     }
 
@@ -102,6 +105,7 @@ class ParentDashboard extends Component {
 
 
     render() {
+        console.log(this.context)
         return (
             <Fragment>
                 <EditChildModal
@@ -127,15 +131,8 @@ class ParentDashboard extends Component {
                 />
 
                 <div className='parentDashboard'>
-                    <h1>Hi {this.props.match.params.username}</h1>
-                    <div className='main-container'>
-                        <div className='left-container'>
-                            <div>
-                                <ActionBtn text='+' onClick={this.toggleAddModal} />
-                                <h3>Add a child</h3>
-                            </div>
-                        </div>
-                        <div className='right-container'>
+                    <ParentProfileModal onClick={this.toggleAddModal}/>
+                        <div className='childList-container'>
                             {!this.state.kidList ? 
                                 <h1>You have not enter a child yet</h1> :
                                 this.state.kidList.map((kid,index) => {
@@ -153,7 +150,6 @@ class ParentDashboard extends Component {
                                 )}
                             )}
                         </div>
-                    </div>
                 </div>
             </Fragment>
         )

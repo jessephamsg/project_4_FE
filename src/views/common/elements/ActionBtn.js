@@ -6,7 +6,7 @@ function ActionBtn(props) {
         fontSize :'50px',
         backgroundColor : 'rgba(0,0,0,0)',
         border: '0.1rem solid black',
-        width: '100px',
+        minWidth: '100px',
         height :'100px',
         borderRadius: '50%',
         textAlign: 'center',

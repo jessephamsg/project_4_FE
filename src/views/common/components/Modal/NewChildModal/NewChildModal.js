@@ -1,8 +1,11 @@
 import React, { Fragment, Component } from 'react'
-import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBInputGroup } from 'mdbreact';
-import Utility from '../../../common/Utility'
-import api from '../../../../api'
-import IconModal from './IconModal'
+import { MDBContainer,MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
+import Utility from '../../../Utility'
+import api from '../../../../../api'
+import IconModal from '../IconModal'
+import Input from '../../../elements/Input/Input';
+import Button from '../../../elements/Buttons';
+import './style_module.css'
 export default class NewChildModal extends Component {
     constructor(props) {
         super(props)
@@ -15,15 +18,17 @@ export default class NewChildModal extends Component {
             isIconModalOpen : false,
         }
     }
-    toggleIconModal = () => {
+    toggleIconModal = (e) => {
+        e.preventDefault()
         this.setState({
           isIconModalOpen: !this.state.isIconModalOpen
         });
     }
     addIcon = async icon => {
-        console.log(icon)
         this.setState({icon : icon})
-        await this.toggleIconModal()
+        await this.setState({
+            isIconModalOpen: !this.state.isIconModalOpen
+          });
     }
 
 
@@ -52,62 +57,53 @@ export default class NewChildModal extends Component {
     render() {
     return (
         <Fragment>
-        <MDBContainer >
+        <MDBContainer className='addForm' >
         <form onSubmit={this.handleSubmit}>
         <MDBModal isOpen={this.props.isModalOpen} toggle={this.props.toggleModal}>
             <MDBModalHeader toggle={this.props.toggleModal}>choose an icon </MDBModalHeader>
-            <MDBModalBody className='editForm'>
-
-                <MDBInput
-                    required 
-                    label="Your child's name"
-                    name = "name"
+            <MDBModalBody >
+                <Input 
+                    required = {true}
+                    placeholder ="Your child's name"
+                    name ="name"
                     type ="text" 
                     value={this.state.name}
                     onChange= {this.handleChange}
                 />
 
-                <MDBInput 
-                    required
-                    label="bDay"
-                    hint ="bDay"
-                    name ="bDay"
-                    type ="date" 
-                    value={this.state.bDay}
-                    onChange= {this.handleChange}
-                />
-
-                <MDBInput 
-                    required
-                    label="Maximum screen Time in seconds"
+                <div className='dobInput'>
+                    <label htmlFor='bDay' className='dob'>DOB</label>
+                    <Input 
+                        required = {true}
+                        name ="bDay"
+                        type ="date" 
+                        value={this.state.bDay}
+                        onChange= {this.handleChange}
+                    />
+                </div>
+                <Input 
+                    required = {true}
+                    placeholder ="Maximum screen Time in minutes"
                     name ="maxScreenTime"
                     type ="number" 
                     value={this.state.maxScreenTime}
                     onChange= {this.handleChange}
                 />
-
-                <MDBInputGroup
-                    material
-                    containerClassName='mb-3 mt-0'
-                    prepend={
-                        <MDBBtn
-                        className= 'px-2 mx-0'
-                        color='primary' 
-                        onClick={this.toggleIconModal}
-                        > Select Icon
-                        </MDBBtn>
-                    }
-                    required
-                    hint ="select an icon or a url image of your choice"
-                    name ="icon"
-                    type ="text" 
-                    value={this.state.icon}
-                >
-                </MDBInputGroup>
+                <div className='iconInput'>
+                    <Input 
+                        required = {true}
+                        placeholder ="select an icon or a url image of your choice" 
+                        name ="icon"
+                        type ="text" 
+                        value={this.state.icon}
+                        onChange= {this.handleChange}
+                    />
+                    <Button id='iconBtn' onClick={this.toggleIconModal} text ='Icon'/>
+                </div>
 
             </MDBModalBody>
-            <MDBModalFooter>
-            <MDBBtn color="primary" type="submit">Submit</MDBBtn>
+            <MDBModalFooter className='addModalFooter'>
+                <Button type="submit" text='Add' id="addBtn"/>
             </MDBModalFooter>
         </MDBModal>
         </form>

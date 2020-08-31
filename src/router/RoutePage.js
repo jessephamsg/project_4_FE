@@ -9,7 +9,7 @@ import ParentDashboard from '../views/page/ParentDashboard';
 import Gameboard from '../views/page/Gameboard';
 import ChildReportPage from '../views/page/ChildReportPage'
 import ProtectedRoute from './ProtectedRoute';
-// import NavBar from '../views/common/components/NavBar'
+
 
 
 
