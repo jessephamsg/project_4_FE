@@ -1,10 +1,10 @@
-import React, { Component, Fragment, useState ,useContext} from 'react'
+import React, { Fragment, useState ,useContext} from 'react'
 import './style_module.css'
 import Button from '../../common/elements/Buttons'
 import api from '../../../api'
 import { AuthService } from '../../../services/AuthService';
 import local from '../../../storage/localStorage'
-import {useHistory, Link} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 import Input from '../../common/elements/Input/Input';
 
 

@@ -1,5 +1,5 @@
-import React, { Fragment ,useState, useEffect, Component} from 'react'
-import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBInputGroup } from 'mdbreact';
+import React, { Fragment ,useState} from 'react'
+import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
 import IconModal from '../IconModal';
 import './style_module.css'
 import Input from '../../../elements/Input/Input';

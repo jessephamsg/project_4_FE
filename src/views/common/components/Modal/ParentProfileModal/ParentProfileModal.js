@@ -1,6 +1,5 @@
-import React, { Fragment, Component, useState,useEffect } from 'react'
+import React, { Fragment, useState,useEffect } from 'react'
 import './style_module.css'
-import ActionBtn from '../../../elements/ActionBtn'
 import { useParams } from 'react-router-dom'
 import Button from '../../../elements/Buttons'
 import api from '../../../../../api'
