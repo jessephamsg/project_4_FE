@@ -1,6 +1,10 @@
+//DEPENDENCIES
 import React, { Component } from 'react'
+
+//COMMON ELEMENTS
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
 import Input from '../../elements/Input';
+
 
 export class Modal extends Component {
     constructor(props) {

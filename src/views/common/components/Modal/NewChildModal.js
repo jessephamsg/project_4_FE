@@ -1,12 +1,17 @@
+//DEPENDENCIES
 import React, { Fragment, Component } from 'react'
+
+//COMMON ELEMENTS
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBInputGroup } from 'mdbreact';
-import Utility from '../../../common/Utility'
-import api from '../../../../api'
 import IconModal from './IconModal'
+
+//INTERACTION LOGICS
+import childProfileInteractions from '../../../../interactions/ManageChildrenProfile'
+
+
 export default class NewChildModal extends Component {
     constructor(props) {
         super(props)
-    
         this.state = {
             name : '',
             bDay : '',
@@ -15,11 +20,13 @@ export default class NewChildModal extends Component {
             isIconModalOpen : false,
         }
     }
+
     toggleIconModal = () => {
         this.setState({
           isIconModalOpen: !this.state.isIconModalOpen
         });
     }
+
     addIcon = async icon => {
         console.log(icon)
         this.setState({icon : icon})
@@ -33,18 +40,11 @@ export default class NewChildModal extends Component {
             [e.target.name]: e.target.value
         })
     }
+
     handleSubmit = async e => {
         e.preventDefault()
-        const currentUser = await api.getAuthUser()
-        const parentID = currentUser.data.data._id 
-        const payload = {
-            parentID : parentID,
-            name : this.state.name,
-            bDay : this.state.bDay,
-            age : Utility.calAge(this.state.bDay),
-            maxScreenTime : this.state.maxScreenTime,
-            icon : this.state.icon,
-        }
+        const {name, bDay, maxScreenTime, icon} = this.state;
+        const payload = await childProfileInteractions.getUser.buildChildPayload(name, bDay, maxScreenTime, icon)
         this.props.addChild(payload)
     }
 

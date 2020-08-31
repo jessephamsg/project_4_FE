@@ -1,4 +1,6 @@
+//DEPENDENCIES
 import React, { Component, Fragment } from 'react'
+
 
 export class ChildReportPage extends Component {
 

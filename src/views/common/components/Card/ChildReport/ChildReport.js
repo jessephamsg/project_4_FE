@@ -1,12 +1,13 @@
+//DEPENDENCIES
 import React, { Component } from 'react'
-import './style_module.css'
-import ActionBtn from '../../../elements/ActionBtn'
 import { withRouter } from 'react-router-dom'
-// import avatar from '../../../assets/avatar'
-// import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBInputGroup } from 'mdbreact';
-// import Utility from '../../../Utility'
-// import api from '../../../../../api'
-// import EditChildModal from '../../Modal/EditChildModal'
+
+//COMMON ELEMENTS
+import ActionBtn from '../../../elements/ActionBtn'
+
+//STYLES
+import './style_module.css'
+
 
 export class ChildReport extends Component {
     constructor(props) {

@@ -1,6 +1,10 @@
+//DEPENDENCIES
 import React, { Fragment ,useState, useEffect, Component} from 'react'
+
+//COMMON ELEMENTS
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBInputGroup } from 'mdbreact';
 import IconModal from './IconModal';
+
 
 const iconSelector = {
     display: 'flex',
@@ -8,6 +12,7 @@ const iconSelector = {
     justifyContent : 'flex-start',
     alignItems :'center'
 }
+
 export default function EditChildModal (props) {
     const [Icon, setIcon] = useState(props.icon) // props.icon not used here
     const [isIconModalOpen, setIsIconModalOpen] = useState(false)
@@ -26,7 +31,6 @@ export default function EditChildModal (props) {
         e.preventDefault()
         props.handleChange(e)
     }
-    
     
     return (
         <Fragment>

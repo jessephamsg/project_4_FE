@@ -1,5 +1,8 @@
+//DEPENDENCIES
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+//PAGES
 import LandingPage from '../views/page/LandingPage';
 import LoginPage from '../views/page/LoginPage';
 import RegisterPage from '../views/page/RegisterPage';
@@ -10,7 +13,6 @@ import Gameboard from '../views/page/Gameboard';
 import ChildReportPage from '../views/page/ChildReportPage'
 import ProtectedRoute from './ProtectedRoute';
 // import NavBar from '../views/common/components/NavBar'
-
 
 
 class RoutePage extends Component {

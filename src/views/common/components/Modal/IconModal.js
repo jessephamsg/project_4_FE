@@ -1,4 +1,7 @@
+//DEPENDENCIES
 import React ,{useState} from 'react'
+
+//COMMON ELEMENTS
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBInputGroup } from 'mdbreact';
 import avatar from '../../assets/avatar'
 

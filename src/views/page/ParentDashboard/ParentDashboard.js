@@ -1,20 +1,26 @@
+//DEPENDENCIES
 import React, { Component, Fragment } from 'react'
-import ChildReport from '../../common/components/Card/ChildReport'
-import './style_module.css'
+
+//COMMON COMPONENTS
 import ActionBtn from '../../common/elements/ActionBtn'
-import { ModalInput } from '../../common/components/Modal';
 import Input from '../../common/elements/Input';
-import {AuthService} from '../../../services/AuthService';
-import api from '../../../api';
-import local from '../../../storage/localStorage';
-import Utility from '../../common/Utility';
+import { ModalInput } from '../../common/components/Modal';
+import ChildReport from '../../common/components/Card/ChildReport'
 import EditChildModal from '../../common/components/Modal/EditChildModal'
 import NewChildModal from '../../common/components/Modal/NewChildModal'
+
+//INTERACTION LOGIGS
+import {AuthService} from '../../../interactions/AuthService';
+import ChildProfileInteractions from '../../../interactions/ManageChildrenProfile'
+
+//STYLES
+import './style_module.css'
 
 
 class ParentDashboard extends Component {
     
     static contextType = AuthService
+
     state = {
         kidList :[],
         isAddModalOpen : false,
@@ -29,13 +35,13 @@ class ParentDashboard extends Component {
       }
 
     getAllChildByParentID = async (currentId) => {
-        console.log('getting')
-        const result = await api.getAllChildByParentID(currentId)
+        const result = await ChildProfileInteractions.getUser.getAllChildByParentID(currentId)
         console.log(result.data.data.length)
         this.setState ({
             kidList : result.data.data.length? result.data.data : null
         })
     }
+
     toggleEditChildModal = (index) => {
         const dummyKid = {
                 name : '',
@@ -75,31 +81,21 @@ class ParentDashboard extends Component {
 
     addChild = async (payload) => {
         console.log(payload)
-        await api.createKid(payload) // create kid and add to kidlist
+        await ChildProfileInteractions.createUser.createKid(payload);
         await this.getAllChildByParentID(payload.parentID) // map childlist data
-        await this.toggleAddModal()
+        this.toggleAddModal()
     }
 
     componentDidMount () {
-        const currentId = local.get('currentId')
-        console.log(currentId)
+        const currentId = ChildProfileInteractions.getUser.getCurrentLocalID();
         this.getAllChildByParentID(currentId)
     }
+
     updateChild = async (e) => {
         e.preventDefault()
-        const kidId = this.state.editedKid._id
-        const payload = {
-            name : this.state.editedKid.name,
-            bDay : this.state.editedKid.bDay,
-            age : Utility.calAge(this.state.editedKid.bDay),
-            maxScreenTime : this.state.editedKid.maxScreenTime,
-            icon : this.state.editedKid.icon,
-            isPlaying : this.state.editedKid.isPlaying
-        }
-        console.log(payload)
-        console.log(this.state.editedKid)
-        await api.updateKid(payload, kidId)
-        await this.toggleEditChildModal()
+        const editedKid = this.state.editedKid;
+        await ChildProfileInteractions.updateUser.updateKid(editedKid);
+        this.toggleEditChildModal();
     }
 
     render() {
@@ -150,7 +146,6 @@ class ParentDashboard extends Component {
                                         index= {index}
                                         toggleEditChildModal = {this.toggleEditChildModal}
                                     />
-
                                 )})
                             }
                         </div>

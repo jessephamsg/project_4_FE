@@ -1,11 +1,16 @@
+//DEPENDENCIES
 import React, { Component, Fragment, useContext } from 'react'
-import Button from '../../elements/Buttons';
-import './style_module.css'
-import {AuthService} from '../../../../services/AuthService'
-import apis from '../../../../api';
-import local from '../../../../storage/localStorage';
 import { withRouter } from 'react-router-dom'
 
+//COMMON ELEMENTS
+import Button from '../../elements/Buttons';
+
+//INTERACTION LOGICS
+import loggingInteractions from '../../../../interactions/Logging'
+import {AuthService} from '../../../../interactions/AuthService'
+
+//STYLES
+import './style_module.css'
 
 
 export class NavBar extends Component {
@@ -13,13 +18,10 @@ export class NavBar extends Component {
     static contextType = AuthService
 
     logout = async () => {
-        const logout = await apis.logOut()
-        console.log(logout.data)
-        local.del('currentUser')
-        local.del('currentID')
+        await loggingInteractions.Logging.logout();
         window.location.href = '/'
-        
     }
+    
     goToParentDashboard = async () => {
         this.props.history.push(`/dashboard/${this.context.user}`)
     }
