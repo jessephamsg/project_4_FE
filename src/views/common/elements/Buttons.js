@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
 
 function Button(props) {
@@ -7,11 +7,11 @@ function Button(props) {
   const hoverIn = e => {
     e.preventDefault()
     e.target.style.cursor='pointer'
-    e.target.style.backgroundColor='#004f48'
+    // e.target.style.backgroundColor='#004f48'
   }
 
   const style = {
-    // fontFamily: 'Schoolbell, cursive',
+    fontFamily: "'Luckiest Guy', cursive",
     fontSize : '16px',
     backgroundColor: '#009688',
     padding: '15px',
@@ -23,10 +23,12 @@ function Button(props) {
    
   return (
     <button
-        type ={props.type}
-        style = {style}
-        onClick= {props.onClick}
-        onMouseOver = {hoverIn}
+      id = {props.id}
+      className={props.className}
+      type ={props.type}
+      style = {style}
+      onClick= {props.onClick}
+      onMouseOver = {hoverIn}
     >{props.text}
     </button>
   );

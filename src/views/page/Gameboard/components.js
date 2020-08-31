@@ -1,10 +1,12 @@
 import React from 'react';
 import Puzzle from './Puzzle';
 import FruitNinja from './FruitNinja';
+import WhackAMole from "./WhackAMole"
 
 const Components = {
     puzzle: Puzzle,
-    fruitninja: FruitNinja
+    fruitninja: FruitNinja,
+    whackamole: WhackAMole
 }
 
 export default gameName => {

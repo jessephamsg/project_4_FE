@@ -11,6 +11,7 @@ import ChildProfileInteractions from '../../../interactions/ManageChildrenProfil
 import './style_module.css';
 
 import api from '../../../api'
+import Input from '../../common/elements/Input/Input'
 
 
 export class RegisterPage extends Component {

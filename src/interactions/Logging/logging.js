@@ -21,6 +21,11 @@ export default {
         local.set("currentId", _id) // set localstorage a token
         local.set("currentUser",name)
         return {_id, name}
+    }, 
+
+    async checkPassword (payload, parentId) {
+        const check = await apis.checkPassword(payload, parentId);
+        return check
     }
 
 }

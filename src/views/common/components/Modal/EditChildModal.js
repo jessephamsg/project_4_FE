@@ -101,22 +101,3 @@ export default function EditChildModal (props) {
     )
 }
 
-{/* <MDBInputGroup
-material
-containerClassName='mb-3 mt-0'
-prepend={
-    <MDBBtn
-    className= 'px-2 mx-0'
-    color='primary' 
-    onClick={toggleIconModal}
-    > Select Icon
-    </MDBBtn>
-}
-required
-hint ="select an icon or a url image of your choice"
-name ="icon"
-type ="text" 
-value={props.icon}
-onChange= {props.handleChange}
->
-</MDBInputGroup> */}

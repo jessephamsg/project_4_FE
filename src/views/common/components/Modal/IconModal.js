@@ -7,6 +7,7 @@ import avatar from '../../assets/avatar'
 
 
 export default function IconModal (props) {
+
     const [icon, setIcon] = useState('')
 
     const handleChange = e => {
@@ -14,11 +15,13 @@ export default function IconModal (props) {
         props.handleChange(e)
         console.log(icon)
     }
+    
     const handleSubmit = e => {
         console.log(icon)
         e.preventDefault()
         props.addIcon(icon)
     }
+
     return (
     <MDBContainer>
         <form onSubmit={handleSubmit}>
@@ -39,7 +42,6 @@ export default function IconModal (props) {
                                 id={key} 
                                 name='icon' 
                                 value={avatar[key]} 
-                                // onClick={props.handleChange}
                                 onClick={handleChange}
                             />
                         </div>

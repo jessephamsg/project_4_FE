@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 
 //COMMON ELEMENTS
 import Button from '../../elements/Buttons';
+import AuthorizeModal from '../Modal/AuthorizeModal'
 
 //INTERACTION LOGICS
 import loggingInteractions from '../../../../interactions/Logging'
@@ -14,6 +15,9 @@ import './style_module.css'
 
 
 export class NavBar extends Component {
+    state= {
+        isAuthorizeModalOpen : false
+    }
     
     static contextType = AuthService
 
@@ -21,18 +25,32 @@ export class NavBar extends Component {
         await loggingInteractions.Logging.logout();
         window.location.href = '/'
     }
-    
+    toggleAuthorizeModal = () => {
+        this.setState({
+            isAuthorizeModalOpen : !this.state.isAuthorizeModalOpen
+        })
+    }
+    authorize = () => {
+        this.toggleAuthorizeModal()
+    }
     goToParentDashboard = async () => {
         this.props.history.push(`/dashboard/${this.context.user}`)
     }
+    checkSuccess = (result) => {
+        if (result) {
+            this.toggleAuthorizeModal()
+            this.goToParentDashboard()
+        }else alert('you are not authorized')
+    }
 
     render() {
-        console.log(this.context)
-        console.log(this.props)
+        // console.log(this.context)
+        // console.log(this.props)
         const routeTo = this.props.history
         return (
-
+            <Fragment>
             <div className='navBar'>
+               
                 <ul className='navBarItem'>
                     <div className='navBarLeft'>
                         <li>Project 4 logo</li>
@@ -44,17 +62,25 @@ export class NavBar extends Component {
                     </div>
                     {!this.context.user ? 
                     <div className='navBarRight'>
-                        <Button text={'Sign Up'} onClick={() => routeTo.push('/register')}></Button>
-                        <Button text={'Log In'} onClick={() => routeTo.push('/login')}></Button>
+                        <Button className='navBtn' text={'Sign Up'} onClick={() => routeTo.push('/register')}></Button>
+                        <Button className='navBtn' text={'Log In'} onClick={() => routeTo.push('/login')}></Button>
                     </div> 
                     :
                     <div className='navBarRight'>
-                        <Button text={'Dashboard'} onClick={this.goToParentDashboard}></Button>
-                        <Button text={'Log Out'} onClick ={this.logout}></Button> 
+                        <Button className='navBtn' text={'Dashboard'} onClick={this.authorize}></Button>
+                        <Button className='navBtn' text={'Log Out'} onClick ={this.logout}></Button> 
                     </div>
                     }
                 </ul>
             </div>
+             {this.state.isAuthorizeModalOpen?
+                <AuthorizeModal 
+                    isAuthorizeModalOpen={this.state.isAuthorizeModalOpen}
+                    toggleAuthorizeModal= {this.toggleAuthorizeModal}
+                    checkSuccess={this.checkSuccess}/> 
+                :
+                null}
+            </Fragment>
         )
     }
 }

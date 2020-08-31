@@ -1,5 +1,5 @@
 //DEPENDENCIES
-import React, { Component, Fragment, useState ,useContext} from 'react'
+import React, {Fragment, useState ,useContext} from 'react'
 import {useHistory} from 'react-router-dom'
 
 //STYLES
@@ -10,7 +10,8 @@ import { AuthService } from '../../../interactions/AuthService';
 import LoggingInteractions from '../../../interactions/Logging';
 
 //COMMON ELEMENTS
-import Button from '../../common/elements/Buttons'
+import Button from '../../common/elements/Buttons';
+import Input from '../../common/elements/Input/Input';
 
 
 const LoginPage = () => {
@@ -41,23 +42,29 @@ const LoginPage = () => {
         <Fragment>
             <div className='loginPage'>
                 <div className='login'>
-                    <form onSubmit={login}>
-                        <input 
-                            type='text' 
-                            name='username' 
-                            placeholder='username' 
-                            value={state.username} 
-                            onChange={handleChange} >
-                        </input>
-                        <input 
-                            type='password' 
-                            name='password' 
-                            value={state.password} 
-                            placeholder='password'
-                            onChange={handleChange} > 
-                        </input>
+                    <form onSubmit={login} className='loginForm'>
+                    <Input
+                        type='text' 
+                        name='username' 
+                        placeholder='username' 
+                        value={state.username} 
+                        onChange={handleChange}
+                        required={true}
+                    />
+                    <Input
+                        type='password' 
+                        name='password' 
+                        placeholder='password' 
+                        value={state.password} 
+                        onChange={handleChange}
+                        required={true}
+                    />
+                    <div className='register-container'>
                         <Button type='submit' text='Sign in!'/>
-                        <a href='/register'>New? Sign up here!</a>
+                        <h4 id = 'h4Register' onClick={() => {history.push('/register')}}>
+                            New? Sign up here!
+                        </h4>
+                    </div>
                     </form>
                 </div>
             </div>    

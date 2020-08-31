@@ -1,5 +1,5 @@
 .navBar {
-    /* font-family: 'Schoolbell', cursive; */
+    font-family: 'Luckiest Guy', cursive;
     background-color: white;
     margin: 0 auto;
     width: 100%;
@@ -35,6 +35,9 @@
 
 .navLink:hover {
     cursor: pointer;    
+}
+.navBtn:hover {
+    background-color: #004f48!important;
 }
 
 li {

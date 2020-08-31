@@ -2,12 +2,10 @@
 import React, { Component, Fragment } from 'react'
 
 //COMMON COMPONENTS
-import ActionBtn from '../../common/elements/ActionBtn'
-import Input from '../../common/elements/Input';
-import { ModalInput } from '../../common/components/Modal';
-import ChildReport from '../../common/components/Card/ChildReport'
-import EditChildModal from '../../common/components/Modal/EditChildModal'
-import NewChildModal from '../../common/components/Modal/NewChildModal'
+import ChildReport from '../../common/components/Card/ChildReport';
+import EditChildModal from '../../common/components/Modal/EditChildModal';
+import NewChildModal from '../../common/components/Modal/NewChildModal';
+import ParentProfileModal from '../../common/components/Modal/ParentProfileModal';
 
 //INTERACTION LOGIGS
 import {AuthService} from '../../../interactions/AuthService';
@@ -36,7 +34,7 @@ class ParentDashboard extends Component {
 
     getAllChildByParentID = async (currentId) => {
         const result = await ChildProfileInteractions.getUser.getAllChildByParentID(currentId)
-        console.log(result.data.data.length)
+        console.log(result.data.data)
         this.setState ({
             kidList : result.data.data.length? result.data.data : null
         })
@@ -71,7 +69,6 @@ class ParentDashboard extends Component {
     }
 
     handleChange = e => {
-        console.log(e.target.name)
         const newState = Object.assign(this.state.editedKid,{[e.target.name]: e.target.value})
         this.setState({
             editedKid : newState
@@ -98,7 +95,20 @@ class ParentDashboard extends Component {
         this.toggleEditChildModal();
     }
 
+    deleteChild = async (id) => {
+        const kidId = id
+        const parentId = this.context.userId
+        await ChildProfileInteractions.deleteUser.deleteKid(kidId);
+        await ChildProfileInteractions.deleteUser.removeKidFromParents(parentId, kidId);
+        await this.getAllChildByParentID()
+    }
+
+    componentDidMount () {
+        this.getAllChildByParentID()
+    }
+
     render() {
+        console.log(this.context)
         return (
             <Fragment>
                 <EditChildModal
@@ -124,15 +134,8 @@ class ParentDashboard extends Component {
                 />
 
                 <div className='parentDashboard'>
-                    <h1>Hi {this.props.match.params.username}</h1>
-                    <div className='main-container'>
-                        <div className='left-container'>
-                            <div>
-                                <ActionBtn text='+' onClick={this.toggleAddModal} />
-                                <h3>Add a child</h3>
-                            </div>
-                        </div>
-                        <div className='right-container'>
+                    <ParentProfileModal onClick={this.toggleAddModal}/>
+                        <div className='childList-container'>
                             {!this.state.kidList ? 
                                 <h1>You have not enter a child yet</h1> :
                                 this.state.kidList.map((kid,index) => {
@@ -145,11 +148,11 @@ class ParentDashboard extends Component {
                                         data={kid}
                                         index= {index}
                                         toggleEditChildModal = {this.toggleEditChildModal}
+                                        deleteChild = {this.deleteChild}
                                     />
                                 )})
                             }
                         </div>
-                    </div>
                 </div>
             </Fragment>
         )
