@@ -1,15 +1,22 @@
-import React, { Fragment, Component } from 'react'
-import { MDBContainer,MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
-import Utility from '../../../Utility'
-import api from '../../../../../api'
+//DEPENDENCIES
+import React, { Fragment, Component } from 'react';
+
+//COMMON ELEMENTS
+import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBInputGroup } from 'mdbreact';
 import IconModal from '../IconModal'
 import Input from '../../../elements/Input/Input';
 import Button from '../../../elements/Buttons';
-import './style_module.css'
+
+//INTERACTION LOGICS
+import childProfileInteractions from '../../../../../interactions/ManageChildrenProfile';
+
+//STYLES
+import './style_module.css';
+
+
 export default class NewChildModal extends Component {
     constructor(props) {
         super(props)
-    
         this.state = {
             name : '',
             bDay : '',
@@ -24,6 +31,7 @@ export default class NewChildModal extends Component {
           isIconModalOpen: !this.state.isIconModalOpen
         });
     }
+
     addIcon = async icon => {
         this.setState({icon : icon})
         await this.setState({
@@ -38,18 +46,11 @@ export default class NewChildModal extends Component {
             [e.target.name]: e.target.value
         })
     }
+
     handleSubmit = async e => {
         e.preventDefault()
-        const currentUser = await api.getAuthUser()
-        const parentID = currentUser.data.data._id 
-        const payload = {
-            parentID : parentID,
-            name : this.state.name,
-            bDay : this.state.bDay,
-            age : Utility.calAge(this.state.bDay),
-            maxScreenTime : this.state.maxScreenTime,
-            icon : this.state.icon,
-        }
+        const {name, bDay, maxScreenTime, icon} = this.state;
+        const payload = await childProfileInteractions.getUser.buildChildPayload(name, bDay, maxScreenTime, icon)
         this.props.addChild(payload)
         this.props.toggleModal()
     }

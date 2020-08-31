@@ -1,8 +1,14 @@
+//DEPENDENCIES
 import React, { Component, Fragment } from 'react'
+
+//COMMON COMPONENTS
 import ChildCard from '../../common/components/Card/ChildCard'
+
+//INTERACTION LOGICS
+import ChildProfileInteractions from '../../../interactions/ManageChildrenProfile'
+
+//STYLES
 import './style_module.css'
-import local from '../../../storage/localStorage'
-import api from '../../../api'
 
 
 export class HomePage extends Component {
@@ -12,7 +18,7 @@ export class HomePage extends Component {
     }
 
     getAllChildByParentID = async (currentId) => {
-        const result = await api.getAllChildByParentID(currentId)
+        const result = await ChildProfileInteractions.getUser.getAllChildByParentID(currentId);
         this.setState ({
             kidList : result.data.data.length ? result.data.data : null
         })
@@ -20,7 +26,7 @@ export class HomePage extends Component {
     }
 
     componentDidMount () {
-        const currentId = local.get('currentId')
+        const currentId = ChildProfileInteractions.getUser.getCurrentLocalID();
         console.log(currentId)
         this.getAllChildByParentID(currentId)
     }

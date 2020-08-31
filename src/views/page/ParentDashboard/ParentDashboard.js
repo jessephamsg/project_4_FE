@@ -1,18 +1,24 @@
+//DEPENDENCIES
 import React, { Component, Fragment } from 'react'
-import ChildReport from '../../common/components/Card/ChildReport'
-import './style_module.css'
-import {AuthService} from '../../../services/AuthService';
-import api from '../../../api';
-import local from '../../../storage/localStorage';
-import Utility from '../../common/Utility';
-import EditChildModal from '../../common/components/Modal/EditChildModal'
-import NewChildModal from '../../common/components/Modal/NewChildModal'
+
+//COMMON COMPONENTS
+import ChildReport from '../../common/components/Card/ChildReport';
+import EditChildModal from '../../common/components/Modal/EditChildModal';
+import NewChildModal from '../../common/components/Modal/NewChildModal';
 import ParentProfileModal from '../../common/components/Modal/ParentProfileModal';
+
+//INTERACTION LOGIGS
+import {AuthService} from '../../../interactions/AuthService';
+import ChildProfileInteractions from '../../../interactions/ManageChildrenProfile'
+
+//STYLES
+import './style_module.css'
 
 
 class ParentDashboard extends Component {
     
     static contextType = AuthService
+
     state = {
         kidList :[],
         isAddModalOpen : false,
@@ -26,14 +32,14 @@ class ParentDashboard extends Component {
         }
       }
 
-    getAllChildByParentID = async () => {
-        const currentId = local.get('currentId')
-        const result = await api.getAllChildByParentID(currentId)
+    getAllChildByParentID = async (currentId) => {
+        const result = await ChildProfileInteractions.getUser.getAllChildByParentID(currentId)
         console.log(result.data.data)
         this.setState ({
             kidList : result.data.data.length? result.data.data : null
         })
     }
+
     toggleEditChildModal = (index) => {
         const dummyKid = {
                 name : '',
@@ -72,37 +78,34 @@ class ParentDashboard extends Component {
 
     addChild = async (payload) => {
         console.log(payload)
-        await api.createKid(payload) // create kid and add to kidlist
-        await this.getAllChildByParentID() // map childlist data
-        // await this.toggleAddModal()
+        await ChildProfileInteractions.createUser.createKid(payload);
+        await this.getAllChildByParentID(payload.parentID) // map childlist data
+        this.toggleAddModal()
     }
+
+    componentDidMount () {
+        const currentId = ChildProfileInteractions.getUser.getCurrentLocalID();
+        this.getAllChildByParentID(currentId)
+    }
+
     updateChild = async (e) => {
         e.preventDefault()
-        const kidId = this.state.editedKid._id
-        const payload = {
-            name : this.state.editedKid.name,
-            bDay : this.state.editedKid.bDay,
-            age : Utility.calAge(this.state.editedKid.bDay),
-            maxScreenTime : this.state.editedKid.maxScreenTime,
-            icon : this.state.editedKid.icon,
-            isPlaying : this.state.editedKid.isPlaying
-        }
-        await api.updateKid(payload, kidId)
-        await this.getAllChildByParentID()
-        await this.toggleEditChildModal()
+        const editedKid = this.state.editedKid;
+        await ChildProfileInteractions.updateUser.updateKid(editedKid);
+        this.toggleEditChildModal();
     }
+
     deleteChild = async (id) => {
         const kidId = id
         const parentId = this.context.userId
-        await api.deleteKid(kidId)
-        await api.removeKidFromParent(parentId, kidId)
+        await ChildProfileInteractions.deleteUser.deleteKid(kidId);
+        await ChildProfileInteractions.deleteUser.removeKidFromParents(parentId, kidId);
         await this.getAllChildByParentID()
     }
 
     componentDidMount () {
         this.getAllChildByParentID()
     }
-
 
     render() {
         console.log(this.context)
@@ -147,8 +150,8 @@ class ParentDashboard extends Component {
                                         toggleEditChildModal = {this.toggleEditChildModal}
                                         deleteChild = {this.deleteChild}
                                     />
-                                )}
-                            )}
+                                )})
+                            }
                         </div>
                 </div>
             </Fragment>

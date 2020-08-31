@@ -1,3 +1,4 @@
+//DEPENDENCIES
 import React, { Component, Fragment } from 'react'
 import {
     LineSeries, Tooltip, AreaSeries, BarSeries,Rectangle,
@@ -14,6 +15,7 @@ const data = [
     { name: 'H', value1: 10, value2: 31},
     { name: 'I', value1: 30, value2: 32 },
 ]
+
 
 export class ChildReportPage extends Component {
     state = {

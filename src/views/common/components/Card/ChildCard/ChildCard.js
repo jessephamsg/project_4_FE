@@ -1,5 +1,9 @@
+//DEPENDENCIES
 import React, { Component } from 'react'
+
+//STYLES
 import './style_module.css'
+
 
 export class ChildCard extends Component {
 

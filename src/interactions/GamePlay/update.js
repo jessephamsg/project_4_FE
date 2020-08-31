@@ -1,14 +1,14 @@
 //LOCAL STORAGE
-import LocalGameState from '../../../../storage/gameLocalState';
+import LocalGameState from '../../storage/gameLocalState';
 
 //MODELS
-import GameStatsModel from '../../../../models/GameStats';
+import GameStatsModel from '../../models/GameStats';
 
 //UTILS
 import gameUtils from './utils/utils';
 
 //APIS
-import apis from '../../../../api';
+import apis from '../../api';
 
 
 export default {

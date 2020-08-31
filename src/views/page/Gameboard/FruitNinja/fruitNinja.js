@@ -1,10 +1,10 @@
 //DEPENDENCIES
 import React, {Component} from 'react';
 import gameConfig from './config/gameSettings';
-import gameUtils from '../stateControllers/utils/utils';
 
-//STATE CONTROLLERS
-import stateControllers from '../stateControllers'
+//INTERACTION LOGIGS
+import gameInteractions from '../../../../interactions/GamePlay'
+import gameUtils from '../../../../interactions/GamePlay/utils/utils';
 
 //COMPONENTS
 import SelectLevelBoard from '../../../common/components/SlidingBoard/selectLevelBoard';
@@ -23,7 +23,7 @@ class FruitNinja extends Component {
 
     constructor(props) {
         super(props)
-        this.state = stateControllers.InitialiseState.buildIntialStates();
+        this.state = gameInteractions.InitialiseState.buildIntialStates();
         this.updateItemPositions=this.updateItemPositions.bind(this);
         this.updateGameStats=this.updateGameStats.bind(this);
         this.updateStartTime = this.updateStartTime.bind(this);
@@ -35,15 +35,15 @@ class FruitNinja extends Component {
     }
 
     async setGameSettings () {
-        const {totalLevel, currentLevel, currentOption} = stateControllers.InitialiseState.getLatestLocalGameState(gameConfig, gameName);
+        const {totalLevel, currentLevel, currentOption} = gameInteractions.InitialiseState.getLatestLocalGameState(gameConfig, gameName);
         const gameStats = {};
         for(const level of totalLevel) {
-            gameStats[level] = stateControllers.InitialiseState.buildInitialKeyGameStats();
+            gameStats[level] = gameInteractions.InitialiseState.buildInitialKeyGameStats();
             gameStats[level].currentState = {};
         }
         this.setState({
             name: gameName,
-            id: await stateControllers.InitialiseState.getGameID(gameName),
+            id: await gameInteractions.InitialiseState.getGameID(gameName),
             totalScore: 0, //needs to get from API using Kid's actual ID when kids repo is checked and set up
             currentLevel,
             currentLevelSettings: this.setCurrentLevelSettings(0),
@@ -70,7 +70,7 @@ class FruitNinja extends Component {
 
     async updateStartTime (startTime) {
         this.setState({ viewGame: true })
-        if (stateControllers.InitialiseState.isFirstTimePlayingGame(gameName) === false) {
+        if (gameInteractions.InitialiseState.isFirstTimePlayingGame(gameName) === false) {
             this.setState({
                 startTime: this.state.startTime === undefined ? [startTime] : [...this.state.startTime, startTime],
             });
@@ -82,7 +82,7 @@ class FruitNinja extends Component {
     async createKidStats () {
         const {id, totalLevel} = this.state;
         const kidID = this.context.userId;
-        await stateControllers.InitialiseState.createKidsStats(id, gameName, kidID, totalLevel)
+        await gameInteractions.InitialiseState.createKidsStats(id, gameName, kidID, totalLevel)
     }
 
     updateGameStats () {
@@ -94,7 +94,7 @@ class FruitNinja extends Component {
             this.state.currentLevelSettings.winningCriteria.items
         )
         const overallTotal = this.state.totalScore + score;
-        const updatedGameStats = stateControllers.UpdateState.updateDefaultGameStatsObj(gameStats, level, submitTime, isCorrect, score);
+        const updatedGameStats = gameInteractions.UpdateState.updateDefaultGameStatsObj(gameStats, level, submitTime, isCorrect, score);
         gameStats[`${level}`].currentState = {...this.state.gameStats[this.state.currentLevel].currentState};
         gameStats[`${level}`].currentBasket = [...this.state.gameStats[this.state.currentLevel].currentBasket];
         currentOrder.order.current = this.state.gameStats[this.state.currentLevel].currentBasket
@@ -109,7 +109,7 @@ class FruitNinja extends Component {
     async updateKidStats (level, levelStatsState) {
         const gameID = this.state.id;
         const kidID = this.context.userId;//this is currently parentsID need to edit
-        await stateControllers.UpdateState.updateKidsStats(gameID, level, levelStatsState, kidID);
+        await gameInteractions.UpdateState.updateKidsStats(gameID, level, levelStatsState, kidID);
     }
 
     updateCurrentLevel (level) {
@@ -117,7 +117,7 @@ class FruitNinja extends Component {
             currentLevel: level,
             currentLevelSettings: this.setCurrentLevelSettings(level)
         });
-        stateControllers.UpdateState.updateLocalViewState(gameName, level, 1)
+        gameInteractions.UpdateState.updateLocalViewState(gameName, level, 1)
     }
 
     updateItemPositions (item, level, id, x, y) {

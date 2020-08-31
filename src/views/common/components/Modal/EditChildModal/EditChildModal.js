@@ -1,29 +1,35 @@
+//DEPENDENCIES
 import React, { Fragment ,useState} from 'react'
+
+//COMMON COMPONENTS
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
 import IconModal from '../IconModal';
-import './style_module.css'
 import Input from '../../../elements/Input/Input';
 import Button from '../../../elements/Buttons';
 
+//STYLES
+import './style_module.css'
+
+
 export default function EditChildModal (props) {
+
     const [Icon, setIcon] = useState(props.icon) // props.icon not used here
     const [isIconModalOpen, setIsIconModalOpen] = useState(false)
 
     const toggleIconModal = (e) => {
         e.preventDefault()
         setIsIconModalOpen(!isIconModalOpen)
-
     }
 
     const addIcon = async icon => {
         setIcon(icon)
         console.log(icon)
-        await setIsIconModalOpen(!isIconModalOpen)
+        setIsIconModalOpen(!isIconModalOpen)
     }
+
     const handleChange = e => {
         props.handleChange(e)
     }
-    
     
     return (
         <Fragment>

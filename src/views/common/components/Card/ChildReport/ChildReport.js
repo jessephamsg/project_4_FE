@@ -1,7 +1,13 @@
+//DEPENDENCIES
 import React, { Component } from 'react'
-import './style_module.css'
 import { withRouter } from 'react-router-dom'
+
+//COMMON ELEMENTS
 import Button from '../../../elements/Buttons'
+
+//STYLES
+import './style_module.css'
+
 
 export class ChildReport extends Component {
 

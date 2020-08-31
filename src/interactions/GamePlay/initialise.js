@@ -1,12 +1,12 @@
 //LOCAL STORAGE
-import LocalGameState from '../../../../storage/gameLocalState';
+import LocalGameState from '../../storage/gameLocalState';
 
 //MODELS
-import GameStatsModel from '../../../../models/GameStats';
-import LevelStatsModel from '../../../../models/LevelStats';
+import GameStatsModel from '../../models/GameStats';
+import LevelStatsModel from '../../models/LevelStats';
 
 //APIS
-import apis from '../../../../api';
+import apis from '../../api';
 
 
 const DEFAULT_CURRENT_LEVEL = 0;

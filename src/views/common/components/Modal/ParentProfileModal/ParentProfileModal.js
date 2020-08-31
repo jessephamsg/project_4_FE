@@ -1,21 +1,29 @@
-import React, { Fragment, useState,useEffect } from 'react'
-import './style_module.css'
-import { useParams } from 'react-router-dom'
-import Button from '../../../elements/Buttons'
-import api from '../../../../../api'
+//DEPENDENCIES
+import React, { Fragment, useState,useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
+//COMMON COMPONENTS
+import Button from '../../../elements/Buttons';
+
+//INTERACTION LOGICS
+import ChildProfileInteraction from '../../../../../interactions/ManageChildrenProfile';
+
+//STYLES
+import './style_module.css';
 
 
 export default function ParentProfileModal (props) {
+
     const [ParentData, setParentData] = useState({})
     const [KidsList, setKidsList] = useState([])
+
     useEffect(() => {
         getParentData()
     }, [])
 
     const getParentData = async()=> {
         try {
-        const result = await api.getAuthUser()
+        const result = await ChildProfileInteraction.getUser.getAuthUser();
         const data = result.data.data
         setParentData(data)
         setKidsList(data.kidsList)
@@ -26,6 +34,7 @@ export default function ParentProfileModal (props) {
     }
 
     let param = useParams()
+
     function toggleEditParentModal () {
         console.log('editparentprofile')
     }

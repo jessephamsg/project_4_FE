@@ -1,4 +1,4 @@
-#gameContainer {
+#gameContainerWhackAMole {
     background-image: url('https://i.ibb.co/tcrzkws/whackbg.png');
     background-size: cover;
     background-repeat: no-repeat;
@@ -14,7 +14,7 @@
     background-color: springgreen;
 }
 
-#gameContainer>h1 {
+#gameContainerWhackAMole>h1 {
     font-family: 'Luckiest Guy', cursive;
     font-size: 50px;
     color: #009688;
@@ -23,25 +23,25 @@
     margin-bottom: 0px;
 }
 
-.gameContentLeft {
+.gameContentLeftWhackAMole {
     display: flex;
     width: 25%;
     flex-flow: column nowrap;
 }
 
-.gameContentWrapper {
+.gameContentWrapperWhackAMole {
     display: flex;
     width: 100%;
     height: 100%;
 }
 
-.gameMainContent {
+.gameMainContentWhackAMole {
     display: flex;
     flex-flow: column nowrap;
     width: 80%;
 }
 
-.gameStatsBoards {
+.gameStatsBoardsWhackAMole {
     display: flex;
     flex-direction: row;
     margin-top: 10px;

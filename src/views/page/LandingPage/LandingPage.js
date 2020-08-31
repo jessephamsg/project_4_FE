@@ -1,9 +1,11 @@
+//DEPENDENCIES
 import React, { Component, Fragment } from 'react'
+
+//STYLES
 import './style_module.css';
 
 
 export class LandingPage extends Component {
-
 
     render() {
         return (

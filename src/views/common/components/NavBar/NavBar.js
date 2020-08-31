@@ -1,12 +1,17 @@
-import React, { Component, Fragment } from 'react'
-import Button from '../../elements/Buttons';
-import './style_module.css'
-import {AuthService} from '../../../../services/AuthService'
-import api from '../../../../api';
-import local from '../../../../storage/localStorage';
-import AuthorizeModal from '../Modal/AuthorizeModal'
+//DEPENDENCIES
+import React, { Component, Fragment, useContext } from 'react'
 import { withRouter } from 'react-router-dom'
 
+//COMMON ELEMENTS
+import Button from '../../elements/Buttons';
+import AuthorizeModal from '../Modal/AuthorizeModal'
+
+//INTERACTION LOGICS
+import loggingInteractions from '../../../../interactions/Logging'
+import {AuthService} from '../../../../interactions/AuthService'
+
+//STYLES
+import './style_module.css'
 
 
 export class NavBar extends Component {
@@ -17,11 +22,8 @@ export class NavBar extends Component {
     static contextType = AuthService
 
     logout = async () => {
-        await api.logOut()
-        local.del('currentUser')
-        local.del('currentId')
+        await loggingInteractions.Logging.logout();
         window.location.href = '/'
-        
     }
     toggleAuthorizeModal = () => {
         this.setState({

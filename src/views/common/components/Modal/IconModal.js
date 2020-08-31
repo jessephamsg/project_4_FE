@@ -1,9 +1,13 @@
+//DEPENDENCIES
 import React ,{useState} from 'react'
-import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter} from 'mdbreact';
+
+//COMMON ELEMENTS
+import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBInputGroup } from 'mdbreact';
 import avatar from '../../assets/avatar'
 
 
 export default function IconModal (props) {
+
     const [icon, setIcon] = useState('')
 
     const handleChange = e => {
@@ -11,11 +15,13 @@ export default function IconModal (props) {
         props.handleChange(e)
         console.log(icon)
     }
+    
     const handleSubmit = e => {
         console.log(icon)
         e.preventDefault()
         props.addIcon(icon)
     }
+
     return (
     <MDBContainer>
         <form onSubmit={handleSubmit}>
