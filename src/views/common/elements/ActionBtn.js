@@ -2,7 +2,7 @@ import React from 'react';
 
 function ActionBtn(props) {
     const style = {
-        fontFamily: "'Luckiest Guy', cursive",
+        fontFamily: 'Lato, "sans-serif"',
         fontSize :'50px',
         backgroundColor : 'rgba(0,0,0,0)',
         border: '0.1rem solid black',

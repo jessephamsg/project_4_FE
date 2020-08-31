@@ -14,7 +14,7 @@ import DragglebleList from './draggableList';
 import ListOptions from './listOptions';
 
 //STYLES
-//import layout from '../../../common/layouts/gameContainer.styles.css';
+import layout from '../../../common/layouts/gameContainer.styles.css';
 import './style_module.css';
 
 
@@ -112,7 +112,8 @@ class PuzzleGame extends Component {
         }
         return (
             <React.Fragment>
-                {this.state.viewGame === true ? 
+                {this.state.viewGame === true ?
+                    <div className='gameContainerWrapper'> 
                     <div id='gameContainerPuzzle'>
                         <h1>Level: {this.state.currentLevel}</h1>
                         <div className='gameContentWrapper'>
@@ -141,6 +142,7 @@ class PuzzleGame extends Component {
                                 />
                             </div>
                         </div>
+                    </div>
                     </div>
                     : 
                     <WelcomeBoard 

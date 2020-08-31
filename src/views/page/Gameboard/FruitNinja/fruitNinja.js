@@ -14,6 +14,7 @@ import SubmitButton from '../../../common/components/SubmitButton';
 import DraggableList from './draggableList';
 
 //STYLES
+import layout from '../../../common/layouts/gameContainer.styles.css';
 import './style_module.css';
 
 
@@ -158,6 +159,7 @@ class FruitNinja extends Component {
         return (
             <React.Fragment>
                 {this.state.viewGame === true ? 
+                <div className='gameContainerWrapper'>
                     <div className='gameContainerFruitNinja'>
                         <div>
                             <h1>Level: {this.state.currentLevel}</h1>
@@ -188,6 +190,7 @@ class FruitNinja extends Component {
                                 totalScore={this.state.totalScore}
                             />
                         </div>
+                    </div>
                     </div>
                     :
                     <WelcomeBoard 

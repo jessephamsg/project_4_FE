@@ -1,5 +1,5 @@
 .login {
-    font-family: 'Luckiest Guy', cursive;
+    font-family: 'Lato', sans-serif;
     margin: 0 auto;
     top: 5rem;
     width: 60%;
@@ -8,8 +8,6 @@
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
-
-    
 }
 
 .loginForm {
