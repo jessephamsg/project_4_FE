@@ -12,12 +12,16 @@ export default {
 
     async getAuthUser () {
         const currentUser = await apis.getAuthUser()
-        const parentID = currentUser.data.data._id 
-        return parentID
+        console.log(currentUser)
+        // const parentID = currentUser.data.data._id 
+        // return parentID
+        const currentUserData = currentUser.data.data
+        return currentUserData
     },
 
     async buildChildPayload (name, bDay, maxScreenTime, icon) {
-        const parentID = await this.getAuthUser();
+        const result = await this.getAuthUser();
+        const parentID = result._id
         const payload = {
             parentID,
             name,
