@@ -21,9 +21,11 @@ export class ChildReport extends Component {
             return
         }
     }
+    
     directToChildReportPage = () => {
         this.props.history.push(`/child/${this.props.childname}/report`)
     }
+
     toggleEditChildModal = () => {
         this.props.toggleEditChildModal(this.props.index)
     }
@@ -38,16 +40,16 @@ export class ChildReport extends Component {
                                 src={this.props.icon} 
                                 alt={this.props.childname+ "icon"}
                                 title={this.props.childname + "icon"} 
-                                className='childIcon'
+                                className='childCardIcon'
                             />
-                            <h1> {this.props.childname}</h1>
+                            <h2> {this.props.childname}</h2>
                             <p>Last played at :</p>
-                            <p>ScreenTime : {this.props.data.maxScreenTime} minutes</p>
+                            <p>Screen Time : {this.props.data.maxScreenTime} minutes</p>
                         </div>
                         <div className="flip-card-back">
                             <div>
-                                <h1>{this.props.childname}</h1> 
-                                <h1>Age : {this.props.data.age}</h1> 
+                                <h3>{this.props.childname}</h3> 
+                                <h4>Age : {this.props.data.age}</h4> 
                             </div>
                             <div className ='actionFooter'>
                                 <Button text='Edit' onClick={this.toggleEditChildModal} className='actionBtn' />

@@ -6,6 +6,7 @@ import ChildReport from '../../common/components/Card/ChildReport';
 import EditChildModal from '../../common/components/Modal/EditChildModal';
 import NewChildModal from '../../common/components/Modal/NewChildModal';
 import ParentProfileModal from '../../common/components/Modal/ParentProfileModal';
+import Button from '../../common/elements/Buttons';
 
 //INTERACTION LOGIGS
 import {AuthService} from '../../../interactions/AuthService';
@@ -122,25 +123,44 @@ class ParentDashboard extends Component {
                 />
 
                 <div className='parentDashboard'>
-                    <ParentProfileModal onClick={this.toggleAddModal} update ={this.state.kidList}/>
-                        <div className='childList-container'>
+                    <ParentProfileModal onClick={this.toggleAddModal}/>
                             {!this.state.kidList ? 
-                                <h1>You have not enter a child yet</h1> :
-                                this.state.kidList.map((kid,index) => {
-                                return (
-                                    <ChildReport 
-                                        childname={kid.name} 
-                                        icon={kid.icon} 
-                                        key={kid._id} 
-                                        id={kid._id} 
-                                        data={kid}
-                                        index= {index}
-                                        toggleEditChildModal = {this.toggleEditChildModal}
-                                        deleteChild = {this.deleteChild}
-                                    />
-                                )})
+                                <div>
+                                <h1>You have not enter a child yet</h1> 
+                                <div className='add-card'>
+                                    <button id='addChildBtn' onClick={this.toggleAddModal}>Add</button>
+                                </div>
+                                </div>
+                                :
+                                <div className='dashboard-main'>
+                                    <div className='childList-wrapper'>
+                                        <h3>Your children</h3>
+                                        <div className='childList-container'>
+                                            {this.state.kidList.map((kid,index) => {
+                                            return (
+                                                <div>
+                                                    <ChildReport 
+                                                        childname={kid.name} 
+                                                        icon={kid.icon} 
+                                                        key={kid._id} 
+                                                        id={kid._id} 
+                                                        data={kid}
+                                                        index= {index}
+                                                        toggleEditChildModal = {this.toggleEditChildModal}
+                                                        deleteChild = {this.deleteChild}
+                                                    />
+                                                </div>
+                                            )})}
+                                                <div className='add-card'>
+                                                    <button id='addChildBtn' onClick={this.toggleAddModal}>Add</button>
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <div className='gameList-wrapper'>
+                                        <h3>Popular games</h3>
+                                    </div>
+                                </div>
                             }
-                        </div>
                 </div>
             </Fragment>
         )

@@ -9,9 +9,10 @@ const Components = {
     whackamole: WhackAMole
 }
 
-export default gameName => {
+export default (gameName, kidName) => {
+    const props = {gameName, kidName}
     if (typeof Components[gameName] !== "undefined") {
-      return React.createElement(Components[gameName]);
+      return React.createElement(Components[gameName], props);
     }
     return React.createElement(
       () => <div>The component {gameName} has not been created yet.</div>);

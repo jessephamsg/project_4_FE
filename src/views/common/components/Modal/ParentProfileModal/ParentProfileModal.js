@@ -10,6 +10,7 @@ import ChildProfileInteraction from '../../../../../interactions/ManageChildrenP
 
 //STYLES
 import './style_module.css';
+// import img from '../../../assets/game_container_wrapper_bg.png'
 
 
 export default function ParentProfileModal (props) {
@@ -41,14 +42,14 @@ export default function ParentProfileModal (props) {
     return (
         <Fragment>
             <div className='parentProfileContainer'>
-                <h1>Hi {param.username},</h1>
-                <h1> You have {KidsList.length || 0} kids</h1>
+                <h3>Hi {param.username},</h3>
+                <h5> You have {KidsList.length || 0} kids</h5>
                 <div className='actionList'>
-                    <div className='add'>
+                    {/* <div className='add'>
                         <Button id='addChildBtn' text='Add' onClick={props.onClick} />
-                    </div>
+                    </div> */}
                     <div className='edit'>
-                        <Button id='editProfileBtn' text='Edit' onClick={toggleEditParentModal}/>
+                        <div onClick={toggleEditParentModal}>Edit Personal Profile</div>
                     </div>
                 </div>
             </div>

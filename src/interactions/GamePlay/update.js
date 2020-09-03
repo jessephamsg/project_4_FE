@@ -13,14 +13,14 @@ import apis from '../../api';
 
 export default {
 
-    async updateKidsStats (gameID, level, levelStatsState, kidID) {
+    async updateKidsStats (gameID, level, levelStatsState, parentID, kidName) {
         const {startTime, endTime, score, attemptsBeforeSuccess} = gameUtils.analyseLevelStats(levelStatsState[`${level}`]);
         const kidStatsPayload = GameStatsModel.gameStatsPayload(gameID, level, startTime, endTime, score, attemptsBeforeSuccess, null);
-        await apis.updateKidStats(kidID, gameID, level, kidStatsPayload);
+        await apis.updateKidStats(parentID, kidName, gameID, level, kidStatsPayload);
     },
 
-    updateLocalViewState (gameName, level, option) {
-        LocalGameState.updateGameLocal(gameName, {
+    updateLocalViewState (kidName, gameName, level, option) {
+        LocalGameState.updateGameLocal(kidName, gameName, {
             currentLevel: level, 
             currentOption: option
         })

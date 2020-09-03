@@ -11,10 +11,12 @@ const getAllParents = payload => api.get('/parent', payload);
 const registerParent = payload => api.post('/parents', payload);
 const removeKidFromParent = (parentId, kidId) => api.put(`/parents/${parentId}/del/${kidId}`)
 
+//KIDS
 const createKid = payload => api.post('/kids',payload)
-const updateKid = (payload, id) => api.put(`/kids/${id}` , payload)
+const updateKid = (payload, id) => api.put(`/kids/${id}`, payload)
 const deleteKid = id => api.delete(`/kids/${id}`)
 const getAllChildByParentID = id => api.get(`/kids/all/${id}`)
+const getOneChildByParentID = (kidName, parentID) => api.get(`kids/${kidName}?parent=${parentID}`);
 const getOneKid = id => api.get(`/kids/${id}`)
 
 //AUTHENTICATION
@@ -26,8 +28,8 @@ const checkPassword = (password,parentId) => api.post(`/checkPassword/${parentId
 
 //GAME STATS
 const getGameID = gameName => api.get(`/games/${gameName}`);
-const createKidStats = (kidID, gameID, payload) => api.post(`/kids/${kidID}/game/${gameID}`, payload);
-const updateKidStats = (kidID, gameID, level, payload) => api.put(`/kids/${kidID}/game/${gameID}?level=${level}`, payload);
+const createKidStats = (parentID, kidName, gameID, payload) => api.post(`/kids/${kidName}/game/${gameID}?parent=${parentID}`, payload);
+const updateKidStats = (parentID, kidName, gameID, level, payload) => api.put(`/kids/${kidName}/game/${gameID}?level=${level}&parent=${parentID}`, payload);
 
 
 const apis = {
@@ -39,6 +41,7 @@ const apis = {
     logOut,
     createKid,
     getAllChildByParentID,
+    getOneChildByParentID,
     getGameID,
     createKidStats,
     updateKidStats,

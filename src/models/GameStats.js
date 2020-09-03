@@ -3,11 +3,10 @@ export default  {
     gameInitialState () {
         return {
             id: null,
-            name: null,
             totalLevel: null,
             totalScore: null,
+            levelStatsIDs: {},
             startTime: [],
-            pauseTime: [],
             currentLevel: null,
             currentOption: null,
             currentLevelSettings: {},
@@ -28,5 +27,14 @@ export default  {
             attemptsBeforeSuccess,
             numberOfPauses
         }
+    },
+
+    kidOverallStatsPayload (gameID) {
+        return {
+            gameID, 
+            startTime: Date.now(),
+            totalScore: 0,
+            gameStatsIDs: []
+        } 
     }
 }

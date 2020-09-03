@@ -1,6 +1,7 @@
 //DEPENDENCIES
 import React, {Component} from 'react';
 import gameConfig from './config/gameSettings';
+import {AuthService} from '../../../../interactions/AuthService';
 
 //INTERACTION LOGIGS
 import gameInteractions from '../../../../interactions/GamePlay'
@@ -18,9 +19,10 @@ import layout from '../../../common/layouts/gameContainer.styles.css';
 import './style_module.css';
 
 
-const gameName = 'fruitNinja';
 
 class FruitNinja extends Component {
+
+    static contextType = AuthService
 
     constructor(props) {
         super(props)
@@ -36,16 +38,17 @@ class FruitNinja extends Component {
     }
 
     async setGameSettings () {
-        const {totalLevel, currentLevel, currentOption} = gameInteractions.InitialiseState.getLatestLocalGameState(gameConfig, gameName);
+        const {totalLevel, currentLevel, currentOption} = gameInteractions.InitialiseState.getLatestLocalGameState(gameConfig, this.props.gameName, this.props.kidName);
         const gameStats = {};
         for(const level of totalLevel) {
             gameStats[level] = gameInteractions.InitialiseState.buildInitialKeyGameStats();
             gameStats[level].currentState = {};
         }
+        const gameID = await gameInteractions.InitialiseState.getGameID(this.props.gameName);
+        const totalScore = await gameInteractions.InitialiseState.getTotalScore(this.props.kidName, this.context.userId, gameID); 
         this.setState({
-            name: gameName,
-            id: await gameInteractions.InitialiseState.getGameID(gameName),
-            totalScore: 0, //needs to get from API using Kid's actual ID when kids repo is checked and set up
+            id: gameID,
+            totalScore, 
             currentLevel,
             currentLevelSettings: this.setCurrentLevelSettings(0),
             totalLevel,
@@ -71,7 +74,7 @@ class FruitNinja extends Component {
 
     async updateStartTime (startTime) {
         this.setState({ viewGame: true })
-        if (gameInteractions.InitialiseState.isFirstTimePlayingGame(gameName) === false) {
+        if (gameInteractions.InitialiseState.isFirstTimePlayingGame(this.props.gameName, this.props.kidName) === false) {
             this.setState({
                 startTime: this.state.startTime === undefined ? [startTime] : [...this.state.startTime, startTime],
             });
@@ -82,8 +85,9 @@ class FruitNinja extends Component {
 
     async createKidStats () {
         const {id, totalLevel} = this.state;
-        const kidID = this.context.userId;
-        await gameInteractions.InitialiseState.createKidsStats(id, gameName, kidID, totalLevel)
+        const parentID = this.context.userId;
+        const kidName = this.props.kidName;
+        await gameInteractions.InitialiseState.createKidsStats(id, this.props.gameName, parentID, kidName, totalLevel)
     }
 
     updateGameStats () {
@@ -95,8 +99,7 @@ class FruitNinja extends Component {
             this.state.currentLevelSettings.winningCriteria.items
         )
         const overallTotal = this.state.totalScore + score;
-        const updatedGameStats = gameInteractions.UpdateState.updateDefaultGameStatsObj(gameStats, level, submitTime, isCorrect, score);
-        gameStats[`${level}`].currentState = {...this.state.gameStats[this.state.currentLevel].currentState};
+        const updatedGameStats = gameInteractions.UpdateState.updateDefaultGameStatsObj(gameStats, level, submitTime, isCorrect, score);        gameStats[`${level}`].currentState = {...this.state.gameStats[this.state.currentLevel].currentState};
         gameStats[`${level}`].currentBasket = [...this.state.gameStats[this.state.currentLevel].currentBasket];
         currentOrder.order.current = this.state.gameStats[this.state.currentLevel].currentBasket
         this.setState({
@@ -109,8 +112,9 @@ class FruitNinja extends Component {
 
     async updateKidStats (level, levelStatsState) {
         const gameID = this.state.id;
-        const kidID = this.context.userId;//this is currently parentsID need to edit
-        await gameInteractions.UpdateState.updateKidsStats(gameID, level, levelStatsState, kidID);
+        const parentID = this.context.userId;
+        const kidName = this.props.kidName;
+        await gameInteractions.UpdateState.updateKidsStats(gameID, level, levelStatsState, parentID, kidName);
     }
 
     updateCurrentLevel (level) {
@@ -118,7 +122,7 @@ class FruitNinja extends Component {
             currentLevel: level,
             currentLevelSettings: this.setCurrentLevelSettings(level)
         });
-        gameInteractions.UpdateState.updateLocalViewState(gameName, level, 1)
+        gameInteractions.UpdateState.updateLocalViewState(this.props.kidName, this.props.gameName, level, 1)
     }
 
     updateItemPositions (item, level, id, x, y) {
@@ -151,6 +155,7 @@ class FruitNinja extends Component {
     }
     
     render() {
+        console.log(this.state.currentLevelSettings.img)
         if(this.state.currentLevel == null) {
             return (
                 <div>insert loading screen here</div>

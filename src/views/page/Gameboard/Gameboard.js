@@ -20,6 +20,7 @@ export class Gameboard extends Component {
 
     getKidName() {
         const kidName = this.props.match.params.childname;
+        console.log(kidName);
         this.setState({
             kidName,
         })
@@ -37,9 +38,13 @@ export class Gameboard extends Component {
 
     render() {
         const gameName = this.state.gameName;
+        const kidName = this.state.kidName;
+        if(kidName === null) {
+            return <div>loading</div>
+        }
         return (
             <div>
-                {Components (gameName)}
+                {Components (gameName, kidName)}
             </div>
         )
     }

@@ -13,8 +13,6 @@ export default {
     async getAuthUser () {
         const currentUser = await apis.getAuthUser()
         console.log(currentUser)
-        // const parentID = currentUser.data.data._id 
-        // return parentID
         const currentUserData = currentUser.data.data
         return currentUserData
     },

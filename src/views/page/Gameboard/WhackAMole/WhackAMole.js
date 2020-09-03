@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import gameConfig from './config/gameSettings';
 import { AuthService } from '../../../../interactions/AuthService';
 
-//STATE CONTROLLERS
+//INTERACTION LOGICS
 import gameInteractions from '../../../../interactions/GamePlay';
 
 //COMPONENTS
@@ -18,7 +18,6 @@ import Timer from './Timer';
 //STYLES
 import './whackamole_style_module.css';
 
-const gameName = 'whackamole';
 
 export class WhackAMole extends Component {
 
@@ -53,20 +52,21 @@ export class WhackAMole extends Component {
                 lastMole: Math.ceil(Math.random() * this.state.currentLevelSettings.numOfMoles),
             }
         }))
-
         console.log("this.state.currentLevel: ", this.state.currentLevel)
     }
 
     async setGameSettings() {
-        const { totalLevel, currentLevel, currentOption } = gameInteractions.InitialiseState.getLatestLocalGameState(gameConfig, gameName);
+        const kidName = this.props.kidName;
+        const {totalLevel, currentLevel, currentOption} = gameInteractions.InitialiseState.getLatestLocalGameState(gameConfig, this.props.gameName, kidName);        
         const gameStats = {};
         for (const level of totalLevel) {
             gameStats[level] = gameInteractions.InitialiseState.buildInitialKeyGameStats();
         }
+        const gameID = await gameInteractions.InitialiseState.getGameID(this.props.gameName);
+        const totalScore = await gameInteractions.InitialiseState.getTotalScore(this.props.kidName, this.context.userId, gameID); 
         this.setState({
-            name: gameName,
-            id: await gameInteractions.InitialiseState.getGameID(gameName),
-            totalScore: 0, //needs to get from API using Kid's actual ID when kids repo is checked and set up
+            id: gameID,
+            totalScore,
             currentLevel,
             currentLevelSettings: gameConfig.settings()[currentLevel],
             totalLevel,
@@ -77,7 +77,7 @@ export class WhackAMole extends Component {
 
     async updateStartTime(startTime) {
         this.setState({ viewGame: true })
-        if (gameInteractions.InitialiseState.isFirstTimePlayingGame(gameName) === false) {
+        if (gameInteractions.InitialiseState.isFirstTimePlayingGame(this.props.gameName, this.props.kidName) === false) {
             this.setState({
                 startTime: this.state.startTime === undefined ? [startTime] : [...this.state.startTime, startTime],
             });
@@ -86,10 +86,11 @@ export class WhackAMole extends Component {
         }
     }
 
-    async createKidStats() {
-        const { id, totalLevel } = this.state;
-        const kidID = this.context.userId;
-        await gameInteractions.InitialiseState.createKidsStats(id, gameName, kidID, totalLevel)
+    async createKidStats () {
+        const {id, totalLevel} = this.state;
+        const parentID = this.context.userId;
+        const kidName = this.props.kidName;
+        await gameInteractions.InitialiseState.createKidsStats(id, this.props.gameName, parentID, kidName, totalLevel)
     }
 
     updateGameStats(level, isCorrect, submittedAt, totalScore) {
@@ -103,25 +104,26 @@ export class WhackAMole extends Component {
         this.updateKidStats(level, this.state.gameStats);
     }
 
-    async updateKidStats(level, levelStatsState) {
+    async updateKidStats (level, levelStatsState) {
         const gameID = this.state.id;
-        const kidID = this.context.userId;//this is currently parentsID need to edit
-        await gameInteractions.UpdateState.updateKidsStats(gameID, level, levelStatsState, kidID);
+        const parentID = this.context.userId;
+        const kidName = this.props.kidName;
+        await gameInteractions.UpdateState.updateKidsStats(gameID, level, levelStatsState, parentID, kidName);
     }
 
-    updateOption(option, level) {
+    updateOption (option,level) {
         this.setState({
             currentOption: option,
         });
-        gameInteractions.UpdateState.updateLocalViewState(gameName, level, option)
+        gameInteractions.UpdateState.updateLocalViewState(this.props.kidName, this.props.gameName, level, option)
     }
 
-    updateCurrentLevel(level) {
+    updateCurrentLevel (level) {
         this.setState({
             currentLevel: level,
-            currentLevelSettings: { ...gameConfig.settings()[`${level}`] }
+            currentLevelSettings: {...gameConfig.settings()[`${level}`]}
         });
-        gameInteractions.UpdateState.updateLocalViewState(gameName, level, 1)
+        gameInteractions.UpdateState.updateLocalViewState(this.props.kidName, this.props.gameName, level, 1)
         console.log("level changed to ", this.state.currentLevel, ": ", this.state.currentLevelSettings)
     }
 
@@ -237,6 +239,7 @@ export class WhackAMole extends Component {
     }
 
     render() {
+        console.log(this.state)
         if (this.state.currentLevel == null) {
             return (
                 <div>insert loading screen here</div>
