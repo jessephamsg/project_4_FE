@@ -6,7 +6,7 @@ import clamp from 'lodash-es/clamp';
 import swap from 'lodash-move';
 import { useDrag } from 'react-use-gesture';
 import { useSprings, animated, interpolate } from 'react-spring';
-import gameUtils from '../stateControllers/utils/utils'
+import gameUtils from '../../../../interactions/GamePlay/utils/utils';
 
 //COMMON COMPONENTS
 import SubmitButton from '../../../common/components/SubmitButton';

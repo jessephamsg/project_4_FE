@@ -1,15 +1,20 @@
+//DEPENDENCIES
 import React from 'react';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+//COMPONENTS
 import Footer from './views/common/components/Footer'
 import NavBar from './views/common/components/NavBar';
 import RoutePage from './router/RoutePage';
-import AuthProvider from './services/AuthService'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import AuthProvider from './interactions/AuthService'
+
+//STYLES
+import './App.css';
+
 
 function App() {
+  
   return (            
-
-    
     <AuthProvider>
         <Router>
           <NavBar/>
@@ -17,8 +22,6 @@ function App() {
           <Footer/>
         </Router>
     </AuthProvider>
-  
-    
   );
 }
 

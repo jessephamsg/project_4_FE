@@ -1,8 +1,15 @@
-import React, { Component, Fragment } from 'react'
+//DEPENDENCIES
+import React, { Component, Fragment } from 'react';
+import {Spring} from 'react-spring/renderprops';
+
+//COMMON COMPONENTS
 import ChildCard from '../../common/components/Card/ChildCard'
+
+//INTERACTION LOGICS
+import ChildProfileInteractions from '../../../interactions/ManageChildrenProfile'
+
+//STYLES
 import './style_module.css'
-import local from '../../../storage/localStorage'
-import api from '../../../api'
 
 
 export class HomePage extends Component {
@@ -12,15 +19,23 @@ export class HomePage extends Component {
     }
 
     getAllChildByParentID = async (currentId) => {
-        const result = await api.getAllChildByParentID(currentId)
+        const result = await ChildProfileInteractions.getUser.getAllChildByParentID(currentId);
         this.setState ({
             kidList : result.data.data.length ? result.data.data : null
         })
         console.log(this.state.kidList)
     }
 
+    // interp (i) {
+    //     r => `translate3d(0, ${15 * Math.sin(r + (i * 2 * Math.PI) / 1.6)}px, 0)`
+    // }
+
+    // async springMovement (radians) {
+    //     while (1) await this.springMovement({radians: 2 * Math.PI})
+    // }
+
     componentDidMount () {
-        const currentId = local.get('currentId')
+        const currentId = ChildProfileInteractions.getUser.getCurrentLocalID();
         console.log(currentId)
         this.getAllChildByParentID(currentId)
     }
@@ -29,17 +44,15 @@ export class HomePage extends Component {
         return (
             <Fragment>
                 <div className='homepage'>
-                    <h1>Hi friend, What is your name?</h1>
                     <div className='childList'>
                         {!this.state.kidList ? 
-                        <h1>You have not enter a child yet</h1> 
+                        <h1>You have not entered a child yet</h1> 
                         :
                         this.state.kidList.map((kid) => 
                             <ChildCard childname={kid.name} icon={kid.icon} key={kid._id} />
                         )}
                     </div>
                 </div>
-                
             </Fragment>
         )
     }

@@ -4,8 +4,9 @@ function GameH3(props) {
   return (
     <h3
         style = {{
-            fontFamily: 'Luckiest Guy',
-            fontSize: '60px',
+            fontFamily: "'Quicksand', 'sans-serif'",
+            fontWeight: '700',
+            fontSize: '80px',
             color: 'blueviolet',
             textShadow: '7px 7px #ffdfa5'
         }}

@@ -14,18 +14,13 @@ import WarMachine from './War-Machine-icon.png'
 
 
 const avatar = {
-    batman: Batman,
-    agentCoulson : AgentCoulson,
     blackWidow : BlackWidow,
     captainAmerican :CaptainAmerican,
-    giantMan : GiantMan,
     hawkEye : HawkEye,
     hulk : Hulk,
     ironMan : IronMan,
     loki : Loki,
-    nickFury : NickFury,
     thor : Thor,
-    tux: Tux,
     warMachine : WarMachine
 }
 

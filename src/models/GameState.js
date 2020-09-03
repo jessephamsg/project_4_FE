@@ -4,8 +4,8 @@ export default {
         return {
             id: null,
             startTime: null,
-            currentLevel: null,
-            currentOption: null,
+            currentLevel: 0,
+            currentOption: 1,
         }
     },
 

@@ -1,6 +1,12 @@
+//DEPENDENCIES
 import React, { Component, Fragment } from 'react'
-import './style_module.css'
+
+//COMMON COMPONENTS
 import GameCard from '../../common/components/Card/GameCard'
+
+//STYLES
+import './style_module.css'
+
 
 export class ChildDashboard extends Component {
 

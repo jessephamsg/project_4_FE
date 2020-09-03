@@ -1,10 +1,10 @@
 //DEPENDENCIES
 import React, {Component} from 'react';
 import gameConfig from './config/gameSettings';
-import {AuthService} from '../../../../services/AuthService';
+import {AuthService} from '../../../../interactions/AuthService';
 
 //STATE CONTROLLERS
-import stateControllers from '../stateControllers'
+import gameInteractions from '../../../../interactions/GamePlay'
 
 //COMPONENTS
 import SelectLevelBoard from '../../../common/components/SlidingBoard/selectLevelBoard';
@@ -14,11 +14,10 @@ import DragglebleList from './draggableList';
 import ListOptions from './listOptions';
 
 //STYLES
-//import layout from '../../../common/layouts/gameContainer.styles.css';
+import layout from '../../../common/layouts/gameContainer.styles.css';
 import './style_module.css';
 
 
-const gameName = 'puzzle';
 
 class PuzzleGame extends Component {
 
@@ -26,7 +25,7 @@ class PuzzleGame extends Component {
 
     constructor (props) {
         super (props) 
-        this.state = stateControllers.InitialiseState.buildIntialStates();
+        this.state = gameInteractions.InitialiseState.buildIntialStates();
         this.updateCurrentLevel = this.updateCurrentLevel.bind(this);
         this.updateGameStats = this.updateGameStats.bind(this);
         this.updateStartTime = this.updateStartTime.bind(this);
@@ -38,14 +37,14 @@ class PuzzleGame extends Component {
     }
 
     async setGameSettings () {
-        const {totalLevel, currentLevel, currentOption} = stateControllers.InitialiseState.getLatestLocalGameState(gameConfig, gameName);
+        const kidName = this.props.kidName;
+        const {totalLevel, currentLevel, currentOption} = gameInteractions.InitialiseState.getLatestLocalGameState(gameConfig, this.props.gameName, kidName);
         const gameStats = {};
         for(const level of totalLevel) {
-            gameStats[level] = stateControllers.InitialiseState.buildInitialKeyGameStats();
+            gameStats[level] = gameInteractions.InitialiseState.buildInitialKeyGameStats();
         }
         this.setState({
-            name: gameName,
-            id: await stateControllers.InitialiseState.getGameID(gameName),
+            id: await gameInteractions.InitialiseState.getGameID(this.props.gameName),
             totalScore: 0, //needs to get from API using Kid's actual ID when kids repo is checked and set up
             currentLevel,
             currentLevelSettings: gameConfig.settings()[currentLevel],
@@ -57,7 +56,7 @@ class PuzzleGame extends Component {
 
     async updateStartTime (startTime) {
         this.setState({ viewGame: true })
-        if (stateControllers.InitialiseState.isFirstTimePlayingGame(gameName) === false) {
+        if (gameInteractions.InitialiseState.isFirstTimePlayingGame(this.props.gameName, this.props.kidName) === false) {
             this.setState({
                 startTime: this.state.startTime === undefined ? [startTime] : [...this.state.startTime, startTime],
             });
@@ -68,14 +67,15 @@ class PuzzleGame extends Component {
 
     async createKidStats () {
         const {id, totalLevel} = this.state;
-        const kidID = this.context.userId;
-        await stateControllers.InitialiseState.createKidsStats(id, gameName, kidID, totalLevel)
+        const parentID = this.context.userId;
+        const kidName = this.props.kidName;
+        await gameInteractions.InitialiseState.createKidsStats(id, this.props.gameName, parentID, kidName, totalLevel)
     }
 
     updateGameStats (level, isCorrect, submittedAt, totalScore) {
         let gameStats = {...this.state.gameStats}
         const overallTotal = this.state.totalScore + totalScore;
-        const updatedGameStats = stateControllers.UpdateState.updateDefaultGameStatsObj(gameStats, level, submittedAt, isCorrect, totalScore);
+        const updatedGameStats = gameInteractions.UpdateState.updateDefaultGameStatsObj(gameStats, level, submittedAt, isCorrect, totalScore);
         this.setState({
             gameStats: updatedGameStats,
             totalScore: overallTotal
@@ -85,15 +85,16 @@ class PuzzleGame extends Component {
 
     async updateKidStats (level, levelStatsState) {
         const gameID = this.state.id;
-        const kidID = this.context.userId;//this is currently parentsID need to edit
-        await stateControllers.UpdateState.updateKidsStats(gameID, level, levelStatsState, kidID);
+        const parentID = this.context.userId;//this is currently parentsID need to edit
+        const kidName = this.props.kidName;
+        await gameInteractions.UpdateState.updateKidsStats(gameID, level, levelStatsState, parentID, kidName);
     }
 
     updateOption (option,level) {
         this.setState({
             currentOption: option,
         });
-        stateControllers.UpdateState.updateLocalViewState(gameName, level, option)
+        gameInteractions.UpdateState.updateLocalViewState(this.props.kidName, this.props.gameName, level, option)
     }
 
     updateCurrentLevel (level) {
@@ -101,7 +102,7 @@ class PuzzleGame extends Component {
             currentLevel: level,
             currentLevelSettings: {...gameConfig.settings()[`${level}`]}
         });
-        stateControllers.UpdateState.updateLocalViewState(gameName, level, 1)
+        gameInteractions.UpdateState.updateLocalViewState(this.props.kidName, this.props.gameName, level, 1)
     }
  
     render () {
@@ -112,7 +113,8 @@ class PuzzleGame extends Component {
         }
         return (
             <React.Fragment>
-                {this.state.viewGame === true ? 
+                {this.state.viewGame === true ?
+                    <div className='gameContainerWrapper'> 
                     <div id='gameContainerPuzzle'>
                         <h1>Level: {this.state.currentLevel}</h1>
                         <div className='gameContentWrapper'>
@@ -141,6 +143,7 @@ class PuzzleGame extends Component {
                                 />
                             </div>
                         </div>
+                    </div>
                     </div>
                     : 
                     <WelcomeBoard 

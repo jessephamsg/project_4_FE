@@ -1,6 +1,10 @@
+//DEPENDENCIES
 import React, { Fragment ,useState, useEffect, Component} from 'react'
+
+//COMMON ELEMENTS
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBInputGroup } from 'mdbreact';
 import IconModal from './IconModal';
+
 
 const iconSelector = {
     display: 'flex',
@@ -8,6 +12,7 @@ const iconSelector = {
     justifyContent : 'flex-start',
     alignItems :'center'
 }
+
 export default function EditChildModal (props) {
     const [Icon, setIcon] = useState(props.icon) // props.icon not used here
     const [isIconModalOpen, setIsIconModalOpen] = useState(false)
@@ -26,7 +31,6 @@ export default function EditChildModal (props) {
         e.preventDefault()
         props.handleChange(e)
     }
-    
     
     return (
         <Fragment>
@@ -97,22 +101,3 @@ export default function EditChildModal (props) {
     )
 }
 
-{/* <MDBInputGroup
-material
-containerClassName='mb-3 mt-0'
-prepend={
-    <MDBBtn
-    className= 'px-2 mx-0'
-    color='primary' 
-    onClick={toggleIconModal}
-    > Select Icon
-    </MDBBtn>
-}
-required
-hint ="select an icon or a url image of your choice"
-name ="icon"
-type ="text" 
-value={props.icon}
-onChange= {props.handleChange}
->
-</MDBInputGroup> */}

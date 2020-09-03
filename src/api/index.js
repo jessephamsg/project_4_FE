@@ -9,9 +9,12 @@ const api = Axios.create({
 //PARENTS
 const getAllParents = payload => api.get('/parent', payload);
 const registerParent = payload => api.post('/parents', payload);
+const removeKidFromParent = (parentId, kidId) => api.put(`/parents/${parentId}/del/${kidId}`)
 
+//KIDS
 const createKid = payload => api.post('/kids',payload)
-const updateKid = (payload, id) => api.put(`/kids/${id}` , payload)
+const updateKid = (payload, id) => api.put(`/kids/${id}`, payload)
+const deleteKid = id => api.delete(`/kids/${id}`)
 const getAllChildByParentID = id => api.get(`/kids/all/${id}`)
 const getOneKid = id => api.get(`/kids/${id}`)
 
@@ -20,11 +23,12 @@ const login = payload => api.post('/login', payload);
 const isAuthenticated = payload => api.post('/isAuthenticated', payload);
 const getAuthUser = () => api.get('/user');
 const logOut = () => api.get('/logout');
+const checkPassword = (password,parentId) => api.post(`/checkPassword/${parentId}`, password)
 
 //GAME STATS
 const getGameID = gameName => api.get(`/games/${gameName}`);
-const createKidStats = (kidID, gameID, payload) => api.post(`/kids/${kidID}/game/${gameID}`, payload);
-const updateKidStats = (kidID, gameID, level, payload) => api.put(`/kids/${kidID}/game/${gameID}?level=${level}`, payload);
+const createKidStats = (parentID, kidName, gameID, payload) => api.post(`/kids/${kidName}/game/${gameID}?parent=${parentID}`, payload);
+const updateKidStats = (parentID, kidName, gameID, level, payload) => api.put(`/kids/${kidName}/game/${gameID}?level=${level}&parent=${parentID}`, payload);
 
 
 const apis = {
@@ -40,7 +44,11 @@ const apis = {
     createKidStats,
     updateKidStats,
     updateKid,
-    getOneKid
+    deleteKid,
+    getAllChildByParentID,
+    getOneKid,
+    removeKidFromParent,
+    checkPassword
     // getParentById
 }
 
