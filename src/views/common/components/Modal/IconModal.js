@@ -16,9 +16,9 @@ export default function IconModal (props) {
         console.log(icon)
     }
     
-    const handleSubmit = e => {
-        console.log(icon)
+    const handleSubmit = (e) => {
         e.preventDefault()
+        console.log(icon)
         props.addIcon(icon)
     }
 

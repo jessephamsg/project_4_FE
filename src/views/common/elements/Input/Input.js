@@ -10,7 +10,7 @@ function Input(props) {
             placeholder={props.placeholder}
             value={props.value}
             onChange={props.onChange}
-            require = {props.require || false}
+            require = {props.require}
         />    
     )
 }
