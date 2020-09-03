@@ -1,6 +1,5 @@
 //DEPENDENCIES
-import React, { Component, Fragment } from 'react';
-import {Spring} from 'react-spring/renderprops';
+import React, { Component, Fragment } from 'react'
 
 //COMMON COMPONENTS
 import ChildCard from '../../common/components/Card/ChildCard'

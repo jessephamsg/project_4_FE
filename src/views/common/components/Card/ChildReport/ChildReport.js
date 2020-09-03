@@ -21,7 +21,7 @@ export class ChildReport extends Component {
             return
         }
     }
-
+    
     directToChildReportPage = () => {
         this.props.history.push(`/child/${this.props.childname}/report`)
     }

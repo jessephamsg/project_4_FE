@@ -20,15 +20,14 @@ export default function ParentProfileModal (props) {
 
     useEffect(() => {
         getParentData()
-    }, [])
+    }, [props.update])
 
     const getParentData = async()=> {
         try {
         const result = await ChildProfileInteraction.getUser.getAuthUser();
-        const data = result.data.data
-        setParentData(data)
-        setKidsList(data.kidsList)
-        return data
+        setParentData(result)
+        setKidsList(result.kidsList)
+        return result
         } catch(e) {
             console.log(e.message)
         }

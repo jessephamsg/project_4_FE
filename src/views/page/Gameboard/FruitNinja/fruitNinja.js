@@ -50,7 +50,7 @@ class FruitNinja extends Component {
             id: gameID,
             totalScore, 
             currentLevel,
-            currentLevelSettings: gameConfig.settings()[currentLevel],
+            currentLevelSettings: this.setCurrentLevelSettings(0),
             totalLevel,
             gameStats,
             currentOption
@@ -155,6 +155,7 @@ class FruitNinja extends Component {
     }
     
     render() {
+        console.log(this.state.currentLevelSettings.img)
         if(this.state.currentLevel == null) {
             return (
                 <div>insert loading screen here</div>

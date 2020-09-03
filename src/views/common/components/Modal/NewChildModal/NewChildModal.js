@@ -15,7 +15,7 @@ import './style_module.css';
 
 
 export default class NewChildModal extends Component {
-
+    
     constructor(props) {
         super(props)
         this.state = {
@@ -26,7 +26,7 @@ export default class NewChildModal extends Component {
             isIconModalOpen : false,
         }
     }
-
+    
     toggleIconModal = (e) => {
         e.preventDefault()
         this.setState({
@@ -42,7 +42,6 @@ export default class NewChildModal extends Component {
     }
 
     handleChange = e => {
-        console.log(e.target)
         this.setState({
             [e.target.name]: e.target.value
         })
@@ -53,7 +52,6 @@ export default class NewChildModal extends Component {
         const {name, bDay, maxScreenTime, icon} = this.state;
         const payload = await childProfileInteractions.getUser.buildChildPayload(name, bDay, maxScreenTime, icon)
         this.props.addChild(payload)
-        this.props.toggleModal()
     }
 
     render() {

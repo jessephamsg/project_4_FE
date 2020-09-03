@@ -78,7 +78,6 @@ class ParentDashboard extends Component {
     }
 
     addChild = async (payload) => {
-        console.log(payload)
         await ChildProfileInteractions.createUser.createKid(payload);
         await this.getAllChildByParentID(payload.parentID) // map childlist data
         this.toggleAddModal()
@@ -89,10 +88,10 @@ class ParentDashboard extends Component {
         this.getAllChildByParentID(currentId)
     }
 
-    updateChild = async (e) => {
-        e.preventDefault()
-        const editedKid = this.state.editedKid;
-        await ChildProfileInteractions.updateUser.updateKid(editedKid);
+    updateChild = async (editedChildData) => {
+        await ChildProfileInteractions.updateUser.updateKid(editedChildData);
+        const parentId = this.context.userId
+        await this.getAllChildByParentID(parentId)
         this.toggleEditChildModal();
     }
 
@@ -101,32 +100,25 @@ class ParentDashboard extends Component {
         const parentId = this.context.userId
         await ChildProfileInteractions.deleteUser.deleteKid(kidId);
         await ChildProfileInteractions.deleteUser.removeKidFromParents(parentId, kidId);
-        await this.getAllChildByParentID()
+        await this.getAllChildByParentID(parentId)
     }
 
+
     render() {
-        console.log(this.context)
+        console.log(this.context.userId)
         return (
             <Fragment>
                 <EditChildModal
                     isModalOpen = {this.state.isEditModalOpen}
-                    name = {this.state.editedKid.name}
-                    bDay = { this.state.editedKid.bDay}
-                    maxScreenTime = {this.state.editedKid.maxScreenTime}
-                    icon = {this.state.editedKid.icon}
                     toggleModal = {this.toggleEditChildModal}
-                    submit = {this.updateChild}
-                    handleChange= {this.handleChange}
-                    iconModal = {this.state.iconModal}
-                    toggleIconModal = {this.toggleIconModal}
+                    childData = {this.state.editedKid}
+                    update = {this.updateChild}
                 />
                 <NewChildModal
                     isModalOpen = {this.state.isAddModalOpen}
                     toggleModal = {this.toggleAddModal}
                     submit = {this.addChild}
                     handleChange= {this.handleChange}
-                    iconModal = {this.state.iconModal}
-                    toggleIconModal = {this.toggleIconModal}
                     addChild = {this.addChild}
                 />
 
