@@ -16,6 +16,7 @@ const createKid = payload => api.post('/kids',payload)
 const updateKid = (payload, id) => api.put(`/kids/${id}`, payload)
 const deleteKid = id => api.delete(`/kids/${id}`)
 const getAllChildByParentID = id => api.get(`/kids/all/${id}`)
+const getOneChildByParentID = (kidName, parentID) => api.get(`kids/${kidName}?parent=${parentID}`);
 const getOneKid = id => api.get(`/kids/${id}`)
 
 //AUTHENTICATION
@@ -40,6 +41,7 @@ const apis = {
     logOut,
     createKid,
     getAllChildByParentID,
+    getOneChildByParentID,
     getGameID,
     createKidStats,
     updateKidStats,

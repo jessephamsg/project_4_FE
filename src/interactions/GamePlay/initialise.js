@@ -43,6 +43,13 @@ export default {
         return gameID
     },
 
+    async getTotalScore (kidName, parentID, gameID) {
+        const childObject = await apis.getOneChildByParentID(kidName, parentID);
+        const gameObj = childObject.data.data[0].gamesStats.filter(gameObj => gameObj.gameID === gameID);
+        const totalScore = gameObj[0].totalScore;
+        return totalScore
+    },
+
     getLatestLocalGameState (gameConfig, gameName, kidName) {
         const totalLevel = Object.keys(gameConfig.settings());
         let currentLevel = DEFAULT_CURRENT_LEVEL, currentOption = DEFAULT_CURRENT_OPTION;

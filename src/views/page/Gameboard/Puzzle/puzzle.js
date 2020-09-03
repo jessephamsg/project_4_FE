@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import gameConfig from './config/gameSettings';
 import {AuthService} from '../../../../interactions/AuthService';
 
-//STATE CONTROLLERS
+//INTERACTION LOGICS
 import gameInteractions from '../../../../interactions/GamePlay'
 
 //COMPONENTS
@@ -43,9 +43,11 @@ class PuzzleGame extends Component {
         for(const level of totalLevel) {
             gameStats[level] = gameInteractions.InitialiseState.buildInitialKeyGameStats();
         }
+        const gameID = await gameInteractions.InitialiseState.getGameID(this.props.gameName);
+        const totalScore = await gameInteractions.InitialiseState.getTotalScore(this.props.kidName, this.context.userId, gameID); 
         this.setState({
-            id: await gameInteractions.InitialiseState.getGameID(this.props.gameName),
-            totalScore: 0, //needs to get from API using Kid's actual ID when kids repo is checked and set up
+            id: gameID,
+            totalScore, 
             currentLevel,
             currentLevelSettings: gameConfig.settings()[currentLevel],
             totalLevel,

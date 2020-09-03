@@ -44,12 +44,13 @@ class FruitNinja extends Component {
             gameStats[level] = gameInteractions.InitialiseState.buildInitialKeyGameStats();
             gameStats[level].currentState = {};
         }
+        const gameID = await gameInteractions.InitialiseState.getGameID(this.props.gameName);
+        const totalScore = await gameInteractions.InitialiseState.getTotalScore(this.props.kidName, this.context.userId, gameID); 
         this.setState({
-            name: this.props.gameName,
-            id: await gameInteractions.InitialiseState.getGameID(this.props.gameName),
-            totalScore: 0, //needs to get from API using Kid's actual ID when kids repo is checked and set up
+            id: gameID,
+            totalScore, 
             currentLevel,
-            currentLevelSettings: this.setCurrentLevelSettings(0),
+            currentLevelSettings: gameConfig.settings()[currentLevel],
             totalLevel,
             gameStats,
             currentOption
