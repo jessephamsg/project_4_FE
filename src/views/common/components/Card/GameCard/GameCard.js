@@ -1,28 +1,25 @@
 //DEPENDENCIES
-import React, { Component } from 'react'
-
-//COMMON ELEMENTS
-import gamePic from '../../../assets/puzzlegame1.jpg'
+import React from 'react';
 
 //STYLES
 import './style_module.css'
 
 
-export class GameCard extends Component {
+const GameCard = (props) => {
 
-    render() {
-        return (
+    return (
+        <div>
             <div className='gameCard'>
-                <div className='img_container_square'>
-                    <img src={gamePic} alt='gametitle' title=' gametitle'/> {/*game pic can be dynamic*/}
-                </div>
-                <a href={`/child/${this.props.childname}/game/${this.props.gameid}`}>
-                    <h3>Gametitle1</h3>
+                <a href={`/child/${props.childname}/game/${props.game.name}`}>
+                    <div className='game_icon_container'>
+                        <img className='gameIcon' src={props.game.icon} alt={props.game.name} title={props.game.name} />
+                    </div>
+                    <h2> {props.game.displayName} </h2>
                 </a>
             </div>
-                
-        )
-    }
+        </div>
+    )
+
 }
 
 export default GameCard

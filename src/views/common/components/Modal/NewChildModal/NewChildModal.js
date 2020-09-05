@@ -2,7 +2,7 @@
 import React, { Fragment, Component } from 'react';
 
 //COMMON ELEMENTS
-import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBInputGroup } from 'mdbreact';
+import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
 import IconModal from '../IconModal'
 import Input from '../../../elements/Input/Input';
 import Button from '../../../elements/Buttons';
