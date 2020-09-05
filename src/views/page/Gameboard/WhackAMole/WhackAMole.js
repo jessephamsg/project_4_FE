@@ -202,7 +202,7 @@ export class WhackAMole extends Component {
         const interval = this.state.currentLevelSettings.molePopInterval;
         const numOfMoles = this.state.currentLevelSettings.numOfMoles;
         let activeMole = Math.ceil(Math.random() * numOfMoles);
-        console.log=this.state.lastMole[0];
+        console.log(this.state.lastMole[0]);
         const creatingMoles = setInterval(() => {
             while (activeMole === this.state.lastMole[0]) {
                 activeMole = Math.ceil(Math.random() * numOfMoles);
