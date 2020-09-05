@@ -25,6 +25,7 @@ export default function ParentProfileModal (props) {
     const getParentData = async()=> {
         try {
         const result = await ChildProfileInteraction.getUser.getAuthUser();
+        console.log(result)
         setParentData(result)
         setKidsList(result.kidsList)
         return result

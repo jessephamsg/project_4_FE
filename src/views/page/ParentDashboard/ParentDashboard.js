@@ -91,7 +91,9 @@ class ParentDashboard extends Component {
     updateChild = async (editedChildData) => {
         await ChildProfileInteractions.updateUser.updateKid(editedChildData);
         const parentId = this.context.userId
-        await this.getAllChildByParentID(parentId)
+        // use kid id to retrieve the position and change to the new state. 
+        // update the kidList object of that index that is updated. 
+        await this.getAllChildByParentID(parentId) // expensive operation. not advised. 
         this.toggleEditChildModal();
     }
 
@@ -123,7 +125,7 @@ class ParentDashboard extends Component {
                 />
 
                 <div className='parentDashboard'>
-                    <ParentProfileModal onClick={this.toggleAddModal}/>
+                    <ParentProfileModal onClick={this.toggleAddModal} update = {this.state.kidList}/>
                             {!this.state.kidList ? 
                                 <div>
                                 <h1>You have not enter a child yet</h1> 
