@@ -47,7 +47,6 @@ const apis = {
     updateKidStats,
     updateKid,
     deleteKid,
-    getAllChildByParentID,
     getOneKid,
     removeKidFromParent,
     checkPassword,

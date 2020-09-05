@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react'; //removed {useState}
 
 
 function Button(props) {
-  const [hoverState, setHoverState] = useState(false)
+  // const [hoverState, setHoverState] = useState(false)
 
   const hoverIn = e => {
     e.preventDefault()

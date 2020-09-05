@@ -2,7 +2,7 @@
 import React, { Fragment ,useState, useEffect} from 'react'
 
 //COMMON ELEMENTS
-import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput, MDBInputGroup } from 'mdbreact';
+import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
 import IconModal from '../IconModal';
 import Button from '../../../elements/Buttons';
 import Input from '../../../elements/Input/Input';
@@ -23,7 +23,7 @@ export default function EditChildModal (props) {
     }
     useEffect(() => {
         setChildData(props.childData)
-    },[props.isModalOpen])
+    },[props.childData, props.isModalOpen])
 
     const addIcon = async icon => {
         setIcon(icon)

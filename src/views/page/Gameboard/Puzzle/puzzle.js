@@ -14,7 +14,7 @@ import DragglebleList from './draggableList';
 import ListOptions from './listOptions';
 
 //STYLES
-import layout from '../../../common/layouts/gameContainer.styles.css';
+// import layout from '../../../common/layouts/gameContainer.styles.css';
 import './style_module.css';
 
 
