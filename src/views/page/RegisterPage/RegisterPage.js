@@ -47,14 +47,27 @@ export class RegisterPage extends Component {
                 passwordMsg : 'Password do not match. Please try again'
             })
             return;
-        } else {
+        } 
+        else {
             this.setState({
                 passwordError :false
             })
         }
         try {
             const response = await ChildProfileInteractions.createUser.registerParent(payload);
-            if (response) window.location.href='/login'
+            console.log(response.data.success)
+            console.log(response.data.data)
+            // console.log(response.data.data.slice('Database','to')) need to slice the error message
+            if(response.data.success === false) {
+                this.setState({
+                    error:true,
+                    signUpError :true,
+                    errorMsg: response.data.data
+                })
+            } else {
+                console.log('success')
+                window.location.href='/login'
+            }
         } catch(e) {
             this.setState ({
                 error : true,
