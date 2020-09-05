@@ -28,6 +28,7 @@ const checkPassword = (password,parentId) => api.post(`/checkPassword/${parentId
 
 //GAME STATS
 const getGameID = gameName => api.get(`/games/${gameName}`);
+const getAllGames = () => api.get(`/games`);
 const createKidStats = (parentID, kidName, gameID, payload) => api.post(`/kids/${kidName}/game/${gameID}?parent=${parentID}`, payload);
 const updateKidStats = (parentID, kidName, gameID, level, payload) => api.put(`/kids/${kidName}/game/${gameID}?level=${level}&parent=${parentID}`, payload);
 
@@ -50,7 +51,8 @@ const apis = {
     getAllChildByParentID,
     getOneKid,
     removeKidFromParent,
-    checkPassword
+    checkPassword,
+    getAllGames,
     // getParentById
 }
 

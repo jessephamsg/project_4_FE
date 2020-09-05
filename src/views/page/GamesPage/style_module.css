@@ -1,0 +1,28 @@
+.gamesPage {
+    background-color: rgb(26,174,178);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    margin: 0 auto;
+    top: 5rem;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+}
+.gameListing {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    width: 90%;
+    background-color:rgb(255,255,255,0.5);
+    margin-bottom: 10%;
+}
+.gamesPage > h1 {
+    font-family: 'Quicksand', sans-serif;
+    color: white;
+    margin: 20px 5%;
+    align-self: flex-start;
+}

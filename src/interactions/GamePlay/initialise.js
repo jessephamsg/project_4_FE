@@ -44,7 +44,9 @@ export default {
     },
 
     async getTotalScore (kidName, parentID, gameID) {
+        console.log(kidName, parentID, gameID)
         const childObject = await apis.getOneChildByParentID(kidName, parentID);
+        console.log(childObject)
         const gameObj = childObject.data.data[0].gamesStats.filter(gameObj => gameObj.gameID === gameID);
         const totalScore = gameObj.length === 0 ? 0: gameObj[0].totalScore;
         return totalScore
