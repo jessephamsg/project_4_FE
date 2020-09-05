@@ -184,8 +184,11 @@ export class WhackAMole extends Component {
     addToScore(e) {
         if (this.state.moleHasBeenWhacked) { return; }
         let target = e.target;
+        console.log(target);
         target.parentNode.classList.add('game__cross');
+        console.log(target.parentNode)
         target.classList.add('no-background');
+        console.log(target.classList);
         this.lockOutClick();
         this.setState({
             background: '75px',
@@ -202,7 +205,6 @@ export class WhackAMole extends Component {
         const interval = this.state.currentLevelSettings.molePopInterval;
         const numOfMoles = this.state.currentLevelSettings.numOfMoles;
         let activeMole = Math.ceil(Math.random() * numOfMoles);
-        console.log=this.state.lastMole[0];
         const creatingMoles = setInterval(() => {
             while (activeMole === this.state.lastMole[0]) {
                 activeMole = Math.ceil(Math.random() * numOfMoles);
