@@ -19,3 +19,21 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.fruitNinjaH1 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    color: #009688;
+    text-align: center;
+    margin-bottom: 0px;
+    margin-top: 00px;;
+}
+
+.gameStatsBoardsFruitNinja {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-end;
+    margin-left: 860px; 
+    margin-top: 270px;
+}

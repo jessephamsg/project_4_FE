@@ -5,18 +5,21 @@ import { AuthService } from '../../../../interactions/AuthService';
 
 //INTERACTION LOGICS
 import gameInteractions from '../../../../interactions/GamePlay';
+import gameUtils from '../../../../interactions/GamePlay/utils/utils';
 
 //COMPONENTS
 import SelectLevelBoard from '../../../common/components/SlidingBoard/selectLevelBoard';
 import WelcomeBoard from '../../../common/components/SlidingBoard/welcomeBoard';
 import ScoreBoard from '../../../common/components/SlidingBoard/scoreBoard';
+import SubmitButton from '../../../common/components/SubmitButton';
 
 //CHILDREN
 import MoleHole from './MoleHole';
 import Timer from './Timer';
 
 //STYLES
-import './whackamole_style_module.css';
+import layout from '../../../common/layouts/gameContainer.styles.css';
+import './style_module.css';
 
 
 export class WhackAMole extends Component {
@@ -25,39 +28,26 @@ export class WhackAMole extends Component {
 
     constructor(props) {
         super(props)
-        //general
         this.state = gameInteractions.InitialiseState.buildIntialStates();
         this.updateCurrentLevel = this.updateCurrentLevel.bind(this);
         this.updateGameStats = this.updateGameStats.bind(this);
         this.updateStartTime = this.updateStartTime.bind(this);
         this.updateOption = this.updateOption.bind(this);
-
-        //only for this game
-        this.state = {
-            ...this.state,
-            gameHasStarted: false,
-            moleHasBeenWhacked: false,
-            score: 0,
-            lastMole: 0,
-        };
         this.startGame = this.startGame.bind(this)
+        this.addToScore = this.addToScore.bind(this);
         this.reduceTime = this.reduceTime.bind(this)
     }
 
     async componentDidMount() {
         await this.setGameSettings();
-        await this.setState(prevState => ({
-            currentLevelSettings: {
-                ...prevState.currentLevelSettings,
-                lastMole: Math.ceil(Math.random() * this.state.currentLevelSettings.numOfMoles),
-            }
-        }))
-        console.log("this.state.currentLevel: ", this.state.currentLevel)
+        const currentLevelSettings = {...this.state.currentLevelSettings};
+        let currentLevelLastMole = currentLevelSettings.lastMole;
+        currentLevelLastMole =  Math.ceil(Math.random() * currentLevelSettings.numOfMoles);
+        this.setState({currentLevelSettings})
     }
 
     async setGameSettings() {
-        const kidName = this.props.kidName;
-        const {totalLevel, currentLevel, currentOption} = gameInteractions.InitialiseState.getLatestLocalGameState(gameConfig, this.props.gameName, kidName);        
+        const {totalLevel, currentLevel, currentOption} = gameInteractions.InitialiseState.getLatestLocalGameState(gameConfig, this.props.gameName, this.props.kidName);        
         const gameStats = {};
         for (const level of totalLevel) {
             gameStats[level] = gameInteractions.InitialiseState.buildInitialKeyGameStats();
@@ -93,10 +83,16 @@ export class WhackAMole extends Component {
         await gameInteractions.InitialiseState.createKidsStats(id, this.props.gameName, parentID, kidName, totalLevel)
     }
 
-    updateGameStats(level, isCorrect, submittedAt, totalScore) {
-        let gameStats = { ...this.state.gameStats }
-        const overallTotal = this.state.totalScore + totalScore;
-        const updatedGameStats = gameInteractions.UpdateState.updateDefaultGameStatsObj(gameStats, level, submittedAt, isCorrect, totalScore);
+    updateGameStats() {
+        const level = this.state.currentLevel;
+        let gameStats = {...this.state.gameStats}
+        let currentOrder = [this.state.currentLevelSettings.score]
+        const {isCorrect, submitTime, score} = gameUtils.getSubmissionStats(
+            currentOrder,
+            this.state.currentLevelSettings.winningOrder
+        )
+        const updatedGameStats = gameInteractions.UpdateState.updateDefaultGameStatsObj(gameStats, level, submitTime, isCorrect, score);
+        const overallTotal = this.state.totalScore + score;
         this.setState({
             gameStats: updatedGameStats,
             totalScore: overallTotal
@@ -124,107 +120,107 @@ export class WhackAMole extends Component {
             currentLevelSettings: {...gameConfig.settings()[`${level}`]}
         });
         gameInteractions.UpdateState.updateLocalViewState(this.props.kidName, this.props.gameName, level, 1)
-        console.log("level changed to ", this.state.currentLevel, ": ", this.state.currentLevelSettings)
     }
 
-    populateMoles() {
-        var arrMoles = [];
-        const numOfMoles = this.state.currentLevelSettings.numOfMoles;
-        for (let i = 1; i <= numOfMoles; i++) {
-            arrMoles.push(<MoleHole key={i} moleStyle={this.state.currentLevelSettings}
-                onClick={this.addToScore.bind(this)} holeNumber={i} />);
-        }
-        return (
-            <div className="board">
-                {arrMoles}
-            </div>
-        );
-    }
-
-    async reduceTime() {
-        await this.setState(prevState => ({
-            currentLevelSettings: {
-                ...prevState.currentLevelSettings,
-                remainingTime: this.state.currentLevelSettings.remainingTime - 1,
-            }
-        }))
-    }
-
-    async stopTimer() {
-        await this.setState({
-            gameHasStarted: false,
-        })
-        await this.setState(prevState => ({
-            currentLevelSettings: {
-                ...prevState.currentLevelSettings,
-                remainingTime: gameConfig.settings()[this.state.currentLevel].remainingTime,
-            }
-        }))
-        console.log("this.state.gameHasStarted: ", this.state.gameHasStarted)
-        console.log("this.state.remainingTime@stopTimer(): ", this.state.currentLevelSettings.remainingTime)
-    }
-
-    lockOutClick() {
-        window.setTimeout(() => {
-            this.setState({ moleHasBeenWhacked: false })
-        }, 1000)
-    }
-
-    async startGame() {
-        if (this.state.gameHasStarted) { return; }
-        console.log("this.state.gameHasStarted: ", this.state.gameHasStarted);
-        await this.setState({
-            gameHasStarted: true,
-            score: 0
+    startGame() {
+        let currentLevelSettings = {...this.state.currentLevelSettings};
+        if (currentLevelSettings.gameHasStarted) return
+        currentLevelSettings.gameHasStarted = true;
+        currentLevelSettings.score = 0;
+        this.setState({ currentLevelSettings }, ()=> {
+            this.displayMoles();
         });
-        console.log("this.state.gameHasStarted: ", this.state.gameHasStarted);
-        this.displayMoles();
-    }
-
-    addToScore(e) {
-        if (this.state.moleHasBeenWhacked) { return; }
-        let target = e.target;
-        console.log(target);
-        target.parentNode.classList.add('game__cross');
-        console.log(target.parentNode)
-        target.classList.add('no-background');
-        console.log(target.classList);
-        this.lockOutClick();
-        this.setState({
-            background: '75px',
-            moleHasBeenWhacked: true,
-            score: [parseInt(this.state.score, 10) + 1]
-        });
-        window.setTimeout(function () {
-            target.parentNode.classList.remove('game__cross');
-            target.classList.remove('no-background');
-        }, 500)
     }
 
     displayMoles() {
-        const interval = this.state.currentLevelSettings.molePopInterval;
-        const numOfMoles = this.state.currentLevelSettings.numOfMoles;
-        let activeMole = Math.ceil(Math.random() * numOfMoles);
+        let {molePopInterval, numOfMoles} = this.state.currentLevelSettings
         const creatingMoles = setInterval(() => {
-            while (activeMole === this.state.lastMole[0]) {
-                activeMole = Math.ceil(Math.random() * numOfMoles);
-                this.clearMoles();
-            }
-            this.setState(prevState => ({
-                currentLevelSettings: {
-                    ...prevState.currentLevelSettings,
-                    [activeMole]: 'translate(0, 15%)',
-                    lastMole: [activeMole],
-                }
-            }))
+            this.selectActiveMoles(numOfMoles);
             if (this.state.currentLevelSettings.remainingTime <= 0) {
                 clearInterval(creatingMoles);
                 this.stopTimer();
                 this.clearMoles();
-                console.log("times up")
             }
+        }, molePopInterval);
+    }
+
+    selectActiveMoles (numOfMoles) {
+        let activeMole = this.randomiseActiveMoles(numOfMoles);
+        while (activeMole === this.state.currentLevelSettings.lastMole) {
+            activeMole = this.randomiseActiveMoles(numOfMoles);
+            this.clearMoles();
         }
-            , interval);
+        this.setState(prevState => ({
+            currentLevelSettings: {
+                ...prevState.currentLevelSettings,
+                [activeMole]: 'translate(0, 15%)',
+                lastMole: activeMole,
+            }
+        }))
+    }
+
+    randomiseActiveMoles (numOfMoles) {
+        return Math.ceil(Math.random() * numOfMoles);
+    }
+  
+    reduceTime() {
+        const currentLevelSettings = {...this.state.currentLevelSettings};
+        currentLevelSettings.remainingTime = currentLevelSettings.remainingTime -1;
+        this.setState({currentLevelSettings}, () => {
+            return this.state.currentLevelSettings.remainingTime
+        })
+    }
+
+    stopTimer() {
+        const currentLevelSettings = {...this.state.currentLevelSettings};
+        currentLevelSettings.gameHasStarted = false;
+        this.setState({currentLevelSettings}, () => {
+            currentLevelSettings.remainingTime = gameConfig.settings()[this.state.currentLevel].remainingTime
+            this.setState({currentLevelSettings}) 
+        })
+        return
+    }
+
+    addToScore (e) {
+        let target = e.target;
+        this.animateWhacked(target, true)
+        this.lockOutClick();
+        this.isSuccess();
+        window.setTimeout(() => {
+            this.animateWhacked(target, false)
+        }, 500)
+    }
+
+    animateWhacked (target, isWhacked) {
+        if (isWhacked) {
+            target.parentNode.classList.add('game__cross');
+            target.classList.add('no-background');
+        } else {
+            target.parentNode.classList.remove('game__cross');
+            target.classList.remove('no-background');
+        }
+    }
+
+    isSuccess () {
+        this.setState(prevState => ({
+            currentLevelSettings: {
+                ...prevState.currentLevelSettings,
+                moleHasBeenWhacked: true,
+                score: parseInt(this.state.currentLevelSettings.score, 10) + 1,
+                [this.state.currentLevelSettings.lastMole]: 'translate(0, 110%)',
+            }
+        }))
+    }
+
+    lockOutClick() {
+        window.setTimeout(() => {
+            this.setState(prevState => ({
+                currentLevelSettings: {
+                    ...prevState.currentLevelSettings,
+                    moleHasBeenWhacked: false,
+                }
+            }))
+        }, 1000)
     }
 
     clearMoles() {
@@ -241,7 +237,7 @@ export class WhackAMole extends Component {
     }
 
     render() {
-        console.log(this.state)
+        console.log(this.state.currentLevelSettings)
         if (this.state.currentLevel == null) {
             return (
                 <div>insert loading screen here</div>
@@ -250,26 +246,50 @@ export class WhackAMole extends Component {
         return (
             <React.Fragment>
                 {this.state.viewGame === true ?
-                    <div id='gameContainerWhackAMole'>
-                        <div className='gameContentLeftWhackAMole'>
-                            <h1>Level: {this.state.currentLevel}</h1>
-                            <h1>Score: {this.state.score}</h1>
-                            <Timer key={this.state.gameHasStarted} reduceTime={this.reduceTime} remainingTime={this.state.currentLevelSettings.remainingTime} gameHasStarted={this.state.gameHasStarted} />
-                            <button onClick={this.startGame}>Start</button>
-                            <div className='gameStatsBoardsWhackAMole'>
-                                <SelectLevelBoard
-                                    totalLevel={this.state.totalLevel}
-                                    updateCurrentLevel={this.updateCurrentLevel}
-                                />
-                                <ScoreBoard
-                                    totalScore={this.state.totalScore}
-                                />
+                    <div className='gameContainerWrapper'>
+                        <div id='gameContainerWhackAMole'>
+                            <div className='gameContentLeftWhackAMole'>
+                                <h1>Level: {this.state.currentLevel}</h1>
+                                <h1>Score: {this.state.currentLevelSettings.score}</h1>
+                                <Timer 
+                                    key={this.state.currentLevelSettings.gameHasStarted} 
+                                    reduceTime={this.reduceTime} 
+                                    remainingTime={this.state.currentLevelSettings.remainingTime} 
+                                    gameHasStarted={this.state.currentLevelSettings.gameHasStarted} />
+                                <button onClick={this.startGame}>Start</button>
+                                <div className='gameStatsBoardsWhackAMole'>
+                                    <SelectLevelBoard
+                                        totalLevel={this.state.totalLevel}
+                                        updateCurrentLevel={this.updateCurrentLevel}
+                                    />
+                                    <ScoreBoard
+                                        totalScore={this.state.totalScore}
+                                    />
+                                </div>
                             </div>
-                        </div>
-
-                        <div className='gameContentWrapperWhackAMole'>
-                            <div className='gameMainContentWhackAMole'>
-                                {this.populateMoles()}
+                            <div className='gameContentWrapperWhackAMole'>
+                                <div className='gameMainContentWhackAMole'>
+                                    {[...Array(this.state.currentLevelSettings.numOfMoles)].map((item,i) => {
+                                        return (
+                                            <div className="board">
+                                                <MoleHole 
+                                                    key={i} 
+                                                    moleStyle={this.state.currentLevelSettings[i]}
+                                                    onClick={this.addToScore} 
+                                                />
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                                <SubmitButton 
+                                    order={this.state.currentLevelSettings.score} 
+                                    winningOrder={this.state.currentLevelSettings.winningOrder} 
+                                    updateStats={this.updateGameStats}
+                                    top = '0px'
+                                    left = '11px'
+                                    topEmoji = '-60px'
+                                    leftEmoji = '80px'
+                                />
                             </div>
                         </div>
                     </div>

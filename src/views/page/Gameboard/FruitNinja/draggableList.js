@@ -15,7 +15,6 @@ const DraggableList = ({ item, position, size, winningCriteria, updateItemPositi
     const [{ x, y }, set] = useSpring(() => ({ 
       x: initialX, 
       y: initialY,
-      config: { mass: 5, tension: 350, friction: 40 } 
     }))
 
     const bind = useDrag(
@@ -25,7 +24,9 @@ const DraggableList = ({ item, position, size, winningCriteria, updateItemPositi
         },
         { 
           filterTaps: true, 
-          delay: 1000,
+          delay: 500,
+          threshold: 10,
+          bounds: { left: 220, right: 1100, top: 130, bottom: 700 }
         }
     )
   

@@ -10,6 +10,8 @@ import gameInteractions from '../../../../interactions/GamePlay'
 import SelectLevelBoard from '../../../common/components/SlidingBoard/selectLevelBoard';
 import WelcomeBoard from '../../../common/components/SlidingBoard/welcomeBoard';
 import ScoreBoard from '../../../common/components/SlidingBoard/scoreBoard';
+
+//CHILDREN
 import DragglebleList from './draggableList';
 import ListOptions from './listOptions';
 

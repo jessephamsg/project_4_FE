@@ -17,6 +17,12 @@ export default {
                 maxConcurrent: 1,
                 molePopDuration: 1500,
                 molePopInterval: 1500,
+                gameHasStarted: false,
+                moleHasBeenWhacked: false,
+                score: 0,
+                lastMole: 0,
+                order: null,
+                winningOrder: [2]
             },
             1: {
                 1: 'translate(0, 110%)',
@@ -37,6 +43,12 @@ export default {
                 maxConcurrent: 1,
                 molePopDuration: 1300,
                 molePopInterval: 1300,
+                gameHasStarted: false,
+                moleHasBeenWhacked: false,
+                score: 0,
+                lastMole: 0,
+                activeMole: null,
+                winningOrder: [4]
             },
             2: {
                 1: 'translate(0, 110%)',
@@ -61,6 +73,11 @@ export default {
                 maxConcurrent: 1,
                 molePopDuration: 1000,
                 molePopInterval: 1000,
+                gameHasStarted: false,
+                moleHasBeenWhacked: false,
+                score: 0,
+                lastMole: 0,
+                winningOrder: [6]
             }
         }
     }
