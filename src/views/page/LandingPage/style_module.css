@@ -1,3 +1,10 @@
+.pageWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-family: 'Lato', sans-serif;
+}
+
 .landingpage {
     background-image: url("../../common/assets/landing_background_1.png");
     background-size: cover;
@@ -37,9 +44,9 @@
 }
 
 .topLeftSection > h1 {
-    font-size: 60px;
-    color: #2a2f2f;
+    font-size: 55px;
     margin-bottom: 0px;
+    font-weight: 600;
 }
 
 .topLeftSection > p {
@@ -55,4 +62,87 @@
     background-position: center; 
     background-repeat: no-repeat;
     box-shadow: 2px 4px 15px 8px #026d6326;
+}
+
+.bodySection {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 1000px;
+    background-color: #ccfffe;
+    padding: 5%;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.leftBodySection {
+    width: 50%;
+    height: 100%;
+    background-image: url('../../common/assets/landing_section_pic_1.png');
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.rightBodySection {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+}
+
+.pointWrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.iconBullet {
+    width: 20%;
+    height: 100%;
+    background-size: 80%;
+    background-position: top;
+    background-repeat: no-repeat;
+    padding: 15px;
+}
+
+#iconBullet_1 {
+    background-image: url('../../common/assets/avatar/Black-Widow-icon.png')
+}
+
+#iconBullet_2 {
+    background-image: url('../../common/assets/avatar/Loki-icon.png')
+}
+
+#iconBullet_3 {
+    background-image: url('../../common/assets/avatar/Thor-icon.png')
+}
+
+#iconBullet_4 {
+    background-image: url('../../common/assets/avatar/Iron-Man-icon.png')
+}
+
+#iconBullet_5 {
+    background-image: url('../../common/assets/avatar/Captain-America-icon.png')
+}
+
+.contentWrapper {
+    width: 90%;
+    height: 100%;
+    margin-left: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-weight: 400;
+}
+
+.contentWrapper > h3 {
+    font-weight: 500;
+}
+
+.rightBodySection > h2 {
+    font-weight: 600;
+    margin-bottom: 30px;
+    font-size: 35px
 }

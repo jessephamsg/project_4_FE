@@ -10,6 +10,7 @@ import GameInteractions from '../../../interactions/ManageGames'
 //STYLES
 import './style_module.css'
 
+
 export class GamesPage extends Component {
 
     state = {
@@ -18,11 +19,9 @@ export class GamesPage extends Component {
 
     getAllGames = async () => {
         const result = await GameInteractions.getGames.getAllGames();
-        console.log("result@getAllGames: ", result);
         this.setState({
             gameslist: result.length ? result : null
         })
-        console.log("this.state.gameslist: ", this.state.gameslist)
     }
 
     componentDidMount() {
@@ -33,7 +32,11 @@ export class GamesPage extends Component {
         return (
             <Fragment>
                 <div className='gamesPage'>
-                <h1>Hi {this.props.match.params.childname} :)</h1>
+                    <div className='nameBox'>
+                        <p className='kidName'>
+                            {this.props.match.params.childname}
+                        </p>
+                    </div>
                     <div className='gameListing'>
                         {!this.state.gameslist ?
                             <h1>No games</h1>

@@ -3,6 +3,7 @@ import React, { Component} from 'react';
 
 //COMMON ELEMENTS
 import Button from '../../common/elements/Buttons';
+import Input from '../../common/elements/Input/Input'
 
 //INTERACTION LOGICS
 import ChildProfileInteractions from '../../../interactions/ManageChildrenProfile';
@@ -10,8 +11,6 @@ import ChildProfileInteractions from '../../../interactions/ManageChildrenProfil
 //STYLES
 import './style_module.css';
 
-import api from '../../../api'
-import Input from '../../common/elements/Input/Input'
 
 
 export class RegisterPage extends Component {
@@ -57,7 +56,6 @@ export class RegisterPage extends Component {
             const response = await ChildProfileInteractions.createUser.registerParent(payload);
             console.log(response.data.success)
             console.log(response.data.data)
-            // console.log(response.data.data.slice('Database','to')) need to slice the error message
             if(response.data.success === false) {
                 this.setState({
                     error:true,

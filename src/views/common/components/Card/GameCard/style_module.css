@@ -1,25 +1,32 @@
 .gameCard {
     display: flex;
     width:220px;
-    /* min-width: 15%; */
+    height: 400px;
     flex-flow: column nowrap;
-    justify-content:center;
+    justify-content:flex-start;
     text-align: center;
-    /* background-color: pink; */
     margin-bottom: 50px;
+    border-radius: 10px;
+    background-color: white;
+    margin-right: 10px;
 }
 
 .game_icon_container {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* background-color: plum; */
+    width: 95%;
+    margin-left: 2.5%;
+    margin-top: 2.5%;
 }
 
 .gameIcon {
-    height: 200px;
-    width: 200px;
-    /* background-color: palegoldenrod; */
+    height: 280px;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
 }
 
 a {
@@ -28,6 +35,8 @@ a {
 
 .gameCard > a > h2 {
     font-family: 'Quicksand', sans-serif;
-    color: white;
-    margin-top: 0;
+    color: #1fadb1;
+    margin-top: 10px;
+    font-size: 25px;
+    font-weight: 600;
 }
