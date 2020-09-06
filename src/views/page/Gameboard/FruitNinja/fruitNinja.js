@@ -99,7 +99,8 @@ class FruitNinja extends Component {
             this.state.currentLevelSettings.winningCriteria.items
         )
         const overallTotal = this.state.totalScore + score;
-        const updatedGameStats = gameInteractions.UpdateState.updateDefaultGameStatsObj(gameStats, level, submitTime, isCorrect, score);        gameStats[`${level}`].currentState = {...this.state.gameStats[this.state.currentLevel].currentState};
+        const updatedGameStats = gameInteractions.UpdateState.updateDefaultGameStatsObj(gameStats, level, submitTime, isCorrect, score);        
+        gameStats[`${level}`].currentState = {...this.state.gameStats[this.state.currentLevel].currentState};
         gameStats[`${level}`].currentBasket = [...this.state.gameStats[this.state.currentLevel].currentBasket];
         currentOrder.order.current = this.state.gameStats[this.state.currentLevel].currentBasket
         this.setState({
@@ -155,7 +156,6 @@ class FruitNinja extends Component {
     }
     
     render() {
-        console.log(this.state.currentLevelSettings.img)
         if(this.state.currentLevel == null) {
             return (
                 <div>insert loading screen here</div>
@@ -167,7 +167,7 @@ class FruitNinja extends Component {
                 <div className='gameContainerWrapper'>
                     <div className='gameContainerFruitNinja'>
                         <div>
-                            <h1>Level: {this.state.currentLevel}</h1>
+                            <h1 className='fruitNinjaH1'>Level: {this.state.currentLevel}</h1>
                             {this.state.currentLevelSettings.img.map((item, index) => {
                                 return (
                                     <DraggableList 
@@ -184,9 +184,14 @@ class FruitNinja extends Component {
                             <SubmitButton 
                                 order={this.state.currentOrder.order} 
                                 winningOrder={this.state.currentLevelSettings.winningCriteria.items} 
-                                updateStats={this.updateGameStats}/>
+                                updateStats={this.updateGameStats}
+                                top = '-70px'
+                                left = '462px'
+                                topEmoji = '-70px'
+                                leftEmoji = '460px'
+                            />
                         </div>
-                        <div className='gameStatsBoards'>
+                        <div className='gameStatsBoardsFruitNinja'>
                             <SelectLevelBoard 
                                 totalLevel={this.state.totalLevel} 
                                 updateCurrentLevel={this.updateCurrentLevel}

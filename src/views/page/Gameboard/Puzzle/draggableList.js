@@ -61,7 +61,15 @@ const DraggableList = ({ items, winningOrder, img, currentOption, level, updateG
           />
         ))}
       </div>
-      <SubmitButton order={order} winningOrder={winningOrder} updateStats={updateStats}/>
+      <SubmitButton 
+        order={order} 
+        winningOrder={winningOrder} 
+        updateStats={updateStats}
+        top = '-550px'
+        left = '82px'
+        topEmoji = '-550px'
+        leftEmoji = '85px'
+      />
     </div>
   )
 }

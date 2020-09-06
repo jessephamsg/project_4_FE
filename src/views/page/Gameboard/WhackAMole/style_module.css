@@ -3,7 +3,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    width: 100%;
+    width: 70%;
     height: 700px;
     display: flex;
     flex-direction: row;
@@ -11,7 +11,7 @@
     align-items: center;
     justify-content: center;
     padding: 30px;
-    background-color: springgreen;
+    border: 20px solid white;
 }
 
 #gameContainerWhackAMole>h1 {
@@ -37,7 +37,7 @@
 
 .gameMainContentWhackAMole {
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row wrap;
     width: 80%;
 }
 
@@ -48,8 +48,8 @@
 }
 
 .board {
-    width: 100%;
-    height: 60%;
+    width: 30%;
+    height: 20%;
     text-align: center;
     display: -webkit-flex;
     -webkit-align-items: center;
@@ -57,7 +57,6 @@
     justify-content: center;
     flex-wrap: wrap;
     cursor: url("./assets/hammerUps.png") 25 75, auto;
-    /* background-color: yellow; */
 }
 
 .board:active {

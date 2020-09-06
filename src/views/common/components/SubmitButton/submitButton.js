@@ -14,14 +14,25 @@ const SubmitButton = (props) => {
     const [isCorrect, setSubmit] = useState([false]);
     const [isClicked, setClick] = useState(false);
     const value = useTransition(isClicked, null, {
-        from: {opacity: 0},
-        enter: {opacity: 1},
-        leave: {opacity: 0},
+        from: {
+            opacity: 0,
+            top: props.topEmoji,
+            left: props.leftEmoji,
+        },
+        enter: {
+            opacity: 1,
+            top: props.topEmoji,
+            left: props.leftEmoji,
+        },
+        leave: {
+            opacity: 0,
+            top: props.topEmoji,
+            left: props.leftEmoji,
+        },
         config: { duration: 2000 },
       })
 
     const updateStats = () => {
-        console.log(props.order, props.winningOrder)
         props.updateStats();
     }
 
@@ -30,8 +41,18 @@ const SubmitButton = (props) => {
             {value.map(({item, props, key}) => {
                 return (
                     (isCorrect[isCorrect.length-1]===false) ?
-                    <animated.div style={props} className='resultEmoji'> &#128557; </animated.div> :
-                    <animated.div style={props} className='resultEmoji'> &#129321; </animated.div>
+                    <animated.div 
+                        style={props} 
+                        className='resultEmoji'
+                    > 
+                        &#128557; 
+                    </animated.div> :
+                    <animated.div 
+                        style={props} 
+                        className='resultEmoji'
+                    > 
+                        &#129321; 
+                    </animated.div>
                 )
             })} 
             <button 
@@ -41,6 +62,10 @@ const SubmitButton = (props) => {
                 setClick(!isClicked)
                 }}
                 className='submitButton'
+                style = {{
+                    top: props.top,
+                    left: props.left,
+                }}
                 >
                 <FontAwesomeIcon icon={faPaperPlane} />
             </button>
