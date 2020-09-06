@@ -7,6 +7,7 @@ import LandingPage from '../views/page/LandingPage';
 import LoginPage from '../views/page/LoginPage';
 import RegisterPage from '../views/page/RegisterPage';
 import HomePage from '../views/page/HomePage';
+import GamesPage from '../views/page/GamesPage';
 import ChildDashboard from '../views/page/ChildDashboard';
 import ParentDashboard from '../views/page/ParentDashboard';
 import Gameboard from '../views/page/Gameboard';
@@ -21,6 +22,7 @@ class RoutePage extends Component {
                 <Route exact path='/'  component={LandingPage}/>
                 <Route path='/login' component ={LoginPage}/>
                 <Route path='/register' component ={RegisterPage}/>
+                <Route path='/games/:childname' component ={GamesPage}/>
                 <Route path='/child/:childname/game/:gameName' component={Gameboard}/>
                 <ProtectedRoute path={`/home/:username`} component={HomePage}> </ProtectedRoute>
                 <ProtectedRoute exact path={`/home/dashboard/:childname`}component={ChildDashboard}> </ProtectedRoute>

@@ -1,7 +1,7 @@
 //DEPENDENCIES
 import React from 'react';
 import { useDrag } from 'react-use-gesture';
-import { useSpring, animated, interpolate } from 'react-spring';
+import { useSpring, animated, interpolate } from 'react-spring'; //don't delete interpolate
 
 //STYLES
 import './style_module.css';

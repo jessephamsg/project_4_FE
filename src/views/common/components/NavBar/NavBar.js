@@ -1,5 +1,5 @@
 //DEPENDENCIES
-import React, { Component, Fragment, useContext } from 'react'
+import React, { Component, Fragment } from 'react' //deleted useContext
 import { withRouter } from 'react-router-dom'
 
 //COMMON ELEMENTS

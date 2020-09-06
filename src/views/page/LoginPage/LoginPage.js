@@ -19,6 +19,7 @@ const LoginPage = () => {
     const [state, setstate] = useState({username: '', password: ''})
     const context = useContext(AuthService); // extract value from authcontext
     const history = useHistory()
+    const [err, seterr] = useState(false)
     
     const handleChange = async e => {
         e.preventDefault()
@@ -34,6 +35,7 @@ const LoginPage = () => {
             context.setIsAuthenticated(true)
             history.push(`/home/${name}`) // does not refresh entire page
         } catch (e) {
+            seterr(true)
             console.log(e)
         }
     }
@@ -42,6 +44,9 @@ const LoginPage = () => {
         <Fragment>
             <div className='loginPage'>
                 <div className='login'>
+                    {err? 
+                    <p>Ops! either your username or password is wrong!</p> 
+                    : null}
                     <form onSubmit={login} className='loginForm'>
                     <Input
                         type='text' 

@@ -1,6 +1,6 @@
 //DEPENDENCIES
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 //COMPONENTS
 import Footer from './views/common/components/Footer'
