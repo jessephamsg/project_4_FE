@@ -36,7 +36,6 @@ const LoginPage = () => {
             history.push(`/home/${name}`) // does not refresh entire page
         } catch (e) {
             seterr(true)
-            console.log(e)
         }
     }
 
@@ -44,8 +43,9 @@ const LoginPage = () => {
         <Fragment>
             <div className='loginPage'>
                 <div className='login'>
+                    <h1>Log in</h1>
                     {err? 
-                    <p>Ops! either your username or password is wrong!</p> 
+                    <p>Oops! either your username or password is wrong!</p> 
                     : null}
                     <form onSubmit={login} className='loginForm'>
                     <Input

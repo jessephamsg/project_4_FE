@@ -6,6 +6,7 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
 import Input from '../../elements/Input';
 
 
+
 export class Modal extends Component {
     constructor(props) {
         super(props)

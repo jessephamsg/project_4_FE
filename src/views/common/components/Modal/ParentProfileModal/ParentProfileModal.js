@@ -2,15 +2,12 @@
 import React, { Fragment, useState,useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-//COMMON COMPONENTS
-// import Button from '../../../elements/Buttons';
-
 //INTERACTION LOGICS
 import ChildProfileInteraction from '../../../../../interactions/ManageChildrenProfile';
 
 //STYLES
 import './style_module.css';
-// import img from '../../../assets/game_container_wrapper_bg.png'
+
 
 
 export default function ParentProfileModal (props) {
@@ -25,7 +22,6 @@ export default function ParentProfileModal (props) {
     const getParentData = async()=> {
         try {
         const result = await ChildProfileInteraction.getUser.getAuthUser();
-        console.log(result)
         setParentData(result)
         setKidsList(result.kidsList)
         return result
@@ -36,7 +32,7 @@ export default function ParentProfileModal (props) {
 
     let param = useParams()
 
-    function toggleEditParentModal () {
+    const toggleEditParentModal = () => {
         console.log('editparentprofile')
     }
 
@@ -46,9 +42,6 @@ export default function ParentProfileModal (props) {
                 <h3>Hi {param.username},</h3>
                 <h5> You have {KidsList.length || 0} kids</h5>
                 <div className='actionList'>
-                    {/* <div className='add'>
-                        <Button id='addChildBtn' text='Add' onClick={props.onClick} />
-                    </div> */}
                     <div className='edit'>
                         <div onClick={toggleEditParentModal}>Edit Personal Profile</div>
                     </div>

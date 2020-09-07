@@ -1,20 +1,30 @@
 
 .registerPage {
-    background-image: url('../../common/assets/landing_background_1.png');
     width: 100%;
-    height: 1000px;
+    height: 900px;
     background-position: bottom;
     background-repeat: no-repeat;
     background-size: cover;
+    background-image: url('../../common/assets/signup_bg_1.png')
 }
 
 .register {
-    margin: 5rem auto;
-    width: 60%;
+    margin-left: 30%;
+    margin-top: 7%;
+    width: 40%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
+    background-color: white;
+    padding: 5rem;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px 8080800f; 
+}
+
+.register > h1 {
+    font-weight: 600;
+    font-size: 30px;
 }
 
 .registerForm {

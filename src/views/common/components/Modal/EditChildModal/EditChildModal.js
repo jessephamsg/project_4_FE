@@ -11,8 +11,9 @@ import Input from '../../../elements/Input/Input';
 import './style_module.css'
 
 
+
 export default function EditChildModal (props) {
-    // const [Icon, setIcon] = useState(props.icon)
+
     const [Icon, setIcon] = useState('') // connot use props to set initial state
     const [isIconModalOpen, setIsIconModalOpen] = useState(false)
     const [childData, setChildData] = useState({})
@@ -21,6 +22,7 @@ export default function EditChildModal (props) {
         e.preventDefault()
         setIsIconModalOpen(!isIconModalOpen)
     }
+
     useEffect(() => {
         setChildData(props.childData)
     },[props.childData, props.isModalOpen])
@@ -29,9 +31,11 @@ export default function EditChildModal (props) {
         setIcon(icon)
         setIsIconModalOpen(!isIconModalOpen)
     }
+
     const handleChange = e => {
         setChildData({...childData,[e.target.name]:e.target.value})
     }
+
     const submit = (e) => {
         e.preventDefault()
         props.update(childData)
@@ -42,11 +46,11 @@ export default function EditChildModal (props) {
         <MDBContainer >
         <form onSubmit={submit}>
         <MDBModal isOpen={props.isModalOpen} toggle={props.toggleModal}>
-            <MDBModalHeader toggle={props.toggleModal}>Edit</MDBModalHeader>
+            <MDBModalHeader toggle={props.toggleModal}>Edit Child's Details</MDBModalHeader>
             <MDBModalBody className='editForm'>
                 <Input 
                     required = {true}
-                    placeholder ="Your child's name"
+                    placeholder ="Child's Name"
                     name ="name"
                     type ="text" 
                     value={childData.name}
@@ -66,7 +70,7 @@ export default function EditChildModal (props) {
 
                 <Input 
                     required = {true}
-                    placeholder ="Maximum screen Time in minutes"
+                    placeholder ="Maximum Screen Time (minutes)"
                     name ="maxScreenTime"
                     type ="number" 
                     value={childData.maxScreenTime}
@@ -76,18 +80,17 @@ export default function EditChildModal (props) {
                 <div className='iconInput'>
                     <Input 
                         required = {true}
-                        placeholder ="select an icon or a url image of your choice" 
+                        placeholder ="Select An Icon" 
                         name ="icon"
                         type ="text" 
                         value={childData.icon}
                         onChange= {handleChange}
                     />
-                    <Button id='iconBtn' onClick={toggleIconModal} text ='Icon'/>
+                    <Button id='iconBtn' size='small' onClick={toggleIconModal} text ='Icon'/>
                 </div>
-
             </MDBModalBody>
             <MDBModalFooter>
-            <Button type="submit" text='Update' id="editBtn"/>
+            <Button type="submit" text='Update' id="editBtn" size='small'/>
             </MDBModalFooter>
         </MDBModal>
         </form>

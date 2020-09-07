@@ -9,7 +9,8 @@ const api = Axios.create({
 //PARENTS
 const getAllParents = payload => api.get('/parent', payload);
 const registerParent = payload => api.post('/parents', payload);
-const removeKidFromParent = (parentId, kidId) => api.put(`/parents/${parentId}/del/${kidId}`)
+const removeKidFromParent = (parentId, kidId) => api.put(`/parents/${parentId}/del/${kidId}`);
+const getParentNameByID = (parentID) => api.get(`/parents/${parentID}`);
 
 //KIDS
 const createKid = payload => api.post('/kids',payload)
@@ -51,7 +52,7 @@ const apis = {
     removeKidFromParent,
     checkPassword,
     getAllGames,
-    // getParentById
+    getParentNameByID
 }
 
 

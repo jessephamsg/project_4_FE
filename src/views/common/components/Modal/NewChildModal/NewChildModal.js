@@ -60,11 +60,11 @@ export default class NewChildModal extends Component {
         <MDBContainer className='addForm' >
         <form onSubmit={this.handleSubmit}>
         <MDBModal isOpen={this.props.isModalOpen} toggle={this.props.toggleModal}>
-            <MDBModalHeader toggle={this.props.toggleModal}>choose an icon </MDBModalHeader>
+            <MDBModalHeader toggle={this.props.toggleModal}>Add A Child</MDBModalHeader>
             <MDBModalBody >
                 <Input 
                     required = {true}
-                    placeholder ="Your child's name"
+                    placeholder ="Child's Name"
                     name ="name"
                     type ="text" 
                     value={this.state.name}
@@ -83,7 +83,7 @@ export default class NewChildModal extends Component {
                 </div>
                 <Input 
                     required = {true}
-                    placeholder ="Maximum screen Time in minutes"
+                    placeholder ="Maximum Screen Time (minutes)"
                     name ="maxScreenTime"
                     type ="number" 
                     value={this.state.maxScreenTime}
@@ -92,18 +92,18 @@ export default class NewChildModal extends Component {
                 <div className='iconInput'>
                     <Input 
                         required = {true}
-                        placeholder ="select an icon or a url image of your choice" 
+                        placeholder ="Select An Icon" 
                         name ="icon"
                         type ="text" 
                         value={this.state.icon}
                         onChange= {this.handleChange}
                     />
-                    <Button id='iconBtn' onClick={this.toggleIconModal} text ='Icon'/>
+                    <Button id='iconBtn' size='small' onClick={this.toggleIconModal} text ='Icon'/>
                 </div>
 
             </MDBModalBody>
             <MDBModalFooter className='addModalFooter'>
-                <Button type="submit" text='Add' id="addBtn"/>
+                <Button type="submit" text='Add' id="addBtn" size='small'/>
             </MDBModalFooter>
         </MDBModal>
         </form>
