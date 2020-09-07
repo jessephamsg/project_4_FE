@@ -137,11 +137,27 @@ class ParentDashboard extends Component {
                         onClick={this.toggleAddModal} 
                         update = {this.state.kidList}/>
                             {!this.state.kidList ? 
-                                <div>
-                                    <div className='add-card'>
-                                        <button id='addChildBtn' onClick={this.toggleAddModal}>Add</button>
+                                <div className='dashboard-main'>
+                                <div className='childList-wrapper'>
+                                    <h3>Your children</h3>
+                                    <div className='childList-container'>
+                                            <div className='add-card'>
+                                                <button id='addChildBtn' onClick={this.toggleAddModal}>Add</button>
+                                            </div>
                                     </div>
                                 </div>
+                                <div className='gameList-wrapper'>
+                                    <h3>Our games</h3>
+                                    <div className='gameList_parent'>
+                                        {this.state.gameList.map((game) => {
+                                            return (
+                                                <GameCardForParent game={game} key={game._id} />
+                                            )
+                                        }
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
                                 :
                                 <div className='dashboard-main'>
                                     <div className='childList-wrapper'>

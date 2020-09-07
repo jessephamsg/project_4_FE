@@ -1,0 +1,104 @@
+.gameInfo_wrapper {
+    width: 90%;
+    margin-left: 5%;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    margin-top: 2.5%;
+    margin-bottom: 30px;
+}
+
+.gameInfo_Info_wrapper {
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    background-color: white; 
+    padding: 25px;
+}
+
+.gameInfo_Info_icon {
+    width: 30%;
+    padding: 5px;
+}
+
+.gameInfo_desc > p {
+    font-size: 13px;
+    font-weight: 400;
+    margin-right: 10px;
+}
+
+.gameInfo_brief > p {
+    background-color: white;
+    color: #009688;
+    border: 1px solid #009688;
+    padding: 5px;
+    margin: 3px;
+    font-weight: 500;
+}
+
+.gameInfo_content_wrapper {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+}
+
+.gameInfo_content_wrapper > h1 {
+    color: #009688;
+    font-weight: 600;
+}
+
+.gameInfo_brief {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.gameInfo_Review_wrapper {
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    margin-bottom: 30px;
+    flex-direction: column;
+    background-color: white; 
+    padding: 25px;
+    margin-top: 10px;
+}
+
+.gameInfo_Review_wrapper > h2 {
+    color: #009688;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.review_content_wrapper {
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    background-color: white; 
+    margin-top: 10px;
+}
+
+.reviewer_profile {
+    width: 30%;
+    padding: 5px;
+}
+
+.review_content {
+    margin-left: 10px;
+    width: 70%;
+    font-size: 13px;
+    font-weight: 400;
+    margin-right: 10px;
+}
+
+.reviewer_profile > p {
+    background-color: white;
+    color: #009688;
+    border: 1px solid #009688;
+    padding: 5px;
+    margin: 3px;
+    font-weight: 500;
+    width: 30%
+}

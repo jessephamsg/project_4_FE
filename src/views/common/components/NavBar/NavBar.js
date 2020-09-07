@@ -59,7 +59,7 @@ export class NavBar extends Component {
                
                 <ul className='navBarItem'>
                     <div className='navBarLeft'>
-                        <li>Project 4 logo</li>
+                        <li className='navLink' onClick={()=> {routeTo.push(`/`)}}>Project 4 logo</li>
                         <li className='navLink' onClick={()=> {routeTo.push(`/`)}}><a href='#about'> About us </a></li>
                         <li className='navLink' onClick={()=> {routeTo.push(`/`)}}><a href='#games'>Our Games</a></li>
                     {!this.context.user ? null :
