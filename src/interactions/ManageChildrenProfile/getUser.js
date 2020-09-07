@@ -12,7 +12,6 @@ export default {
 
     async getAuthUser () {
         const currentUser = await apis.getAuthUser()
-        console.log(currentUser)
         const currentUserData = currentUser.data.data
         return currentUserData
     },

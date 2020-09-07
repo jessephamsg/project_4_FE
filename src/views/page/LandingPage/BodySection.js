@@ -7,7 +7,7 @@ import './style_module.css';
 
 const BodySection = () => {
     return (
-        <div className='bodySection'>
+        <div className='bodySection' id='about'>
             <div className='leftBodySection'></div>
                 <div className='rightBodySection'>
                     <h2>Kids will love to learn</h2>

@@ -5,6 +5,7 @@ import {
     ChartProvider, XAxis, YAxis,
 } from 'rough-charts'
 
+
 const data = [
     { name: 'A', value1: 30, value2: 35 },
     { name: 'B', value1: 90, value2: 17 },
@@ -18,6 +19,7 @@ const data = [
 
 
 export class ChildReportPage extends Component {
+    
     state = {
         activeIndex: -1
     }

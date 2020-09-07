@@ -1,6 +1,3 @@
-//LOCAL STORAGE
-// import local from '../../storage/localStorage';
-
 //APIS
 import apis from '../../api';
 

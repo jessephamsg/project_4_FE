@@ -13,12 +13,10 @@ export default function IconModal (props) {
     const handleChange = e => {
         setIcon(e.target.value)
         props.handleChange(e)
-        console.log(icon)
     }
     
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(icon)
         props.addIcon(icon)
     }
 

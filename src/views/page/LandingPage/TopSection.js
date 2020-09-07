@@ -6,6 +6,7 @@ import './style_module.css';
 
 
 const TopSection = () => {
+
     return (
         <div className='landingpage'>
             <div className='topSection'>

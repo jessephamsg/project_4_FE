@@ -49,7 +49,7 @@ export default function AuthorizeModal (props) {
             <MDBModalBody >
                 <Input 
                     required = {true}
-                    placeholder ="password"
+                    placeholder ="Password"
                     name ="password"
                     type ="password" 
                     value={password}
@@ -57,7 +57,7 @@ export default function AuthorizeModal (props) {
                 />
             </MDBModalBody>
             <MDBModalFooter className='editModalFooter'>
-                <Button type="submit" text='submit' id="editBtn"/>
+                <Button type="submit" text='Submit' id="editBtn" size='small'/>
             </MDBModalFooter>
         </MDBModal>
         </form>

@@ -54,8 +54,6 @@ export class RegisterPage extends Component {
         }
         try {
             const response = await ChildProfileInteractions.createUser.registerParent(payload);
-            console.log(response.data.success)
-            console.log(response.data.data)
             if(response.data.success === false) {
                 this.setState({
                     error:true,
@@ -63,7 +61,6 @@ export class RegisterPage extends Component {
                     errorMsg: response.data.data
                 })
             } else {
-                console.log('success')
                 window.location.href='/login'
             }
         } catch(e) {

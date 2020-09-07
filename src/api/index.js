@@ -51,7 +51,6 @@ const apis = {
     removeKidFromParent,
     checkPassword,
     getAllGames,
-    // getParentById
 }
 
 
