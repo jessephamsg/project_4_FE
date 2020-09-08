@@ -19,6 +19,7 @@ const deleteKid = id => api.delete(`/kids/${id}`)
 const getAllChildByParentID = id => api.get(`/kids/all/${id}`)
 const getOneChildByParentID = (kidName, parentID) => api.get(`kids/${kidName}?parent=${parentID}`);
 const getOneKid = id => api.get(`/kids/${id}`)
+const getAllChildStats = (parentID, kidName) => api.get(`/kids/${kidName}/report?parent=${parentID}`);
 
 //AUTHENTICATION
 const login = payload => api.post('/login', payload);
@@ -27,11 +28,15 @@ const getAuthUser = () => api.get('/user');
 const logOut = () => api.get('/logout');
 const checkPassword = (password,parentId) => api.post(`/checkPassword/${parentId}`, password)
 
-//GAME STATS
+//GAMES
 const getGameID = gameName => api.get(`/games/${gameName}`);
 const getAllGames = () => api.get(`/games`);
+const getGameByID = id => api.get(`/game/${id}`);
+
+//GAME STATS
 const createKidStats = (parentID, kidName, gameID, payload) => api.post(`/kids/${kidName}/game/${gameID}?parent=${parentID}`, payload);
 const updateKidStats = (parentID, kidName, gameID, level, payload) => api.put(`/kids/${kidName}/game/${gameID}?level=${level}&parent=${parentID}`, payload);
+const getStatsByStatsID = (statsID) => api.get(`stats/${statsID}`)
 
 const apis = {
     getAllParents,
@@ -52,7 +57,10 @@ const apis = {
     removeKidFromParent,
     checkPassword,
     getAllGames,
-    getParentNameByID
+    getParentNameByID,
+    getAllChildStats,
+    getStatsByStatsID,
+    getGameByID
 }
 
 

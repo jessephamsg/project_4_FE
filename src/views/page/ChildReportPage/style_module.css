@@ -1,0 +1,92 @@
+.stats_page_container {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-color: white;
+    margin: 0 auto;
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 2.5%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 100px;
+}
+
+.stats_page_summary {
+    display: flex;
+    width: 100%;
+    height: 200px;
+    align-content: center;
+    align-items: center;
+    margin-top: 2.5%;
+    justify-content: center;
+}
+
+.stats_page_sum_div {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid #039687;
+    margin: 0.5%;
+}
+
+.stats_page_sum_figure {
+    font-size: 70px;
+    font-weight: 600;
+    color: #039687;
+}
+
+.stats_page_details {
+    display: flex;
+    height: 600px;
+    padding: 5%;
+    justify-content: space-evenly;
+}
+
+.detail_wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+    background-color: #80808014;
+    padding: 1.5%;
+    justify-content: center;
+}
+
+.gameCard-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 600px;
+    justify-content: center;
+    padding: 5%;
+}
+
+.gameCard_section {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}
+
+.stats_page_container > h1 {
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 5%;
+    margin-left: 5%
+}
+
+.detail_wrapper > h3 {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.gameCard-wrapper > h3 {
+    font-size: 25px;
+    font-weight: 400;
+    text-align: center
+}
