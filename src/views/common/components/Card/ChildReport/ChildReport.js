@@ -53,8 +53,8 @@ export class ChildReport extends Component {
                             </div>
                             <div className ='actionFooter'>
                                 <Button text='Edit' onClick={this.toggleEditChildModal} className='actionBtn' />
-                                <Button text='Del' onClick={this.handleDeleteChild} className='actionBtn' />
-                                <Button text='See' onClick={this.directToChildReportPage} className='actionBtn' />
+                                <Button text='Delete' onClick={this.handleDeleteChild} className='actionBtn' />
+                                <Button text='View Stats' onClick={this.directToChildReportPage} className='actionBtn' />
                             </div>
                         </div>
                     </div>
