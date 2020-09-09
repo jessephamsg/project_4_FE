@@ -1,8 +1,6 @@
 //DEPENDENCIES
 import React, {useState} from 'react';
 import {useSpring, animated} from 'react-spring';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 //COMMON STYLES
 import slidingBoardAnimation from './animation';

@@ -1,9 +1,9 @@
 //DEPENDENCIES
-import React ,{useState} from 'react'
+import React ,{useState} from 'react';
 
 //COMMON ELEMENTS
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
-import avatar from '../../assets/avatar'
+import avatar from '../../assets/avatar';
 
 
 export default function IconModal (props) {

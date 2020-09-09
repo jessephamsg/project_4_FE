@@ -1,6 +1,9 @@
+//DEPENDENCIES
 import React from 'react';
 
-function ActionBtn(props) {
+
+const ActionBtn = (props) => {
+
     const style = {
         fontFamily: 'Lato, "sans-serif"',
         fontSize :'50px',
@@ -13,13 +16,15 @@ function ActionBtn(props) {
         margin :'1rem',
         padding : '0.5rem'
     }
-  return (
-    <button
-        style = {style} 
-        onClick={props.onClick}>
-        {props.text}
-    </button>
-  );
+
+    return (
+        <button
+            style = {style} 
+            onClick={props.onClick}>
+            {props.text}
+        </button>
+    );
+    
 }
 
 export default ActionBtn;

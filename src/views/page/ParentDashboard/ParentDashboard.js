@@ -6,12 +6,11 @@ import ChildReport from '../../common/components/Card/ChildReport';
 import EditChildModal from '../../common/components/Modal/EditChildModal';
 import NewChildModal from '../../common/components/Modal/NewChildModal';
 import ParentProfileModal from '../../common/components/Modal/ParentProfileModal';
-import GameCardForParent from '../../common/components/Card/ParentGameCard';
+import AllGames from '../../common/components/AllGamesSection';
 
 //INTERACTION LOGIGS
 import {AuthService} from '../../../interactions/AuthService';
 import ChildProfileInteractions from '../../../interactions/ManageChildrenProfile';
-import GameInteractions from '../../../interactions/ManageGames';
 
 //STYLES
 import './style_module.css'
@@ -85,8 +84,7 @@ class ParentDashboard extends Component {
 
     componentDidMount = async () => {
         const currentId = ChildProfileInteractions.getUser.getCurrentLocalID();
-        this.getAllChildByParentID(currentId);
-        await this.getAllGames();
+        await this.getAllChildByParentID(currentId);
     }
 
     updateChild = async (editedChildData) => {
@@ -104,19 +102,7 @@ class ParentDashboard extends Component {
         await this.getAllChildByParentID(parentId)
     }
 
-    getAllGames = async () => {
-        const gameList = await GameInteractions.getGames.getAllGames();
-        this.setState({gameList});
-    }
-
     render() {
-        if(this.state.gameList === null) {
-            return (
-                <div>
-                    Loading...
-                </div>
-            )
-        }
         return (
             <Fragment>
                 <EditChildModal
@@ -135,34 +121,16 @@ class ParentDashboard extends Component {
                 <div className='parentDashboard'>
                     <ParentProfileModal 
                         onClick={this.toggleAddModal} 
-                        update = {this.state.kidList}/>
-                            {!this.state.kidList ? 
-                                <div className='dashboard-main'>
-                                <div className='childList-wrapper'>
-                                    <h3>Your children</h3>
-                                    <div className='childList-container'>
-                                            <div className='add-card'>
-                                                <button id='addChildBtn' onClick={this.toggleAddModal}>Add</button>
-                                            </div>
-                                    </div>
-                                </div>
-                                <div className='gameList-wrapper'>
-                                    <h3>Our games</h3>
-                                    <div className='gameList_parent'>
-                                        {this.state.gameList.map((game) => {
-                                            return (
-                                                <GameCardForParent game={game} key={game._id} />
-                                            )
-                                        }
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                                :
-                                <div className='dashboard-main'>
-                                    <div className='childList-wrapper'>
-                                        <h3>Your children</h3>
-                                        <div className='childList-container'>
+                        update = {this.state.kidList}
+                    />
+                    <div className='dashboard-main'>
+                        <div className='childList-wrapper'>
+                            <h3>Your children</h3>
+                            <div className='childList-container'>
+                                    {!this.state.kidList ? 
+                                        <Fragment/> 
+                                        : 
+                                        <Fragment>
                                             {this.state.kidList.map((kid,index) => {
                                             return (
                                                 <div>
@@ -178,24 +146,20 @@ class ParentDashboard extends Component {
                                                     />
                                                 </div>
                                             )})}
-                                                <div className='add-card'>
-                                                    <button id='addChildBtn' onClick={this.toggleAddModal}>Add</button>
-                                                </div>
-                                        </div>
-                                    </div>
-                                    <div className='gameList-wrapper'>
-                                        <h3>Our games</h3>
-                                        <div className='gameList_parent'>
-                                            {this.state.gameList.map((game) => {
-                                                return (
-                                                    <GameCardForParent game={game} key={game._id} />
-                                                )
-                                            }
-                                            )}
-                                        </div>
-                                    </div>
+                                        </Fragment>
+                                    }
+                                <div className='add-card'>
+                                    <button id='addChildBtn' onClick={this.toggleAddModal}>Add</button>
                                 </div>
-                            }
+                            </div>
+                            <div className='gameList-wrapper'>
+                                <h3>Our games</h3>
+                                <div className='gameList_parent'>
+                                    <AllGames/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </Fragment>
         )

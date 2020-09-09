@@ -5,10 +5,17 @@ import apis from '../../api';
 import utils from './utils'
 
 
-export default  {
+export default {
 
-    async updateKid (editedKid) {
-        const {_id, name, bDay, maxScreenTime, icon, isPlaying} = editedKid;
+    async updateKid(editedKid) {
+        const {
+            _id,
+            name,
+            bDay,
+            maxScreenTime,
+            icon,
+            isPlaying
+        } = editedKid;
         const kidId = _id
         const payload = {
             name,

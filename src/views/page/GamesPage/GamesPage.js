@@ -3,6 +3,7 @@ import React, { Component, Fragment } from 'react'
 
 //COMMON COMPONENTS
 import GameCard from '../../common/components/Card/GameCard'
+import LoadingScreen from '../LoadingPage';
 
 //INTERACTION LOGICS
 import GameInteractions from '../../../interactions/ManageGames'
@@ -29,6 +30,13 @@ export class GamesPage extends Component {
     }
 
     render() {
+        if(this.state.gameslist === null) {
+            return (
+                <LoadingScreen
+                    text = 'Loading games'
+                />
+            )
+        }
         return (
             <Fragment>
                 <div className='gamesPage'>
@@ -38,11 +46,12 @@ export class GamesPage extends Component {
                         </p>
                     </div>
                     <div className='gameListing'>
-                        {!this.state.gameslist ?
-                            <h1>No games</h1>
-                            :
-                            this.state.gameslist.map((game) =>
-                                <GameCard game={game} childname={this.props.match.params.childname} key={game._id} />
+                        {this.state.gameslist.map((game) =>
+                                <GameCard 
+                                    game={game} 
+                                    childname={this.props.match.params.childname} 
+                                    key={game._id} 
+                                />
                             )}
                     </div>
                 </div>

@@ -12,6 +12,7 @@ import SelectLevelBoard from '../../../common/components/SlidingBoard/selectLeve
 import WelcomeBoard from '../../../common/components/SlidingBoard/welcomeBoard';
 import ScoreBoard from '../../../common/components/SlidingBoard/scoreBoard';
 import SubmitButton from '../../../common/components/SubmitButton';
+import LoadingScreen from '../../LoadingPage';
 
 //CHILDREN
 import MoleHole from './MoleHole';
@@ -240,7 +241,9 @@ export class WhackAMole extends Component {
         console.log(this.state.currentLevelSettings)
         if (this.state.currentLevel == null) {
             return (
-                <div>insert loading screen here</div>
+                <LoadingScreen
+                    text = 'Loading Game...'
+                />
             )
         }
         return (

@@ -20,7 +20,6 @@ export class Gameboard extends Component {
 
     getKidName() {
         const kidName = this.props.match.params.childname;
-        console.log(kidName);
         this.setState({
             kidName,
         })

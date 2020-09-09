@@ -1,15 +1,15 @@
 //DEPENDENCIES
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment } from 'react';
 
 //COMMON COMPONENTS
-import ChildCard from '../../common/components/Card/ChildCard'
+import ChildCard from '../../common/components/Card/ChildCard';
+import Error from './Error';
 
 //INTERACTION LOGICS
-import ChildProfileInteractions from '../../../interactions/ManageChildrenProfile'
+import ChildProfileInteractions from '../../../interactions/ManageChildrenProfile';
 
 //STYLES
-import './style_module.css'
-
+import './style_module.css';
 
 
 export class HomePage extends Component {
@@ -36,7 +36,7 @@ export class HomePage extends Component {
                 <div className='homepage'>
                     <div className='childList'>
                         {!this.state.kidList ?
-                            <h1>You have not entered a child yet</h1>
+                            <Error/>
                             :
                             this.state.kidList.map((kid) =>
                                 <ChildCard childname={kid.name} icon={kid.icon} />

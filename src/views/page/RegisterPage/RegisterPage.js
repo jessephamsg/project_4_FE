@@ -3,14 +3,13 @@ import React, { Component} from 'react';
 
 //COMMON ELEMENTS
 import Button from '../../common/elements/Buttons';
-import Input from '../../common/elements/Input/Input'
+import Input from '../../common/elements/Input/Input';
 
 //INTERACTION LOGICS
 import ChildProfileInteractions from '../../../interactions/ManageChildrenProfile';
 
 //STYLES
 import './style_module.css';
-
 
 
 export class RegisterPage extends Component {
@@ -43,7 +42,7 @@ export class RegisterPage extends Component {
             this.setState({
                 passwordError :true,
                 error :false,
-                passwordMsg : 'Password do not match. Please try again'
+                passwordMsg : 'Passwords do not match. Please try again'
             })
             return;
         } 
@@ -67,7 +66,7 @@ export class RegisterPage extends Component {
             this.setState ({
                 error : true,
                 passwordError :false,
-                errorMsg : 'something went wrong due to ' + e.message
+                errorMsg : 'Something went wrong due to ' + e.message
             })
             }
         }

@@ -90,3 +90,37 @@
     font-weight: 400;
     text-align: center
 }
+
+.error_page_container {
+    display: flex;
+    width: 800px;
+    flex-direction: column;
+    padding: 5%;
+    justify-content: center;
+    align-content: center;
+    align-content: center;
+    width: 100%
+}
+
+.error_message {
+    width: 100%;
+    padding: 5px;
+    background-color: #e91e6336;
+    border-radius: 5px;
+    color: #E91E63;
+    justify-content: center;
+    border: 1px solid #E91E63;
+}
+
+.error_body_container {
+    width: 100%;
+    height: 600px;
+    margin-top: 20px;
+}
+
+.error_body_container > h3 {
+    margin-top: 10px;
+    font-size: 25px;
+    font-weight: 600;
+    text-align: center;
+}

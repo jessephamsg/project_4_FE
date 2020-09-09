@@ -10,6 +10,7 @@ import gameInteractions from '../../../../interactions/GamePlay'
 import SelectLevelBoard from '../../../common/components/SlidingBoard/selectLevelBoard';
 import WelcomeBoard from '../../../common/components/SlidingBoard/welcomeBoard';
 import ScoreBoard from '../../../common/components/SlidingBoard/scoreBoard';
+import LoadingScreen from '../../LoadingPage';
 
 //CHILDREN
 import DragglebleList from './draggableList';
@@ -112,7 +113,9 @@ class PuzzleGame extends Component {
     render () {
         if(this.state.currentLevel == null) {
             return (
-                <div>insert loading screen here</div>
+                <LoadingScreen
+                    text = 'Loading Game...'
+                />
             )
         }
         return (

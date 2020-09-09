@@ -1,6 +1,9 @@
+//DEPENDENCIES
 import React from 'react';
 
-function GameH4(props) {
+
+const GameH4 = (props) => {
+
   return (
     <h4
         style = {{
@@ -11,7 +14,8 @@ function GameH4(props) {
             textShadow: '7px 7px #ffdfa5',
             margin: '0px',
         }}
-    >{props.text}
+    >
+      {props.text}
     </h4>
   );
 }

@@ -1,7 +1,8 @@
+//DEPENDENCIES
 import React from 'react';
 
 
-function Button(props) {
+const Button = (props) => {
 
   const hoverIn = e => {
     e.preventDefault()

@@ -1,6 +1,8 @@
+//DEPENDENCIES
 import React from 'react';
 
-function GameH2(props) {
+
+const GameH2 = (props) => {
   return (
     <h2
         style = {{
