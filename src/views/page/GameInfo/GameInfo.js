@@ -8,7 +8,6 @@ import gameInteractions from '../../../interactions/ManageGames'
 import './style_module.css';
 
 
-
 class GameInfo extends Component {
 
     constructor (props) {

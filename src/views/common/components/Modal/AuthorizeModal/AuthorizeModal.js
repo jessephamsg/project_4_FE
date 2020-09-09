@@ -1,5 +1,5 @@
 //DEPENDENCIES
-import React, { Fragment ,useState} from 'react'
+import React, { Fragment ,useState} from 'react';
 
 //COMMON COMPONENTS
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter} from 'mdbreact';
@@ -11,7 +11,7 @@ import ChildProfileInteractions from '../../../../../interactions/ManageChildren
 import LoggingInteractions from '../../../../../interactions/Logging';
 
 //STYLES
-import './style_module.css'
+import './style_module.css';
 
 
 export default function AuthorizeModal (props) {
@@ -42,26 +42,26 @@ export default function AuthorizeModal (props) {
 
     return (
         <Fragment>
-        <MDBContainer className='authorizeForm'>
-        <form onSubmit={handleSubmit}>
-        <MDBModal isOpen={props.isAuthorizeModalOpen} toggle={props.toggleAuthorizeModal}>
-            <MDBModalHeader toggle={props.toggleAuthorizeModal}>Enter Password</MDBModalHeader>
-            <MDBModalBody >
-                <Input 
-                    required = {true}
-                    placeholder ="Password"
-                    name ="password"
-                    type ="password" 
-                    value={password}
-                    onChange= {handleChange}
-                />
-            </MDBModalBody>
-            <MDBModalFooter className='editModalFooter'>
-                <Button type="submit" text='Submit' id="editBtn" size='small'/>
-            </MDBModalFooter>
-        </MDBModal>
-        </form>
-    </MDBContainer>
+            <MDBContainer className='authorizeForm'>
+            <form onSubmit={handleSubmit}>
+            <MDBModal isOpen={props.isAuthorizeModalOpen} toggle={props.toggleAuthorizeModal}>
+                <MDBModalHeader toggle={props.toggleAuthorizeModal}>Enter Password</MDBModalHeader>
+                <MDBModalBody >
+                    <Input 
+                        required = {true}
+                        placeholder ="Password"
+                        name ="password"
+                        type ="password" 
+                        value={password}
+                        onChange= {handleChange}
+                    />
+                </MDBModalBody>
+                <MDBModalFooter className='editModalFooter'>
+                    <Button type="submit" text='Submit' id="editBtn" size='small'/>
+                </MDBModalFooter>
+            </MDBModal>
+            </form>
+        </MDBContainer>
     </Fragment>
     )
 } 

@@ -15,49 +15,57 @@ const DEFAULT_CURRENT_OPTION = 1
 
 export default {
 
-    buildIntialStates () {
+    buildIntialStates() {
         return GameStatsModel.gameInitialState();
     },
 
-    buildInitialKeyGameStats () {
+    buildInitialKeyGameStats() {
         return LevelStatsModel.levelInitialStats();
     },
 
-    isFirstTimePlayingGame (gameName, kidName) {
+    isFirstTimePlayingGame(gameName, kidName) {
         const result = LocalGameState.getGameLocal();
         let isFirstTime = false;
         if (result === null) {
             isFirstTime = true
         } else {
-            if(result[`${kidName}`] === undefined) isFirstTime = true
+            if (result[`${kidName}`] === undefined) isFirstTime = true
             else {
-                if(result[`${kidName}`][gameName] === undefined) isFirstTime = true
+                if (result[`${kidName}`][gameName] === undefined) isFirstTime = true
             }
         }
         return isFirstTime
     },
 
-    async getGameID (gameName) {
+    async getGameID(gameName) {
         const gameObject = await apis.getGameID(gameName)
         const gameID = gameObject.data.data[0]._id;
         return gameID
     },
 
-    async getTotalScore (kidName, parentID, gameID) {
+    async getTotalScore(kidName, parentID, gameID) {
         const childObject = await apis.getOneChildByParentID(kidName, parentID);
         const gameObj = childObject.data.data[0].gamesStats.filter(gameObj => gameObj.gameID === gameID);
-        const totalScore = gameObj.length === 0 ? 0: gameObj[0].totalScore;
+        const totalScore = gameObj.length === 0 ? 0 : gameObj[0].totalScore;
         return totalScore
     },
 
-    getLatestLocalGameState (gameConfig, gameName, kidName) {
+    getLatestLocalGameState(gameConfig, gameName, kidName) {
         const totalLevel = Object.keys(gameConfig.settings());
-        let currentLevel = DEFAULT_CURRENT_LEVEL, currentOption = DEFAULT_CURRENT_OPTION;
-        if (this.isFirstTimePlayingGame(gameName, kidName) === false) ({currentLevel, currentOption} = LocalGameState.getGameLocal()[kidName][gameName])
-        return {totalLevel, currentLevel, currentOption}
+        let currentLevel = DEFAULT_CURRENT_LEVEL,
+            currentOption = DEFAULT_CURRENT_OPTION;
+        if (this.isFirstTimePlayingGame(gameName, kidName) === false)({
+            currentLevel,
+            currentOption
+        } = LocalGameState.getGameLocal()[kidName][gameName])
+        return {
+            totalLevel,
+            currentLevel,
+            currentOption
+        }
     },
 
-    async createKidsStats (gameID, gameName, parentID, kidName, totalLevels) {
+    async createKidsStats(gameID, gameName, parentID, kidName, totalLevels) {
         const kidStatsPayloadArr = [];
         const kidGeneralStats = GameStatsModel.kidOverallStatsPayload(gameID);
         for (const level of totalLevels) {

@@ -1,10 +1,14 @@
-import React from 'react'
-import './style_module.css'
+//DEPENDENCIES
+import React from 'react';
 
-function Input(props) {
+//STYLES
+import './style_module.css';
+
+
+const Input = (props) => {
     return (
         <input 
-        className="input"
+            className="input"
             type={props.type}
             name={props.name}
             placeholder={props.placeholder}

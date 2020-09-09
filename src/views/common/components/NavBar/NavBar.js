@@ -1,6 +1,6 @@
 //DEPENDENCIES
-import React, { Component, Fragment } from 'react' 
-import { withRouter } from 'react-router-dom'
+import React, { Component, Fragment } from 'react'; 
+import { withRouter } from 'react-router-dom';
 
 //COMMON ELEMENTS
 import Button from '../../elements/Buttons';
@@ -11,8 +11,7 @@ import loggingInteractions from '../../../../interactions/Logging';
 import {AuthService} from '../../../../interactions/AuthService';
 
 //STYLES
-import './style_module.css'
-
+import './style_module.css';
 
 
 export class NavBar extends Component {

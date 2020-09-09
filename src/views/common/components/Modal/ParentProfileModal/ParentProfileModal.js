@@ -9,7 +9,6 @@ import ChildProfileInteraction from '../../../../../interactions/ManageChildrenP
 import './style_module.css';
 
 
-
 export default function ParentProfileModal (props) {
 
     const [ParentData, setParentData] = useState({})

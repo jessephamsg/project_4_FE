@@ -13,6 +13,7 @@ import WelcomeBoard from '../../../common/components/SlidingBoard/welcomeBoard';
 import ScoreBoard from '../../../common/components/SlidingBoard/scoreBoard';
 import SubmitButton from '../../../common/components/SubmitButton';
 import DraggableList from './draggableList';
+import LoadingScreen from '../../LoadingPage';
 
 //STYLES
 import layout from '../../../common/layouts/gameContainer.styles.css';
@@ -158,7 +159,9 @@ class FruitNinja extends Component {
     render() {
         if(this.state.currentLevel == null) {
             return (
-                <div>insert loading screen here</div>
+                <LoadingScreen
+                    text = 'Loading Game...'
+                />
             )
         }
         return (

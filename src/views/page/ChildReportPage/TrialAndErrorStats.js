@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
-    LineSeries, Tooltip, AreaSeries, BarSeries,Rectangle,
+    Tooltip, BarSeries,Rectangle,
     ChartProvider, XAxis, YAxis,
 } from 'rough-charts'
 

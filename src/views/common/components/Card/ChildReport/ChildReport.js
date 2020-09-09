@@ -1,19 +1,18 @@
 //DEPENDENCIES
-import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 //COMMON ELEMENTS
-import Button from '../../../elements/Buttons'
+import Button from '../../../elements/Buttons';
 
 //STYLES
-import './style_module.css'
+import './style_module.css';
 
 
 export class ChildReport extends Component {
 
     handleDeleteChild = (e) => {
         e.preventDefault()
-        console.log(this.props.id)
         let res = window.confirm(`Are you sure you want to remove?${this.props.childname}`)
         if(res) {
             this.props.deleteChild(this.props.id)
@@ -63,4 +62,6 @@ export class ChildReport extends Component {
         )
     }
 }
+
+
 export default withRouter(ChildReport)

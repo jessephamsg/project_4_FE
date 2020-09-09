@@ -1,17 +1,19 @@
 //DEPENDENCIES
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import {AuthService} from '../../../interactions/AuthService';
 
 //COMPONENTS
+import LoadingScreen from '../LoadingPage';
 import CompletionRate from './CompletionRate';
 import TrialAndErrorStats from './TrialAndErrorStats';
 import RecentGames from './RecentGames';
+import Error from './Error';
 
 //INTERACTION LOGIC
 import ChildProfileInteractions from '../../../interactions/ManageChildrenProfile';
 
 //STYLES
-import './style_module.css'
+import './style_module.css';
 
 
 export class ChildReportPage extends Component {
@@ -55,11 +57,15 @@ export class ChildReportPage extends Component {
     render() {
         if (this.state.avgAttemptsBeforeSuccess === null) {
             return (
-                <div>Loading</div>
+                <LoadingScreen
+                    text='Loading data'
+                />
             )
         } else if (this.state.numberOfGamesPlayed == 0) {
             return (
-                <div>No Records</div>
+                <div className='stats_page_container'>
+                    <Error/>
+                </div>
             )
         }
         return (

@@ -2,7 +2,7 @@
 import React from 'react';
 
 //STYLES
-import './style_module.css'
+import './style_module.css';
 
 
 const GameCard = (props) => {
