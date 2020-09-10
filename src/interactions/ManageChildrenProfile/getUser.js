@@ -10,16 +10,18 @@ import utils from './utils'
 
 
 export default {
+    async getParentDataByParentID(parentID) {
+        const result = await apis.getParentNameByID(parentID)
+        return result
+    },
 
     async getAuthUser() {
         const currentUser = await apis.getAuthUser()
-        const currentUserData = currentUser.data.data
-        return currentUserData
+        return currentUser
     },
 
     async buildChildPayload(name, bDay, maxScreenTime, icon) {
-        const result = await this.getAuthUser();
-        const parentID = result._id
+        const parentID = await this.getCurrentLocalID()
         const payload = {
             parentID,
             name,
