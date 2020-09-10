@@ -84,7 +84,7 @@ export default {
     getGameNames(kidName) {
         const localGameState = LocalGameState.getGameLocal();
         const kidGameState = localGameState[kidName];
-        const gameNames = Object.keys(kidGameState);
+        const gameNames = kidGameState !== undefined ? Object.keys(kidGameState) : [];
         return gameNames;
     },
 

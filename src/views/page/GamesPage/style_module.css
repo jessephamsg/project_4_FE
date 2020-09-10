@@ -8,12 +8,12 @@
     margin: 0 auto;
     top: 5rem;
     width: 100%;
-    height: 1000px;
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
     align-items: center;
     overflow: hidden;
+    margin-bottom: 30px;
 }
 
 .gameListing {
@@ -21,7 +21,6 @@
     flex-flow: row wrap;
     justify-content: center;
     width: 80%;
-    margin-bottom: 10%;
 }
 
 .gamesPage > h1 {
@@ -47,4 +46,8 @@
     color: #d27906;
     margin-left: 10px;
     font-weight: 800;
+}
+
+.gamesPage > h3 {
+    font-weight: 600;
 }
