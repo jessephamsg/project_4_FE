@@ -77,6 +77,7 @@ class ParentDashboard extends Component {
     }
 
     addChild = async (payload) => {
+        console.log(payload)
         await ChildProfileInteractions.createUser.createKid(payload);
         await this.getAllChildByParentID(payload.parentID) // map childlist data
         this.toggleAddModal()

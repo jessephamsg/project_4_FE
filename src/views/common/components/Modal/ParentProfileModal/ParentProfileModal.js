@@ -20,9 +20,10 @@ export default function ParentProfileModal (props) {
 
     const getParentData = async()=> {
         try {
-        const result = await ChildProfileInteraction.getUser.getAuthUser();
-        setParentData(result)
-        setKidsList(result.kidsList)
+        const currentID = await ChildProfileInteraction.getUser.getCurrentLocalID()
+        const result = await ChildProfileInteraction.getUser.getParentDataByParentID(currentID)
+        setParentData(result.data.data)
+        setKidsList(result.data.data.kidsList)
         return result
         } catch(e) {
             console.log(e.message)
