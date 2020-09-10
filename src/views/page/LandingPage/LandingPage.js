@@ -6,6 +6,9 @@ import './style_module.css';
 
 
 export class LandingPage extends Component {
+    amazeGame = () => {
+        this.props.history.push('/amaze')
+    }
 
     render() {
         return (
@@ -19,7 +22,9 @@ export class LandingPage extends Component {
                         <div className='topRightSection'>
                             <div id='topRightSectionImg'></div>
                         </div>
-                        <div></div>
+                        <div>
+                            <button onClick={this.amazeGame}>amazeGame</button>
+                        </div>
                     </div>
                 </div>
             </Fragment>

@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem auto;
+    padding: 2rem;
+    height: 80%;
+    z-index: -1;
+}
+.field {
+    position: relative;
+    display: grid;
+    height: 400px;
+    width:400px;
+}
