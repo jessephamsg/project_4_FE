@@ -1,6 +1,6 @@
 export default {
 
-    gameLocalState () {
+    gameLocalState() {
         return {
             id: null,
             startTime: null,

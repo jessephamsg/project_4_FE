@@ -3,12 +3,14 @@ import React, { Component, Fragment } from 'react'
 
 //COMMON COMPONENTS
 import GameCard from '../../common/components/Card/GameCard'
+import LoadingScreen from '../LoadingPage';
 
 //INTERACTION LOGICS
 import GameInteractions from '../../../interactions/ManageGames'
 
 //STYLES
 import './style_module.css'
+
 
 export class GamesPage extends Component {
 
@@ -18,11 +20,9 @@ export class GamesPage extends Component {
 
     getAllGames = async () => {
         const result = await GameInteractions.getGames.getAllGames();
-        console.log("result@getAllGames: ", result);
         this.setState({
             gameslist: result.length ? result : null
         })
-        console.log("this.state.gameslist: ", this.state.gameslist)
     }
 
     componentDidMount() {
@@ -30,16 +30,28 @@ export class GamesPage extends Component {
     }
 
     render() {
+        if(this.state.gameslist === null) {
+            return (
+                <LoadingScreen
+                    text = 'Loading games'
+                />
+            )
+        }
         return (
             <Fragment>
                 <div className='gamesPage'>
-                <h1>Hi {this.props.match.params.childname} :)</h1>
+                    <div className='nameBox'>
+                        <p className='kidName'>
+                            {this.props.match.params.childname}
+                        </p>
+                    </div>
                     <div className='gameListing'>
-                        {!this.state.gameslist ?
-                            <h1>No games</h1>
-                            :
-                            this.state.gameslist.map((game) =>
-                                <GameCard game={game} childname={this.props.match.params.childname} key={game._id} />
+                        {this.state.gameslist.map((game) =>
+                                <GameCard 
+                                    game={game} 
+                                    childname={this.props.match.params.childname} 
+                                    key={game._id} 
+                                />
                             )}
                     </div>
                 </div>

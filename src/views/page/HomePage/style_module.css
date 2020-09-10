@@ -13,6 +13,7 @@
     align-items: center;
     overflow: hidden;
 }
+
 .childList {
     display: flex;
     flex-flow: row nowrap;
@@ -20,4 +21,11 @@
     align-items: center;
     margin: 10rem auto;
     justify-content: space-around;
+}
+
+.authorise_link {
+    background-color: #f06391;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 80%;
 }

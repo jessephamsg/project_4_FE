@@ -1,20 +1,21 @@
 //DEPENDENCIES
-import React, { Component, Fragment } from 'react' //deleted useContext
-import { withRouter } from 'react-router-dom'
+import React, { Component, Fragment } from 'react'; 
+import { withRouter } from 'react-router-dom';
 
 //COMMON ELEMENTS
 import Button from '../../elements/Buttons';
-import AuthorizeModal from '../Modal/AuthorizeModal'
+import AuthorizeModal from '../Modal/AuthorizeModal';
 
 //INTERACTION LOGICS
-import loggingInteractions from '../../../../interactions/Logging'
-import {AuthService} from '../../../../interactions/AuthService'
+import loggingInteractions from '../../../../interactions/Logging';
+import {AuthService} from '../../../../interactions/AuthService';
 
 //STYLES
-import './style_module.css'
+import './style_module.css';
 
 
 export class NavBar extends Component {
+
     state= {
         isAuthorizeModalOpen : false
     }
@@ -25,37 +26,41 @@ export class NavBar extends Component {
         await loggingInteractions.Logging.logout();
         window.location.href = '/'
     }
+
     toggleAuthorizeModal = () => {
         this.setState({
             isAuthorizeModalOpen : !this.state.isAuthorizeModalOpen
         })
     }
+
     authorize = () => {
         this.toggleAuthorizeModal()
     }
+
     goToParentDashboard = async () => {
         this.props.history.push(`/dashboard/${this.context.user}`)
     }
+
     checkSuccess = (result) => {
         if (result) {
             this.toggleAuthorizeModal()
             this.goToParentDashboard()
-        }else alert('you are not authorized')
+        } else alert('you are not authorized')
     }
 
     render() {
-        // console.log(this.context)
-        // console.log(this.props)
+
         const routeTo = this.props.history
+
         return (
             <Fragment>
             <div className='navBar'>
                
                 <ul className='navBarItem'>
                     <div className='navBarLeft'>
-                        <li>Project 4 logo</li>
-                        <li className='navLink' onClick={()=> {routeTo.push(`/about`)}}> About us</li>
-                        <li className='navLink' onClick={()=> {routeTo.push(`/games`)}}>Our Games</li>
+                        <li className='navLink' onClick={()=> {routeTo.push(`/`)}}>Project 4 logo</li>
+                        <li className='navLink' onClick={()=> {routeTo.push(`/`)}}><a href='#about'> About us </a></li>
+                        <li className='navLink' onClick={()=> {routeTo.push(`/`)}}><a href='#games'>Our Games</a></li>
                     {!this.context.user ? null :
                         <li className='navLink' onClick={()=> {routeTo.push(`/home/${this.context.user}`)}}>Home</li>
                     }

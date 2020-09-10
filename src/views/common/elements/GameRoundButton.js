@@ -1,6 +1,9 @@
+//DEPENDENCIES
 import React from 'react';
 
-function GameRoundButton(props) {
+
+const GameRoundButton = (props) => {
+  
   return (
     <button
         style = {{

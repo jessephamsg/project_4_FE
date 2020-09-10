@@ -1,7 +1,11 @@
+//DEPENDENCIES
 import React, { createContext, useState, useEffect} from 'react';
+
+//STORAGE
 import local from '../../storage/localStorage';
 
-export const AuthService = createContext(); // create context
+
+export const AuthService = createContext(); 
 
 
 export default ({ children }) => {
@@ -17,7 +21,6 @@ export default ({ children }) => {
         setUserId(userId)
         setIsAuthenticated(true)
         setIsLoaded(true);
-        console.log('use Effect line32')
     }, [user]); // using UseEffect to always get user when refreshing page. 
 
     return (

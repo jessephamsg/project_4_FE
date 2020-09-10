@@ -56,67 +56,63 @@ export default class NewChildModal extends Component {
 
     render() {
     return (
-        <Fragment>
-        <MDBContainer className='addForm' >
-        <form onSubmit={this.handleSubmit}>
-        <MDBModal isOpen={this.props.isModalOpen} toggle={this.props.toggleModal}>
-            <MDBModalHeader toggle={this.props.toggleModal}>choose an icon </MDBModalHeader>
-            <MDBModalBody >
-                <Input 
-                    required = {true}
-                    placeholder ="Your child's name"
-                    name ="name"
-                    type ="text" 
-                    value={this.state.name}
-                    onChange= {this.handleChange}
-                />
-
-                <div className='dobInput'>
-                    <label htmlFor='bDay' className='dob'>DOB</label>
-                    <Input 
-                        required = {true}
-                        name ="bDay"
-                        type ="date" 
-                        value={this.state.bDay}
-                        onChange= {this.handleChange}
-                    />
-                </div>
-                <Input 
-                    required = {true}
-                    placeholder ="Maximum screen Time in minutes"
-                    name ="maxScreenTime"
-                    type ="number" 
-                    value={this.state.maxScreenTime}
-                    onChange= {this.handleChange}
-                />
-                <div className='iconInput'>
-                    <Input 
-                        required = {true}
-                        placeholder ="select an icon or a url image of your choice" 
-                        name ="icon"
-                        type ="text" 
-                        value={this.state.icon}
-                        onChange= {this.handleChange}
-                    />
-                    <Button id='iconBtn' onClick={this.toggleIconModal} text ='Icon'/>
-                </div>
-
-            </MDBModalBody>
-            <MDBModalFooter className='addModalFooter'>
-                <Button type="submit" text='Add' id="addBtn"/>
-            </MDBModalFooter>
-        </MDBModal>
-        </form>
-    </MDBContainer>
-
-    <IconModal 
-        isIconModalOpen = {this.state.isIconModalOpen}
-        toggleIconModal = {this.toggleIconModal}
-        addIcon = {this.addIcon}
-        handleChange = {this.handleChange}
-    />
-    
-    </Fragment>
-    )
+            <Fragment>
+                <MDBContainer className='addForm' >
+                <form onSubmit={this.handleSubmit}>
+                    <MDBModal isOpen={this.props.isModalOpen} toggle={this.props.toggleModal}>
+                        <MDBModalHeader toggle={this.props.toggleModal}>Add A Child</MDBModalHeader>
+                        <MDBModalBody >
+                            <Input 
+                                required = {true}
+                                placeholder ="Child's Name"
+                                name ="name"
+                                type ="text" 
+                                value={this.state.name}
+                                onChange= {this.handleChange}
+                            />
+                            <div className='dobInput'>
+                                <label htmlFor='bDay' className='dob'>DOB</label>
+                                <Input 
+                                    required = {true}
+                                    name ="bDay"
+                                    type ="date" 
+                                    value={this.state.bDay}
+                                    onChange= {this.handleChange}
+                                />
+                            </div>
+                            <Input 
+                                required = {true}
+                                placeholder ="Maximum Screen Time (minutes)"
+                                name ="maxScreenTime"
+                                type ="number" 
+                                value={this.state.maxScreenTime}
+                                onChange= {this.handleChange}
+                            />
+                            <div className='iconInput'>
+                                <Input 
+                                    required = {true}
+                                    placeholder ="Select An Icon" 
+                                    name ="icon"
+                                    type ="text" 
+                                    value={this.state.icon}
+                                    onChange= {this.handleChange}
+                                />
+                                <Button id='iconBtn' size='small' onClick={this.toggleIconModal} text ='Icon'/>
+                            </div>
+                        </MDBModalBody>
+                        <MDBModalFooter className='addModalFooter'>
+                            <Button type="submit" text='Add' id="addBtn" size='small'/>
+                        </MDBModalFooter>
+                    </MDBModal>
+                </form>
+            </MDBContainer>
+            <IconModal 
+                isIconModalOpen = {this.state.isIconModalOpen}
+                toggleIconModal = {this.toggleIconModal}
+                addIcon = {this.addIcon}
+                handleChange = {this.handleChange}
+            />
+        </Fragment>
+        )
     }
 }

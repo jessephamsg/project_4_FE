@@ -2,23 +2,27 @@
 import GameLocalState from '../models/GameState';
 
 
-export default  {
+export default {
 
-    createGameLocal (kidName, gameName) {
+    createGameLocal(kidName, gameName) {
         let gameLocalState = {}
-        gameLocalState = {...this.getGameLocal()} 
-        if(this.isFirstTimeUsingApp(kidName) === true) gameLocalState[kidName] = {}
+        gameLocalState = {
+            ...this.getGameLocal()
+        }
+        if (this.isFirstTimeUsingApp(kidName) === true) gameLocalState[kidName] = {}
         gameLocalState[kidName][`${gameName}`] = GameLocalState.gameLocalState();
         gameLocalState[kidName][`${gameName}`].startTime = Date.now();
         window.localStorage.setItem('gameLocalState', JSON.stringify(gameLocalState));
     },
 
-    getGameLocal () {
+    getGameLocal() {
         return JSON.parse(window.localStorage.getItem('gameLocalState'));
     },
 
-    updateGameLocal (kidName, gameName, updatedObj) {
-        const gameNewLocalState = {...this.getGameLocal()}
+    updateGameLocal(kidName, gameName, updatedObj) {
+        const gameNewLocalState = {
+            ...this.getGameLocal()
+        }
         const gameStartTime = this.getGameLocal()[kidName][`${gameName}`].startTime;
         gameNewLocalState[kidName][`${gameName}`] = GameLocalState.gameLocalState();
         gameNewLocalState[kidName][`${gameName}`].startTime = gameStartTime;
@@ -27,10 +31,10 @@ export default  {
         window.localStorage.setItem('gameLocalState', JSON.stringify(gameNewLocalState));
     },
 
-    isFirstTimeUsingApp (kidName) {
+    isFirstTimeUsingApp(kidName) {
         const result = this.getGameLocal();
         let isFirstTime = false
-        if(result === null) {
+        if (result === null) {
             isFirstTime = true
         } else if (result[kidName] === undefined) isFirstTime = true
         return isFirstTime

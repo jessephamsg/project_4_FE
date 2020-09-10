@@ -9,15 +9,18 @@ input {
         rgba(0, 0, 0, 0)
       ) 0.5;
 }
+
 .input[type=text], 
 .input[type=email],
 .input[type=password],
 .input[type=password],
 .input[type=date],
+
 .input[type=number] {
     font-family: 'Lato', sans-serif;
-    font-size : 1.2rem;
+    font-size : 1rem;
 }
+
 .input:focus {
     outline : none;
     border: none;
@@ -25,8 +28,9 @@ input {
     width: 100%;
     
 }
+
 .input::-webkit-input-placeholder {
-    font-size : 1.2rem;
+    font-size : 1rem;
     font-family: 'Lato', sans-serif;
     color: rgb(153, 153, 153)
 }

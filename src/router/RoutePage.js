@@ -11,7 +11,8 @@ import GamesPage from '../views/page/GamesPage';
 import ChildDashboard from '../views/page/ChildDashboard';
 import ParentDashboard from '../views/page/ParentDashboard';
 import Gameboard from '../views/page/Gameboard';
-import ChildReportPage from '../views/page/ChildReportPage'
+import ChildReportPage from '../views/page/ChildReportPage';
+import GameInfo from '../views/page/GameInfo';
 import ProtectedRoute from './ProtectedRoute';
 
 
@@ -23,6 +24,7 @@ class RoutePage extends Component {
                 <Route path='/login' component ={LoginPage}/>
                 <Route path='/register' component ={RegisterPage}/>
                 <Route path='/games/:childname' component ={GamesPage}/>
+                <Route path='/game/:gameName' component ={GameInfo}/>
                 <Route path='/child/:childname/game/:gameName' component={Gameboard}/>
                 <ProtectedRoute path={`/home/:username`} component={HomePage}> </ProtectedRoute>
                 <ProtectedRoute exact path={`/home/dashboard/:childname`}component={ChildDashboard}> </ProtectedRoute>

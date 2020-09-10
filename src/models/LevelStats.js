@@ -1,5 +1,5 @@
-export default  {
-    levelInitialStats () {
+export default {
+    levelInitialStats() {
         return {
             submittedAt: [],
             isCorrect: [],

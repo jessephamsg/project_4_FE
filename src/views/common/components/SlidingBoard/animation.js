@@ -1,8 +1,9 @@
 export default {
+
     animateBoardSlide (isShowing) {
         return {
             top: isShowing ? 65 : -2000,
-            zIndex: 1,
+            zIndex: 2,
             position: 'absolute',
             left: '0px',
             from: {
@@ -10,5 +11,6 @@ export default {
             }
         }
     }
+    
 }
 

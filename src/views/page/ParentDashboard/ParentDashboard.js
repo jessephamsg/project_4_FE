@@ -6,10 +6,11 @@ import ChildReport from '../../common/components/Card/ChildReport';
 import EditChildModal from '../../common/components/Modal/EditChildModal';
 import NewChildModal from '../../common/components/Modal/NewChildModal';
 import ParentProfileModal from '../../common/components/Modal/ParentProfileModal';
+import AllGames from '../../common/components/AllGamesSection';
 
 //INTERACTION LOGIGS
 import {AuthService} from '../../../interactions/AuthService';
-import ChildProfileInteractions from '../../../interactions/ManageChildrenProfile'
+import ChildProfileInteractions from '../../../interactions/ManageChildrenProfile';
 
 //STYLES
 import './style_module.css'
@@ -21,6 +22,7 @@ class ParentDashboard extends Component {
 
     state = {
         kidList :[],
+        gameList: null,
         isAddModalOpen : false,
         isEditModalOpen :false,
         editedKid : {
@@ -29,12 +31,11 @@ class ParentDashboard extends Component {
             icon : '',
             maxScreenTime : 0,
             age : 0
-        }
+        }, 
       }
 
     getAllChildByParentID = async (currentId) => {
         const result = await ChildProfileInteractions.getUser.getAllChildByParentID(currentId)
-        console.log(result.data.data)
         this.setState ({
             kidList : result.data.data.length? result.data.data : null
         })
@@ -73,7 +74,6 @@ class ParentDashboard extends Component {
         this.setState({
             editedKid : newState
         })
-        console.log(this.state.editedKid)
     }
 
     addChild = async (payload) => {
@@ -82,16 +82,14 @@ class ParentDashboard extends Component {
         this.toggleAddModal()
     }
 
-    componentDidMount () {
+    componentDidMount = async () => {
         const currentId = ChildProfileInteractions.getUser.getCurrentLocalID();
-        this.getAllChildByParentID(currentId)
+        await this.getAllChildByParentID(currentId);
     }
 
     updateChild = async (editedChildData) => {
         await ChildProfileInteractions.updateUser.updateKid(editedChildData);
         const parentId = this.context.userId
-        // use kid id to retrieve the position and change to the new state. 
-        // update the kidList object of that index that is updated. 
         await this.getAllChildByParentID(parentId) // expensive operation. not advised. 
         this.toggleEditChildModal();
     }
@@ -104,9 +102,7 @@ class ParentDashboard extends Component {
         await this.getAllChildByParentID(parentId)
     }
 
-
     render() {
-        console.log(this.context.userId)
         return (
             <Fragment>
                 <EditChildModal
@@ -122,21 +118,19 @@ class ParentDashboard extends Component {
                     handleChange= {this.handleChange}
                     addChild = {this.addChild}
                 />
-
                 <div className='parentDashboard'>
-                    <ParentProfileModal onClick={this.toggleAddModal} update = {this.state.kidList}/>
-                            {!this.state.kidList ? 
-                                <div>
-                                <h1>You have not enter a child yet</h1> 
-                                <div className='add-card'>
-                                    <button id='addChildBtn' onClick={this.toggleAddModal}>Add</button>
-                                </div>
-                                </div>
-                                :
-                                <div className='dashboard-main'>
-                                    <div className='childList-wrapper'>
-                                        <h3>Your children</h3>
-                                        <div className='childList-container'>
+                    <ParentProfileModal 
+                        onClick={this.toggleAddModal} 
+                        update = {this.state.kidList}
+                    />
+                    <div className='dashboard-main'>
+                        <div className='childList-wrapper'>
+                            <h3>Your children</h3>
+                            <div className='childList-container'>
+                                    {!this.state.kidList ? 
+                                        <Fragment/> 
+                                        : 
+                                        <Fragment>
                                             {this.state.kidList.map((kid,index) => {
                                             return (
                                                 <div>
@@ -152,16 +146,20 @@ class ParentDashboard extends Component {
                                                     />
                                                 </div>
                                             )})}
-                                                <div className='add-card'>
-                                                    <button id='addChildBtn' onClick={this.toggleAddModal}>Add</button>
-                                                </div>
-                                        </div>
-                                    </div>
-                                    <div className='gameList-wrapper'>
-                                        <h3>Popular games</h3>
-                                    </div>
+                                        </Fragment>
+                                    }
+                                <div className='add-card'>
+                                    <button id='addChildBtn' onClick={this.toggleAddModal}>Add</button>
                                 </div>
-                            }
+                            </div>
+                            <div className='gameList-wrapper'>
+                                <h3>Our games</h3>
+                                <div className='gameList_parent'>
+                                    <AllGames/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </Fragment>
         )

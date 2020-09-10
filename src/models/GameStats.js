@@ -1,6 +1,6 @@
-export default  {
+export default {
 
-    gameInitialState () {
+    gameInitialState() {
         return {
             id: null,
             totalLevel: null,
@@ -10,31 +10,35 @@ export default  {
             currentLevel: null,
             currentOption: null,
             currentLevelSettings: {},
-            currentOrder: {order: {current: {}}},
+            currentOrder: {
+                order: {
+                    current: {}
+                }
+            },
             gameStats: {},
             viewGame: false,
             viewBoard: false,
         }
     },
 
-    gameStatsPayload (gameID, level, startTime, endTime, score, attemptsBeforeSuccess, numberOfPauses) {
+    gameStatsPayload(gameID, level, startTime, endTime, score, attemptsBeforeSuccess, numberOfPauses) {
         return {
             gameID,
             level,
             startTime,
             endTime,
-            score, 
+            score,
             attemptsBeforeSuccess,
             numberOfPauses
         }
     },
 
-    kidOverallStatsPayload (gameID) {
+    kidOverallStatsPayload(gameID) {
         return {
-            gameID, 
+            gameID,
             startTime: Date.now(),
             totalScore: 0,
             gameStatsIDs: []
-        } 
+        }
     }
 }

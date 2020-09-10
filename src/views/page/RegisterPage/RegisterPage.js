@@ -3,15 +3,13 @@ import React, { Component} from 'react';
 
 //COMMON ELEMENTS
 import Button from '../../common/elements/Buttons';
+import Input from '../../common/elements/Input/Input';
 
 //INTERACTION LOGICS
 import ChildProfileInteractions from '../../../interactions/ManageChildrenProfile';
 
 //STYLES
 import './style_module.css';
-
-import api from '../../../api'
-import Input from '../../common/elements/Input/Input'
 
 
 export class RegisterPage extends Component {
@@ -44,7 +42,7 @@ export class RegisterPage extends Component {
             this.setState({
                 passwordError :true,
                 error :false,
-                passwordMsg : 'Password do not match. Please try again'
+                passwordMsg : 'Passwords do not match. Please try again'
             })
             return;
         } 
@@ -55,9 +53,6 @@ export class RegisterPage extends Component {
         }
         try {
             const response = await ChildProfileInteractions.createUser.registerParent(payload);
-            console.log(response.data.success)
-            console.log(response.data.data)
-            // console.log(response.data.data.slice('Database','to')) need to slice the error message
             if(response.data.success === false) {
                 this.setState({
                     error:true,
@@ -65,14 +60,13 @@ export class RegisterPage extends Component {
                     errorMsg: response.data.data
                 })
             } else {
-                console.log('success')
                 window.location.href='/login'
             }
         } catch(e) {
             this.setState ({
                 error : true,
                 passwordError :false,
-                errorMsg : 'something went wrong due to ' + e.message
+                errorMsg : 'Something went wrong due to ' + e.message
             })
             }
         }

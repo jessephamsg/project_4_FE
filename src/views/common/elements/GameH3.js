@@ -1,6 +1,9 @@
+//DEPENDENCIES
 import React from 'react';
 
-function GameH3(props) {
+
+const GameH3 = (props) => {
+
   return (
     <h3
         style = {{
@@ -10,7 +13,8 @@ function GameH3(props) {
             color: 'blueviolet',
             textShadow: '7px 7px #ffdfa5'
         }}
-    >{props.text}
+    >
+      {props.text}
     </h3>
   );
 }

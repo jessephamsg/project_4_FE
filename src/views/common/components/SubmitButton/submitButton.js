@@ -2,11 +2,11 @@
 import React, {useState} from 'react';
 import {useTransition, animated} from 'react-spring';
 import isEqual from 'lodash.isequal';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 //STYLES
-import './style_module.css'
+import './style_module.css';
 
 
 const SubmitButton = (props) => {

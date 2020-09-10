@@ -1,6 +1,9 @@
+//DEPENDENCIES
 import React from 'react';
 
-function GameSmallButton(props) {
+
+const GameSmallButton = (props) => {
+
   return (
     <button
         style = {{
@@ -15,7 +18,8 @@ function GameSmallButton(props) {
             marginLeft: '5px',
             marginRight: '5px',
         }}
-    >{props.text}
+    >
+      {props.text}
     </button>
   );
 }
