@@ -35,7 +35,9 @@ class ParentDashboard extends Component {
       }
 
     getAllChildByParentID = async (currentId) => {
+        console.log(currentId)
         const result = await ChildProfileInteractions.getUser.getAllChildByParentID(currentId)
+        console.log('line39',result)
         this.setState ({
             kidList : result.data.data.length? result.data.data : null
         })
@@ -99,7 +101,6 @@ class ParentDashboard extends Component {
         const kidId = id
         const parentId = this.context.userId
         await ChildProfileInteractions.deleteUser.deleteKid(kidId);
-        await ChildProfileInteractions.deleteUser.removeKidFromParents(parentId, kidId);
         await this.getAllChildByParentID(parentId)
     }
 

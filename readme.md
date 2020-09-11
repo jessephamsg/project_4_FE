@@ -1,26 +1,25 @@
-# Readme
-
+# TLY EDUCATION APPLICATION
 Project Collaborator
 1) Tam 
 2) Lina
 3) Yue Jia
 
-# App Title - TLY Education app 
-
 This application is a website that provides educational games for kids to learn in a interactive and engaging way. Data is collected through the games and send to parents in order to review and have a better understanding of their kid learning journey.
 
-## Application link "
-
-- (link to application)
+## Application link
+- FrontEnd repo : https://github.com/leeyuejia/project_4_FE
+- BackEnd repo : https://github.com/leeyuejia/project_4_BE
+- FrontEnd Link : https://tly-education-fe.herokuapp.com/
+- BackEnd Link : https://tly-education-be.herokuapp.com/
 
 ## Table of Contents
 - [Introduction](#Introduction)
-- [Project Approach](#project-approach)
 - [Technology Used](#Technology-used)
 - [Main Features](#Main-features)
 - [User Journey Map](#User-Journey-Map)
 - [Developer Journey](#Developer-Journey)
 - [Future Development](#Future-Development)
+- [Project Post Mortem](#Project-Post-Mortem)
 
 # Project scope
 
@@ -38,29 +37,12 @@ As such, more educational companies are pouring resources and energy to create d
 
 ### This application therefore aims to achieve 3 objectives:
 
-- 1) the educational application has to engage and trigger a child's learning journey.
+- The educational application has to engage and trigger a child's learning journey.
 
-- 2) Display data collection from the children engagement with the app to provide parent with insights to their child's learning journey
+- Display data collection from the children engagement with the app to provide parent with insights to their child's learning journey
 
-- 3) The app does not seek to prolong the amount of screen-time but aims to make more meaningful screen-time for the child. In this case, learning while having fun. 
+- The app does not seek to prolong the amount of screen-time but aims to make more meaningful screen-time for the child. In this case, learning while having fun. 
 
-### In view of this, the application developed aims to 
-1) Target at matured gamers
-2) Have a system of setting personal account and able to post their information and view other people's account. 
-
-## Project Approach
-
-The approach to this project is to set up a basic MVC structure with all CRUD routes created and MONGODB connected for a single user. User's homepage, contentpage, viewpage, editpage and postpage to be created for a single User.
-
-Set up database and Schema validation in a way that when user sign in, it will retrieved database corresponding to its username. 
-
-Secondly, built authentication for a single user to retrieve its own information.
-
-Next, build main application page where all user's basic info and latest post is displayed. Upon entering the post, Users can view all post posted by that users. 
-
-Other users can post comments other other user's viewpages. 
-
-BONUS : include password authentication and adding a social list. 
 
 ## Technology used
 
@@ -102,7 +84,7 @@ BONUS : include password authentication and adding a social list.
 
 
 ## DATA STRUCTURE
-<img src ="./offline/architecture.PNG" width= "100%">
+<img src ="./offline/readme/architecture.PNG" width= "100%">
 
 ## User Journey Map
 
@@ -147,4 +129,57 @@ BONUS : include password authentication and adding a social list.
 
 ## Developer Journey
 
+1) ### SETUP
 
+Our team define our MVP and set up to define our data schema structure to fit our MVP, including bonus item that we want to achieve. We decided on 4 data collection for 4 specific purpose, ie. Parent, Kid, Game and GameStat. Using ObjectID to link relation with across each collection.  
+
+The team proceed to split task with one person setting up Backend which include, backend route CRUD for each collection ,data Schema and formatting response. While another person start to setup FrontEnd view structure with basic routing page and folder structure. Naming of routes were kept as simple as possible to maintain readability. As games consume most of the time, another person started on creating game.
+
+As each member proceed with backend, frontend and content creation, structure was built and optimized to provide foundation along the way to make addition easier to read and locate as codes become bigger. By the end of the basic setup, we have a architecture framework which we follow to build upon. Minor changes were inevitable but the framework remains. 
+
+2) ### BUILDING
+
+Game content creation is ongoing while another starts to integrate CRUD function and authentication layer from backend to frontend. This part focus on building a friendly user interaction for user, optimizing user experience. Elements like buttons, inputs and game component were built and styled to share across the application. Game content starts to integrate with the app giving a rough sketch of a complete user journey. 
+
+3) ### OPTIMIZING
+
+Game content creation is continously generated. A member process to scan through both backend and frontend and starts to refactor and optimize code to adhere to intented architecture framework.
+De-bugging stage starts from here as refactoring and optimizing code could cost bugs everywhere. Application's styling was also made consistent throughout the application. Child Statistic page was also built at this stage. Logic for extracting gamedata and presented on client side was built. 
+
+4) ### TESTING AND DEBUGGING
+
+The following was tested and debugged. 
+- Game play
+- CRUD route for child
+- Authentication both FrontEnd and BackEnd
+- Gamedata stats
+- Minor bug across the application
+
+5) ### DEPLOYMENT
+
+Backend and Frontend was deployed on Heroku. Once successfully deployed, the team run through another round of testing and debugging. Documentation started at this point. 
+
+
+
+## Future Development
+
+It is our hope that in the future, this application would be open-source for game enthusiats to design educational games to be added into this application. This is to increase the library of education games available to child and also a central collection of educational games created by programmers.
+
+
+### Bonus feature (if have time)
+- Google Auth
+- Using canvas to program a javascript game embeded onto REACT
+- Using mySQL-type database
+- A developer account to add games they have developed and embed unto this application. (BONUS BONUS)
+
+
+
+## Project Post Mortem
+
+1) What went well?
+
+2) What could be better?
+
+3) What do you wish for?
+
+4) What is the next step? 
