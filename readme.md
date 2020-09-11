@@ -100,29 +100,27 @@ As such, more educational companies are pouring resources and energy to create d
  - Context Provider will provide AuthenticatedUser throughout the app wrapped in Provider. 
 
 5) On Homepage. A Child will have access to their own profile by clicking on their avatar.
-
-// screenshot
+<img src ="./offline/readme/homepage.PNG" width= "100%">
 
 6) Child Game page. A Child would be able to select the game available. They can also see the latest game they have played. 
-
-// screenshot
+<img src ="./offline/readme/gameboard.PNG" width= "100%">
 
 7) Gameboard. Each game would have a formatted initial button.
  - After Each gameplay, statistic would be captured and send to backend. 
  - Each submission sends data that involves, game score, number of tries, games title played, completion rate and game comparison. 
-
- // screenshot of gameboard
+<img src ="./offline/readme/gamepage.PNG" width= "100%">
 
 8) Parent DashboardPage. Page view ONLY for parent.
 
 - Parent need to input acct password in order to access dashboard. 
-// screenshot of input password
+<img src ="./offline/readme/password.PNG" width= "100%">
+
 - Parent can do CRUD operation for a child here. Adding / Editing or Graduating (Delete) a child data. 
-// screenshot of parentDashboard
-// screenshot of adding child (Modal pop up)
+<img src ="./offline/readme/addchild.PNG" width= "100%">
+
 
 9) Child ReportPage. For Parent to view each Child statistic. Here display A child performance on all games and comparison between each game. 
-// screenshot of child report page. 
+<img src ="./offline/readme/statepage.PNG" width= "100%">
 
 10) Log Out. Upon logging out, Parent localstorage would be deleted. *Application - As long as parent do not log out, a child can have access to games even when browser is close. or for another day's session. This is to facilitate self learning when parent are not physical present. 
 
