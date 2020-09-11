@@ -5,13 +5,14 @@ const api = Axios.create({
     // withCredentials: true,
     headers : {'Access-Control-Allow-Origin': 'https://tly-education-fe.herokuapp.com' },
     baseURL: process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000',
+    // baseURL: 'http://localhost:4000',
 })
 
 //PARENTS
 const getAllParents = payload => api.get('/parent', payload);
 const registerParent = payload => api.post('/parents', payload);
-const removeKidFromParent = (parentId, kidId) => api.put(`/parents/${parentId}/del/${kidId}`);
-const getParentNameByID = (parentID) => api.get(`/parents/${parentID}`);
+const removeKidFromParent = (parentId, kidId) => api.put(`/parents/${parentId}/del/${kidId}`); // beware of duplicate in backend
+const getParentDataByID = (parentID) => api.get(`/parents/${parentID}`);
 
 //KIDS
 const createKid = payload => api.post('/kids', payload)
@@ -58,7 +59,7 @@ const apis = {
     removeKidFromParent,
     checkPassword,
     getAllGames,
-    getParentNameByID,
+    getParentDataByID,
     getAllChildStats,
     getStatsByStatsID,
     getGameByID

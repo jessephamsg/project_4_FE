@@ -11,7 +11,7 @@ import utils from './utils'
 
 export default {
     async getParentDataByParentID(parentID) {
-        const result = await apis.getParentNameByID(parentID)
+        const result = await apis.getParentDataByID(parentID)
         return result
     },
 
@@ -34,6 +34,7 @@ export default {
     },
 
     async getAllChildByParentID(currentLocalID) {
+        console.log(currentLocalID)
         const result = await apis.getAllChildByParentID(currentLocalID);
         return result
     },
