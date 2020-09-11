@@ -10,7 +10,7 @@ class Footer extends Component {
     render() {
         return (
             <footer>
-                <p> &copy; {new Date().getFullYear()} | Project 4 title | Developed by JJYJ  Lina, Tam, Yuejia</p>
+                <p> &copy; {new Date().getFullYear()} | TLY education | Developed by Lina, Tam, Yuejia</p>
             </footer>
         )
     }
