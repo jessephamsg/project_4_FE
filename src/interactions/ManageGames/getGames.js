@@ -21,7 +21,7 @@ export default {
         const reviews = gameObject.reviews;
         const reviewerNames = [];
         for (const review of reviews) {
-            const parentData = await apis.getParentNameByID(review.parentID);
+            const parentData = await apis.getParentDataByID(review.parentID);
             reviewerNames.push(parentData.data.data.name)
         }
         return reviewerNames
