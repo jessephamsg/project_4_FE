@@ -3,9 +3,9 @@ import Axios from 'axios';
 
 const api = Axios.create({
     // withCredentials: true,
-    // headers : {'Access-Control-Allow-Origin': 'https://tly-education-fe.herokuapp.com' },
-    // baseURL: process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000',
-    baseURL: 'http://localhost:4000',
+    headers : {'Access-Control-Allow-Origin': 'https://tly-education-fe.herokuapp.com' },
+    baseURL: process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000',
+    // baseURL: 'http://localhost:4000',
 })
 
 //PARENTS
